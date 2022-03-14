@@ -1,0 +1,40 @@
+{
+  "MenuList": {
+    "Voorgerechten": {
+      "Salade": {
+        "description": "Een verse Salade met vers gepikte groente van het land",
+        "imgLink": "img/fruitsalade.jpg",
+        "price": 2.5
+      },
+      "Zalm Toasts": {
+        "description": "Vers gebakken toast met een kalm bereide zalm. Licht en frissend van smaak",
+        "imgLink": "img/zalmToast.jpg",
+        "price": 5.5
+      }
+    },
+    "Hoofdgerechten": {
+      "T-Bone Steak": {
+        "description": "Een gebakken T-Bone steak. Met een verse salade en vers gebakken Aardappelen naar keuze",
+        "imgLink": "img/hoofdgerecht.jpg",
+        "price": 12.85
+      },
+      "Burger Menu": {
+        "description": "Een burger menu met friet naar keuze. De friet kan worden gekozen uit franse friet of zoete aardappelen.",
+        "imgLink": "img/fruitsalade.jpg",
+        "price": 11.3
+      }
+    },
+    "Nagerchten": {
+      "Aardbeien Sorbet": {
+        "description": "Een frissende sorbet met aardbei ijs smaak. Daarbij is de sorbet bestrooid met een strooisel naar keuzen en belaagt met slagroom en aardbeiden en suiker.",
+        "imgLink": "img/strawberry.jpg",
+        "price": 14.25
+      },
+      "Speculaas Sorbet": {
+        "description": "Een hart van sepculaas of is dat de smaak van je nagerecht. Duik diep in deze speculaas mouse en laat je hart melten met de speculaas stokjes en speculaas koekjes",
+        "imgLink": "img/speculaas.jpg",
+        "price": 12.45
+      }
+    }
+  }
+}

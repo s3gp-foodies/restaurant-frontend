@@ -1,10 +1,13 @@
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <div class="divider">
-    <p> Voorgerechten </p>
+    <p class="dividerBarTxt"> Voorgerechten </p>
   </div>
-  <div class="menuItem">
-    <h3> Zalm rolletjes </h3>
+
+  <!-- Styled Menu Item with Bootstrap -->
+  <div class="card text-black bg-light mb-3 menuItem">
+    <h3 class="display-6 card-header">Zalm rolletjes</h3>
+    <div class="card-body text-black">
     <img class="foodImage" src="img/zalmRolletjes.jpg" alt="">
     <p class="foodTxt">
       Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw,
@@ -13,15 +16,17 @@
       Het is in de jaren '60 populair geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing software
       zoals Aldus PageMaker die versies van Lorem Ipsum bevatten</p>
     <p class="priceTxT">
-      <button><i class="fa fa-minus"></i></button>
-      <input type="number" class="numberInput">
-      <button><i class="fa fa-plus"></i></button>
-      <button> Voeg toe </button>
+      <button type="button" class="btn btn-outline-secondary"><i class="fa fa-minus"></i></button>
+      <input style="height: 30px;" type="number" class="numberInput" />
+      <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></button>
+      <button  type="submit" class="btn btn-outline-secondary"> Voeg toe </button> <br>
       &euro; 3,50 Per stuk  </p>
+    </div>
   </div>
 
-  <div class="menuItem">
-    <h3> Schaal met Zalmtoastjes  </h3>
+  <div class="card text-black bg-light mb-3 menuItem">
+    <h3 class="display-6 card-header"> Schaal met Zalmtoastjes  </h3>
+    <div class="card-body text-black">
     <img class="foodImage" src="img/zalmToast.jpg" alt="">
     <p class="foodTxt">Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw,
       toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.
@@ -29,10 +34,11 @@
       Het is in de jaren '60 populair geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing software
       zoals Aldus PageMaker die versies van Lorem Ipsum bevatten</p>
     <p class="priceTxT">
-      <button><i class="fa fa-minus"></i></button>
-      <input type="number" class="numberInput">
-      <button><i class="fa fa-plus"></i></button>
-      <button> Voeg toe </button> &euro; 1,50 Per stuk  </p>
+      <button type="button" class="btn btn-outline-secondary"><i class="fa fa-minus"></i></button>
+      <input  style="height: 30px;"  type="number" class="numberInput">
+      <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></button>
+      <button type="submit" class="btn btn-outline-secondary"> Voeg toe </button> &euro; 1,50 Per stuk  </p>
+    </div>
   </div>
 
 
@@ -70,7 +76,7 @@
 
 
   <div class="divider">
-    <p> Hoofdgerechten </p>
+    <p class="dividerBarTxt"> Hoofdgerechten </p>
   </div>
   <div class="menuItem">
     <h3> Pasta </h3>
@@ -134,7 +140,7 @@
   </div>
 
   <div class="divider">
-    <p> Nagerechten </p>
+    <p class="dividerBarTxt"> Nagerechten </p>
   </div>
   <div class="menuItem">
     <h3> Speculaase themed special  </h3>
@@ -168,12 +174,23 @@
 </template>
 
 <script>
+import MenuData from "../temp/JSONMenu.json"
+
 export default {
-  name: "DishItem"
+  name: "MenuItem",
+  data: () => {
+    return {
+      data: MenuData
+    }
+  }
 }
 </script>
 
 <style scoped>
+
+  .dividerBarTxt {
+    margin: 5px;
+  }
 
   .divider {
     padding: 10px;
