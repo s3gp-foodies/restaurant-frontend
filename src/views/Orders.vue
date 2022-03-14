@@ -58,11 +58,12 @@
 </template> 
 
 <script>
+import orders from '../temp/orders.json'
 export default {
   name: 'OrdersPage',
   data: () => {
     return {
-      allOrders: []
+      data: orders
     }
   },
   props: {
@@ -73,18 +74,7 @@ export default {
   },  
   methods: {
     async getAllOrders() {
-      
-    },
-    createHardcodedOrder() {
-      //name: String
-      //products: Array
-      //totalprice: Decimal
-    },
-    createHardcodedProduct() {
-      //name: String
-      //amount: Int
-      //price: Decimal
-      //totalprice: Decimal
+      //console.log(orders);    
     }
   }
 }
