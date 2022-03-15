@@ -14,7 +14,7 @@
       </tr>
     </table>
 
-    <!--<p>Totaal: {{ orders.totalprice }}</p>-->
+    <p>Totaal: {{ data['orders'].totalprice }}</p>
 
     <span>
       <button>Kassa betalen</button>&nbsp;
@@ -70,7 +70,7 @@ export default {
         totalprice += parseFloat(this.data['orders'][i].totalprice); 
       } 
       
-      console.log(totalprice.toFixed(2));
+      this.data['orders'].totalprice = totalprice.toFixed(2);
     }
   } 
 }
