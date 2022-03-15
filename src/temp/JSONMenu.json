@@ -20,7 +20,7 @@
       },
       "Burger Menu": {
         "description": "Een burger menu met friet naar keuze. De friet kan worden gekozen uit franse friet of zoete aardappelen.",
-        "imgLink": "img/fruitsalade.jpg",
+        "imgLink": "img/burger.jpg",
         "price": 11.3
       }
     },
