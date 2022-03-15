@@ -2,16 +2,16 @@
 	"orders": [
 		{"name": "bestelling1",
 			"order": [
-				{"name": "gerecht1", "amount": 3, "price": "9.50", "totalprice": "28.50"},
-				{"name": "gerecht2", "amount": 2, "price": "5.50", "totalprice": "11.00"},
-				{"name": "gerecht3", "amount": 1, "price": "7.50", "totalprice": "15.00"}
+				{"name": "gerecht1", "amount": 3, "price": "9.50"},
+				{"name": "gerecht2", "amount": 2, "price": "5.50"},
+				{"name": "gerecht3", "amount": 1, "price": "7.50"}
 			]
 		},
 		{"name": "bestelling2",
 			"order": [
-				{"name": "gerecht1", "amount": 2, "price": "6.50"},
-				{"name": "gerecht2", "amount": 4, "price": "3.50"},
-				{"name": "gerecht3", "amount": 2, "price": "2.50"}
+				{"name": "gerecht4", "amount": 2, "price": "6.50"},
+				{"name": "gerecht5", "amount": 4, "price": "3.50"},
+				{"name": "gerecht6", "amount": 2, "price": "2.50"}
 			]
 		}
 	]

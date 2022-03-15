@@ -39,16 +39,26 @@ export default {
     orders: Array
   },
   created() {
-    //hier onderstaande method berkeningen uitvoeren..
-
-    //this.addPriceTotalOrder();
+    this.multiplyPriceTotalOrders();
+    this.addPriceTotalOrder();
+    this.addPriceTotalOrders(); 
   },  
   methods: {
-    multiplyPriceTotalOrders(amount, price) {    
-      return (Math.round(amount * price * 100) / 100).toFixed(2);     
+    multiplyPriceTotalOrders() {    
+      for (let i = 0; i < this.data['orders'].length; i++) {
+        for (let j = 0; j < this.data['orders'][i]['order'].length; j++) {  
+          var ordername = this.data['orders'][i]['order'][j].name;
+          var orderprice = this.data['orders'][i]['order'][j].price;
+          var orderamount = this.data['orders'][i]['order'][j].amount;
+
+          console.log(ordername);  
+          console.log(orderprice);
+          console.log(orderamount);
+        }
+      }
     },
     addPriceTotalOrder() {
-      //console.log(this.data['orders']);
+      
     },
     addPriceTotalOrders() {
 
