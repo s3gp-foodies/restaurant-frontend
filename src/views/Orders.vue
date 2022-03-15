@@ -5,16 +5,18 @@
       <tr v-for="order in orders['order']" :key="order">
         <td>{{ order.name }}</td>
         <td>{{ order.amount }} x {{ order.price }}</td>
-        <td>{{ multiplyPriceTotalOrders(order.amount, order.price) }}</td>
+        <td>?</td>
+        <!--<td>{{ order.totalprice }}</td>-->
+        <!--<td>{{ multiplyPriceTotalOrders(order.amount, order.price) }}</td>-->  
       </tr>
       <tr>
         <th>{{ orders.name }}</th>
         <th></th>
-        <th>47.00</th>
+        <th>?</th>
       </tr>
     </table>
 
-    <p>Totaal: 84.00</p>
+    <p>Totaal: ?</p>
 
     <span>
       <button>Kassa betalen</button>&nbsp;
@@ -36,14 +38,20 @@ export default {
   props: {
     orders: Array
   },
-  async created() {
-    await this.getAllOrders()
+  created() {
+    //hier onderstaande method berkeningen uitvoeren..
+
+    //this.addPriceTotalOrder();
   },  
   methods: {
-    async getAllOrders() {
-    },
-    multiplyPriceTotalOrders(amount, price) {
+    multiplyPriceTotalOrders(amount, price) {    
       return (Math.round(amount * price * 100) / 100).toFixed(2);     
+    },
+    addPriceTotalOrder() {
+      //console.log(this.data['orders']);
+    },
+    addPriceTotalOrders() {
+
     }
   } 
 }
