@@ -1,16 +1,16 @@
 <template>
   <div class="orders">
 
-    <table v-for="orders in data['orders']" :key="orders">
-      <tr v-for="order in orders['order']" :key="order">
-        <td>{{ order.name }}</td>
-        <td>{{ order.amount }} x {{ order.price }}</td>
-        <td>{{ order.totalprice }}</td>
+    <table v-for="order in data['orders']" :key="order">
+      <tr v-for="product in order['product']" :key="product">
+        <td>{{ product.name }}</td>
+        <td>{{ product.amount }} x {{ product.price }}</td>
+        <td>{{ product.totalprice }}</td>
       </tr>
       <tr>
-        <th>{{ orders.name }}</th>
+        <th>{{ order.name }}</th>
         <th></th>
-        <th>{{ orders.totalprice }}</th>
+        <th>{{ order.totalprice }}</th>
       </tr>
     </table>
 
@@ -38,26 +38,26 @@ export default {
   },
   created() {
     this.multiplyPriceTotalOrders();
-    this.addPriceTotalOrder();
+    this.addPriceTotalProduct();
     this.addPriceTotalOrders(); 
   },  
   methods: {
     multiplyPriceTotalOrders() {    
       for (let i = 0; i < this.data['orders'].length; i++) {
-        for (let j = 0; j < this.data['orders'][i]['order'].length; j++) {  
-          var orderprice = this.data['orders'][i]['order'][j].price;
-          var orderamount = this.data['orders'][i]['order'][j].amount;
+        for (let j = 0; j < this.data['orders'][i]['product'].length; j++) {  
+          var orderprice = this.data['orders'][i]['product'][j].price;
+          var orderamount = this.data['orders'][i]['product'][j].amount;
 
-          this.data['orders'][i]['order'][j].totalprice = (orderamount * orderprice).toFixed(2);
+          this.data['orders'][i]['product'][j].totalprice = (orderamount * orderprice).toFixed(2);
         }
       }
     },
-    addPriceTotalOrder() {
+    addPriceTotalProduct() {
       var totalprice = 0;
 
       for (let i = 0; i < this.data['orders'].length; i++) {
-        for (let j = 0; j < this.data['orders'][i]['order'].length; j++) {  
-          totalprice += parseFloat(this.data['orders'][i]['order'][j].totalprice); 
+        for (let j = 0; j < this.data['orders'][i]['product'].length; j++) {  
+          totalprice += parseFloat(this.data['orders'][i]['product'][j].totalprice); 
 
           this.data['orders'][i].totalprice = totalprice.toFixed(2);    
         }
