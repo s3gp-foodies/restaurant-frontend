@@ -5,9 +5,7 @@
       <tr v-for="order in orders['order']" :key="order">
         <td>{{ order.name }}</td>
         <td>{{ order.amount }} x {{ order.price }}</td>
-        <td>?</td>
-        <!--<td>{{ order.totalprice }}</td>-->
-        <!--<td>{{ multiplyPriceTotalOrders(order.amount, order.price) }}</td>-->  
+        <td>{{ order.totalprice }}</td>
       </tr>
       <tr>
         <th>{{ orders.name }}</th>
@@ -47,13 +45,10 @@ export default {
     multiplyPriceTotalOrders() {    
       for (let i = 0; i < this.data['orders'].length; i++) {
         for (let j = 0; j < this.data['orders'][i]['order'].length; j++) {  
-          var ordername = this.data['orders'][i]['order'][j].name;
           var orderprice = this.data['orders'][i]['order'][j].price;
           var orderamount = this.data['orders'][i]['order'][j].amount;
-
-          console.log(ordername);  
-          console.log(orderprice);
-          console.log(orderamount);
+          
+          this.data['orders'][i]['order'][j].totalprice = (Math.round(orderamount *  orderprice * 100) / 100).toFixed(2);
         }
       }
     },
