@@ -5,7 +5,7 @@
       <tr v-for="order in orders['order']" :key="order">
         <td>{{ order.name }}</td>
         <td>{{ order.amount }} x {{ order.price }}</td>
-        <td>28.50</td>
+        <td>{{ multiplyPriceTotals(order.amount, order.price) }}</td>
       </tr>
       <tr>
         <th>{{ orders.name }}</th>
@@ -41,8 +41,11 @@ export default {
   },  
   methods: {
     async getAllOrders() {
+    },
+    multiplyPriceTotals(amount, price) {
+      return (Math.round(amount * price * 100) / 100).toFixed(2);     
     }
-  }
+  } 
 }
 </script>
 
