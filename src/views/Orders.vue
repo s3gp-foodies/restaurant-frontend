@@ -1,10 +1,13 @@
 <template>
   <div class="orders">
 
-    <ul v-for="(item, index) in data" :key="item">
-      <li>{{item[0].name}} - {{index}}</li>
-      <li>{{item[1].name}} - {{index}}</li>
-    </ul>
+    <table v-for="item in data['orders']" :key="item">
+      <tr>
+        <th>{{ item.name }}</th>
+        <th></th>
+        <th>47.00</th>
+      </tr>
+    </table>
 
     <!--<table>
       <tr>
@@ -13,7 +16,7 @@
         <td>28.50</td>
       </tr>
       <tr>
-        <th for="name">{{item.name}}</th>
+        <th for="name">bestelling1</th>
         <th></th>
         <th>47.00</th>
       </tr>
