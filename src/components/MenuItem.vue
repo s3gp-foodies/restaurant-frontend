@@ -20,7 +20,7 @@
       <input style="height: 30px;" type="number" class="numberInput" />
       <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></button>
       <button  type="submit" class="btn btn-outline-secondary"> Voeg toe </button> <br>
-      &euro; 3,50 Per stuk  </p>
+      &euro; 4,50 Per stuk  </p>
     </div>
   </div>
 
