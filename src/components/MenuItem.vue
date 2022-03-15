@@ -1,13 +1,14 @@
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <div v-for="menuItems in data" :key="menuItems"  class="divider">
-    <p class="dividerBarTxt"> {{Object.keys((menuItems))[0]}} </p>
-  </div>
+
 
 
 
   <!-- Styled Menu Item with Bootstrap -->
-  <div v-for="(dishes) in data['MenuList']" :key="dishes">
+  <div v-for="(dishes, key) in data['MenuList']" :key="dishes">
+    <div v-for="menuItems in data" :key="menuItems"  class="divider">
+      <p class="dividerBarTxt"> {{key}} </p>
+    </div>
     <div v-for="(dish, key) in dishes" :key="dish" class="card text-black bg-light mb-3 menuItem">
     <h3 class="display-6 card-header">{{key}}</h3>
     <div class="card-body text-black">
@@ -21,14 +22,6 @@
       &euro; {{dish.price}} Per stuk  </p>
     </div>
     </div>
-  </div>
-
-  <div v-for="menuItems in data" :key="menuItems"  class="divider">
-    <p class="dividerBarTxt"> {{Object.keys((menuItems))[1]}} </p>
-  </div>
-
-  <div v-for="menuItems in data" :key="menuItems"  class="divider">
-    <p class="dividerBarTxt"> {{Object.keys((menuItems))[2]}} </p>
   </div>
 </template>
 
