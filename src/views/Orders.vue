@@ -48,7 +48,7 @@ export default {
           var orderprice = this.data['orders'][i]['order'][j].price;
           var orderamount = this.data['orders'][i]['order'][j].amount;
 
-          this.data['orders'][i]['order'][j].totalprice = (Math.round(orderamount *  orderprice * 100) / 100).toFixed(2);
+          this.data['orders'][i]['order'][j].totalprice = (orderamount * orderprice).toFixed(2);
         }
       }
     },
@@ -58,7 +58,7 @@ export default {
       for (let i = 0; i < this.data['orders'].length; i++) {
         for (let j = 0; j < this.data['orders'][i]['order'].length; j++) {  
           totalprice += parseFloat(this.data['orders'][i]['order'][j].totalprice); 
-          
+
           this.data['orders'][i].totalprice = totalprice.toFixed(2);    
         }
       }
