@@ -14,7 +14,7 @@
       </tr>
     </table>
 
-    <p>Totaal: ?</p>
+    <!--<p>Totaal: {{ orders.totalprice }}</p>-->
 
     <span>
       <button>Kassa betalen</button>&nbsp;
@@ -37,12 +37,12 @@ export default {
     orders: Array
   },
   created() {
-    this.multiplyPriceTotalOrders();
-    this.addPriceTotalProduct();
+    this.multiplyPriceTotalProduct();
+    this.addPriceTotalOrder();
     this.addPriceTotalOrders(); 
   },  
   methods: {
-    multiplyPriceTotalOrders() {    
+    multiplyPriceTotalProduct() {    
       for (let i = 0; i < this.data['orders'].length; i++) {
         for (let j = 0; j < this.data['orders'][i]['product'].length; j++) {  
           var orderprice = this.data['orders'][i]['product'][j].price;
@@ -52,7 +52,7 @@ export default {
         }
       }
     },
-    addPriceTotalProduct() {
+    addPriceTotalOrder() {
       var totalprice = 0;
 
       for (let i = 0; i < this.data['orders'].length; i++) {
