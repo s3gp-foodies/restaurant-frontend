@@ -1,68 +1,14 @@
 <template>
   <div class="orders">
 
-    <table v-for="item in data['orders']" :key="item">
-      <tr>
-        <th>{{ item.name }}</th>
-        <th></th>
-        <th>47.00</th>
-      </tr>
-    </table>
-
-    <!--<table>
-      <tr>
-        <td>gerecht1</td>
-        <td>3 x 9.50</td>
+    <table v-for="orders in data['orders']" :key="orders">
+      <tr v-for="order in orders['order']" :key="order">
+        <td>{{ order.name }}</td>
+        <td>{{ order.amount }} x {{ order.price }}</td>
         <td>28.50</td>
       </tr>
       <tr>
-        <th for="name">bestelling1</th>
-        <th></th>
-        <th>47.00</th>
-      </tr>
-    </table>-->
-
-    <!--<table>
-      <tr>
-        <td>gerecht1</td>
-        <td>3 x 9.50</td>
-        <td>28.50</td>
-      </tr>
-      <tr>
-        <td>gerecht2</td>
-        <td>2 x 5.50</td>
-        <td>11.00</td>
-      </tr>
-      <tr>
-        <td>gerecht3</td>
-        <td>1 x 7.50</td>
-        <td>15.00</td>
-      </tr>
-      <tr>
-        <th>bestelling1</th>
-        <th></th>
-        <th>47.00</th>
-      </tr>
-    </table>
-
-    <table>
-      <tr>
-        <td>gerecht1</td>
-        <td>3 x 9.50</td>
-        <td>28.50</td>
-      </tr>
-      <tr>
-        <td>gerecht2</td>
-        <td>2 x 5.50</td>
-        <td>11.00</td>
-      </tr>
-      <tr>
-        <td>gerecht3</td>
-        <td>1 x 7.50</td>
-        <td>15.00</td>
-      </tr>
-      <tr>
-        <th>bestelling2</th>
+        <th>{{ orders.name }}</th>
         <th></th>
         <th>47.00</th>
       </tr>
@@ -73,7 +19,7 @@
     <span>
       <button>Kassa betalen</button>&nbsp;
       <button>Digitaal betalen</button>
-    </span>-->
+    </span>
 
   </div>
 </template> 
