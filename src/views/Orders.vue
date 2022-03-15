@@ -64,7 +64,13 @@ export default {
       }
     },
     addPriceTotalOrders() {
+      var totalprice = 0;
 
+      for (let i = 0; i < this.data['orders'].length; i++) {
+        totalprice += parseFloat(this.data['orders'][i].totalprice); 
+      } 
+      
+      console.log(totalprice.toFixed(2));
     }
   } 
 }
