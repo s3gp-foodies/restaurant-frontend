@@ -1,7 +1,25 @@
 <template>
   <div class="orders">
 
-    <table>
+    <ul v-for="(item, index) in data" :key="item">
+      <li>{{item[0].name}} - {{index}}</li>
+      <li>{{item[1].name}} - {{index}}</li>
+    </ul>
+
+    <!--<table>
+      <tr>
+        <td>gerecht1</td>
+        <td>3 x 9.50</td>
+        <td>28.50</td>
+      </tr>
+      <tr>
+        <th for="name">{{item.name}}</th>
+        <th></th>
+        <th>47.00</th>
+      </tr>
+    </table>-->
+
+    <!--<table>
       <tr>
         <td>gerecht1</td>
         <td>3 x 9.50</td>
@@ -52,7 +70,7 @@
     <span>
       <button>Kassa betalen</button>&nbsp;
       <button>Digitaal betalen</button>
-    </span>
+    </span>-->
 
   </div>
 </template> 
@@ -74,7 +92,6 @@ export default {
   },  
   methods: {
     async getAllOrders() {
-      //console.log(orders);    
     }
   }
 }
