@@ -44,35 +44,39 @@ export default {
     this.addPriceTotalOrders(); 
   },  
   methods: {
-    multiplyPriceTotalProduct() {    
-      for (let i = 0; i < this.data['orders'].length; i++) {
-        for (let j = 0; j < this.data['orders'][i]['product'].length; j++) {  
-          var orderprice = this.data['orders'][i]['product'][j].price;
-          var orderamount = this.data['orders'][i]['product'][j].amount;
+    multiplyPriceTotalProduct() {
+        var orders = this.data['orders'];
+        
+        for (let i = 0; i < orders.length; i++) {
+            for (let j = 0; j < orders[i]['product'].length; j++) {  
+                var orderprice = orders[i]['product'][j].price;
+                var orderamount = orders[i]['product'][j].amount;
 
-          this.data['orders'][i]['product'][j].totalprice = (orderamount * orderprice).toFixed(2);
+                this.data['orders'][i]['product'][j].totalprice = (orderamount * orderprice).toFixed(2);
+            }
         }
-      }
     },
     addPriceTotalOrder() {
-      var totalprice = 0;
+        var totalprice = 0;
+        var orders = this.data['orders'];
 
-      for (let i = 0; i < this.data['orders'].length; i++) {
-        for (let j = 0; j < this.data['orders'][i]['product'].length; j++) {  
-          totalprice += parseFloat(this.data['orders'][i]['product'][j].totalprice); 
+        for (let i = 0; i < orders.length; i++) {
+            for (let j = 0; j < orders[i]['product'].length; j++) {  
+            totalprice += parseFloat(orders[i]['product'][j].totalprice); 
 
-          this.data['orders'][i].totalprice = totalprice.toFixed(2);    
+            this.data['orders'][i].totalprice = totalprice.toFixed(2);    
+            }
         }
-      }
     },
     addPriceTotalOrders() {
-      var totalprice = 0;
+        var totalprice = 0;
+        var orders = this.data['orders'];
 
-      for (let i = 0; i < this.data['orders'].length; i++) {
-        totalprice += parseFloat(this.data['orders'][i].totalprice); 
-      } 
-      
-      this.data['orders'].totalprice = totalprice.toFixed(2);
+        for (let i = 0; i < orders.length; i++) {
+            totalprice += parseFloat(orders[i].totalprice); 
+        } 
+
+        this.data['orders'].totalprice = totalprice.toFixed(2);
     }
   } 
 }
