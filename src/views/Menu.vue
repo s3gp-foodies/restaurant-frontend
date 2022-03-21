@@ -1,11 +1,11 @@
 <template> 
   <div class="menu">
-    <DishItem></DishItem>  
+    <DishItem></DishItem>
   </div>
 </template>
 
 <script>
-import DishItem from "../components/DishItem";
+import DishItem from "../components/MenuItem";
 
 export default {
   name: "MenuItem",
