@@ -28,57 +28,22 @@
 
 <script>
 import orders from '../temp/orders.json'
+import { multiplyPriceTotalProduct, addPriceTotalOrder, addPriceTotalOrders } from '../temp/ordersMethods.js'
 export default {
   name: 'OrdersPage',
   data: () => {
     return {
-      data: orders
+      data: orders,
     }
   },
   props: {
     orders: Array
   },
   created() {
-    this.multiplyPriceTotalProduct();
-    this.addPriceTotalOrder();
-    this.addPriceTotalOrders(); 
-  },  
-  methods: {
-    multiplyPriceTotalProduct() {
-        var orders = this.data['orders'];
-        
-        for (let i = 0; i < orders.length; i++) {
-            for (let j = 0; j < orders[i]['product'].length; j++) {  
-                var orderprice = orders[i]['product'][j].price;
-                var orderamount = orders[i]['product'][j].amount;
-
-                this.data['orders'][i]['product'][j].totalprice = (orderamount * orderprice).toFixed(2);
-            }
-        }
-    },
-    addPriceTotalOrder() {
-        var totalprice = 0;
-        var orders = this.data['orders'];
-
-        for (let i = 0; i < orders.length; i++) {
-            for (let j = 0; j < orders[i]['product'].length; j++) {  
-            totalprice += parseFloat(orders[i]['product'][j].totalprice); 
-
-            this.data['orders'][i].totalprice = totalprice.toFixed(2);    
-            }
-        }
-    },
-    addPriceTotalOrders() {
-        var totalprice = 0;
-        var orders = this.data['orders'];
-
-        for (let i = 0; i < orders.length; i++) {
-            totalprice += parseFloat(orders[i].totalprice); 
-        } 
-
-        this.data['orders'].totalprice = totalprice.toFixed(2);
-    }
-  } 
+    this.data['orders'] = multiplyPriceTotalProduct.multiplyPriceTotalProduct(this.data['orders']);
+    this.data['orders'] = addPriceTotalOrder.addPriceTotalOrder(this.data['orders']);
+    this.data['orders'] = addPriceTotalOrders.addPriceTotalOrders(this.data['orders']); 
+  }
 }
 </script>
 
