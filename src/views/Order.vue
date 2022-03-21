@@ -11,6 +11,10 @@
     <div v-for="(items) in items" :key="items">
         {{items}}
     </div>
+
+  <div v-for="(amount,items) in haha" :key="items">
+    {{items}}
+  </div>
 </template> 
 
 <script>
@@ -51,8 +55,8 @@ export default {
   },
   mounted (){
     let haha = JSON.parse(sessionStorage.getItem("Test"))
+    this.haha  = haha
     console.log(haha)
-    console.log(this.haha)
 }
 }
 </script>
