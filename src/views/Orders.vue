@@ -28,7 +28,7 @@
 
 <script>
 import orders from '../temp/orders.json'
-import { multiplyPriceTotalProduct, addPriceTotalOrder, addPriceTotalOrders } from '../temp/ordersMethods.js'
+import { ordersCalculations } from '../temp/ordersMethods.js'
 export default {
   name: 'OrdersPage',
   data: () => {
@@ -40,9 +40,9 @@ export default {
     orders: Array
   },
   created() {
-    this.data['orders'] = multiplyPriceTotalProduct.multiplyPriceTotalProduct(this.data['orders']);
-    this.data['orders'] = addPriceTotalOrder.addPriceTotalOrder(this.data['orders']);
-    this.data['orders'] = addPriceTotalOrders.addPriceTotalOrders(this.data['orders']); 
+    this.data['orders'] = ordersCalculations.multiplyPriceTotalProduct(this.data['orders']);
+    this.data['orders'] = ordersCalculations.addPriceTotalOrder(this.data['orders']);
+    this.data['orders'] = ordersCalculations.addPriceTotalOrders(this.data['orders']); 
   }
 }
 </script>
