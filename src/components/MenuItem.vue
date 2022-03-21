@@ -2,11 +2,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Styled Menu Item with Bootstrap -->
-    <div v-for="(dishes, key) in data['MenuList']" :key="dishes">
-      <div v-for="menuItems in data" :key="menuItems" class="divider" v-on:click="collapsed = !collapsed">
-          <p class="dividerBarTxt">{{key}}</p>
+    <div v-for="(dishes, catKey) in data['MenuList']" :key="dishes">
+      <!--v-on:click="collapsed = !collapsed" v-show="collapsed"-->
+      <div v-for="menuItems in data" :key="menuItems" class="divider" v-on:click="hideDive({catKey})">
+          <p class="dividerBarTxt">{{catKey}}</p>
       </div>
-        <div v-for="(dish, key) in dishes" :key="dish" class="card text-black bg-light mb-3 menuItem collapsed" v-show="collapsed">
+        <div v-for="(dish, key) in dishes" :key="dish" :class="catKey" class="card text-black bg-light mb-3 menuItem">
           <h3 class="display-6 card-header">{{key}}</h3>
           <div class="card-body text-black">
           <img v-if="dish.imgLink == null" class="foodImage" src="https://www.martijnkardol.nl/wp-content/uploads/2021/07/placeholder-5.png">
@@ -30,8 +31,23 @@ export default {
   name: "MenuItem",
   data: () => {
     return {
-      collapsed: true,
+      isHidden: false,
       data: MenuData
+    }
+  },
+  methods: {
+    hideDive(key) {
+      let className = document.getElementsByClassName(key["catKey"]);
+      let i;
+
+      for(i = 0; i < className.length; i++)
+      {
+        if (className[i].style.display === "" || className[i].style.display === "inline-block") {
+          className[i].style.display = "none";
+        } else {
+          className[i].style.display = "inline-block"
+        }
+      }
     }
   }
 }
