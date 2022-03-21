@@ -63,8 +63,10 @@ export default {
   }
 
   .foodImage {
-    width: 180px;
+    width: 200px;
+    height: 200px;
     float: left;
+    padding: 10px;
   }
 
   .foodTxt {
