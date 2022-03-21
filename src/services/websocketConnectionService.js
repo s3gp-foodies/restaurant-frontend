@@ -1,18 +1,21 @@
-//import SockJS from 'sockjs-client'
-//import Stomp from 'webstomp-client'
+import SockJS from 'sockjs-client'
+import Stomp from 'webstomp-client'
 
-/*createWebsocketConnection() {
-this.socket = new SockJS("http://localhost:8080/sockjs");
-this.stompClient = Stomp.over(this.socket);
-
-    this.stompClient.connect({}, frame => {
-        this.stompClient.subscribe("/topic/orders", payload => {
-            if(payload.body !== null) {
-                this.orders.push(payload.body);
-            }
+export const websocketConnection = {
+    openWebsocketConnection() {
+        this.socket = new SockJS("http://localhost:8080/sockjs");
+        this.stompClient = Stomp.over(this.socket);
+    },
+    createWebsocketConnection(items, name) {
+        this.stompClient.connect({}, () => {
+            this.stompClient.subscribe("/topic/"+name, payload => {
+                if(payload.body !== null) {
+                    items.push(payload.body);
+                }
+            });
         });
-    });
-},
-sendMessageToServer() {
-    this.stompClient.send("/app/orders.input", JSON.stringify({ orders: this.orders }), {});
-}*/
+    },
+    sendMessageToServer(items, name) {
+        this.stompClient.send("/app/"+name+".input", JSON.stringify({ data: items }), {});
+    }
+}

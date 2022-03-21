@@ -29,6 +29,7 @@
 <script>
 import orders from '../temp/orders.json'
 import { ordersCalculations } from '../helpers/ordersHelper.js'
+//import { websocketConnection } from '../services/websocketConnectionService.js'
 export default {
   name: 'OrdersPage',
   data: () => {
@@ -40,6 +41,10 @@ export default {
     orders: Array
   },
   created() {
+    //websocketConnection.openWebsocketConnection();
+    //websocketConnection.createWebsocketConnection(this.data['orders'], "orders");
+    //websocketConnection.sendMessageToServer(this.data['orders'], "orders"); 
+
     this.data['orders'] = ordersCalculations.multiplyPriceTotalProduct(this.data['orders']);
     this.data['orders'] = ordersCalculations.addPriceTotalOrder(this.data['orders']);
     this.data['orders'] = ordersCalculations.addPriceTotalOrders(this.data['orders']); 
