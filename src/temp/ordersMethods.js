@@ -1,4 +1,4 @@
-export const multiplyPriceTotalProduct = {
+export const ordersCalculations = {
     multiplyPriceTotalProduct(orders) {
         for (let i = 0; i < orders.length; i++) {
             for (let j = 0; j < orders[i]['product'].length; j++) {  
@@ -11,9 +11,6 @@ export const multiplyPriceTotalProduct = {
 
         return orders;
     },
-}
-
-export const addPriceTotalOrder = {
     addPriceTotalOrder(orders) {
         var totalprice = 0;
 
@@ -26,10 +23,7 @@ export const addPriceTotalOrder = {
         }
 
         return orders;
-    }
-}
-
-export const addPriceTotalOrders = {
+    },
     addPriceTotalOrders(orders) {
         var totalprice = 0;
 
