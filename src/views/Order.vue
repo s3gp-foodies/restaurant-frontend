@@ -19,11 +19,11 @@ export default {
   
   methods: {
       add : function () {
-          this.items.amount ++,
+          this.items.amount ++
           this.OnInput()
       },
       del : function (){
-          this.items.amount --,
+          this.items.amount --
           this.OnInput()
         console.log(this.$data.items)
       },
@@ -43,9 +43,17 @@ export default {
           name: "test",
           amount: 0
         }
+      },
+      haha : {
+
       }
     }
-  }
+  },
+  mounted (){
+    let haha = JSON.parse(sessionStorage.getItem("Test"))
+    console.log(haha)
+    console.log(this.haha)
+}
 }
 </script>
 
