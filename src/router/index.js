@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: '/dish-overview',
-    name: 'DishOverview',
+    name: 'DishOverviews',
     component: DishOverview
   }
 ]

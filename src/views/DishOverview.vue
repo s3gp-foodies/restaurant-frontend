@@ -24,7 +24,7 @@
           <div class="card-header">Order 2</div>
           <div class="card-body">
             <h5 class="card-title">Table 1</h5>
-            <p class="card-text">Pasta menu, Kruiden boter basket</p>
+            <p class="card-text">Pasta menu x3, Kruiden boter basket</p>
           </div>
         </div>
       </th>
