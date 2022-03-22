@@ -20,7 +20,7 @@
 </template> 
 
 <script>
-//import { websocketConnection } from '../services/websocketConnectionService.js'
+import { websocketConnection } from '../services/websocketConnectionService.js'
 
 export default {
   name: 'LoginPage',
@@ -30,7 +30,7 @@ export default {
     }
   },
   created() {
-    //websocketConnection.openWebsocketConnection();
+    websocketConnection.openWebsocketConnection();
   },  
   methods: {
     login(action) {
