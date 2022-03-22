@@ -11,22 +11,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <th scope="row" @drop="onDrop($event, 1)" @dragover.prevent @dragenter.prevent>
-          <div class="card bg-dark text-white mb-3" style="max-width: 18rem;" draggable="true" @dragstart="startDrag($event, this)">
-            <div class="card-header">Order 1</div>
+    <tr v-for="order in data['orders']" :key="order">
+      <th class="dropzone" scope="row" @drop="onDrop($event, 1)" @dragover.prevent @dragenter.prevent>
+          <div v-for="product in order['product']" :key="product"  class="card bg-dark text-white mb-3" style="max-width: 18rem;" draggable="true" @dragstart="startDrag($event, product)">
+            <div class="card-header">{{order["name"]}}</div>
             <div class="card-body">
               <h5 class="card-title">Table 1</h5>
-              <p class="card-text">Burger Menu x2, 1x Pizza hawai</p>
+              <p class="card-text">{{ product.name }} x{{ product.amount }}</p>
             </div>
           </div>
-        <div class="card bg-dark text-white mb-3" style="max-width: 18rem;" draggable="true">
-          <div class="card-header">Order 2</div>
-          <div class="card-body">
-            <h5 class="card-title">Table 1</h5>
-            <p class="card-text">Pasta menu x3, Kruiden boter basket</p>
-          </div>
-        </div>
       </th>
       <td class="dropzone" @drop="onDrop($event, 2)" @dragover.prevent @dragenter.prevent>
       </td>
@@ -40,22 +33,39 @@
 </template>
 
 <script>
+import orders from '../temp/orders.json';
+
 export default {
   name: "DishOverview",
+  data: () => {
+    return {
+      data: orders
+    }
+  },
   methods: {
     // Guide used for the drag/drop
     // https://learnvue.co/2020/01/how-to-add-drag-and-drop-to-your-vuejs-project/#adding-drag-and-drop-functionality
+    // https://github.com/SortableJS/Vue.Draggable
     startDrag (evt, item) {
       evt.dataTransfer.dropEffect = 'move'
       evt.dataTransfer.effectAllowed = 'move'
-      evt.dataTransfer.setData('itemID', item.id)
-      console.log(item)
+      evt.dataTransfer.setData('productId', item.name)
     },
     onDrop (evt, list) {
-      console.log(evt, list)
+      const itemID = evt.dataTransfer.getData('productId')
+      console.log(itemID);
+      console.log(list);
+      let i = 0;
+      let j = 0;
+
+      for(i; i < orders["orders"].length; i++) {
+          console.log(orders["orders"][i]["product"][j])
+          console.log()
+          //const item = orders["orders"][i]["product"][j].find(item => item.name === itemID)
+          //item.list = list
+        j++
+      }
       /*
-      const itemID = evt.dataTransfer.getData('itemID')
-      console.log(itemID) // Undefined
       const item = this.items.find(item => item.id === itemID)
       item.list = list
        */
