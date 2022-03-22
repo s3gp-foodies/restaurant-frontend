@@ -13,13 +13,13 @@
           <img v-if="dish.imgLink == null" class="foodImage" src="https://www.martijnkardol.nl/wp-content/uploads/2021/07/placeholder-5.png">
           <img v-else class="foodImage" :src="dish.imgLink" alt="">
           <p class="foodTxt"> {{dish.description}} </p>
-          <p class="priceTxT">
-            <button type="button" class="btn btn-outline-secondary"><i class="fa fa-minus"></i></button>
-            <input style="height: 30px;" type="number" class="numberInput" />
-            <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></button>
-            <button  type="submit" class="btn btn-outline-secondary"> Voeg toe </button> <br>
-            &euro; {{dish.price}} Per stuk  </p>
-          </div>
+              <p class="priceTxT">
+                <button type="button" class="btn btn-outline-secondary"><i class="fa fa-minus"></i></button>
+                <input style="height: 35px; width: 50%;" type="number" class="numberInput" />
+                <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></button>
+                <button  type="submit" class="btn btn-outline-secondary"> Voeg toe </button> <br>
+                &euro; {{dish.price}} Per stuk  </p>
+            </div>
           </div>
     </div>
 </template>
