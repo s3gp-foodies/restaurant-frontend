@@ -20,8 +20,26 @@
 </template> 
 
 <script>
+//import { websocketConnection } from '../services/websocketConnectionService.js'
+
 export default {
-  name: 'LoginPage'
+  name: 'LoginPage',
+  data: () => {
+    return {
+      username: ''
+    }
+  },
+  created() {
+    //websocketConnection.openWebsocketConnection();
+  },  
+  methods: {
+    login(action) {
+      const {username, password} = Object.fromEntries(new FormData(action.target));
+
+      console.log('username:'+username);
+      console.log('password:'+password);
+    },
+  }
 }
 </script>
 
