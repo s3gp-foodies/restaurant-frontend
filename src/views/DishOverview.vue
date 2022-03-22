@@ -43,7 +43,7 @@
 export default {
   name: "DishOverview",
   methods: {
-    // Guide used for the drag/drop 
+    // Guide used for the drag/drop
     // https://learnvue.co/2020/01/how-to-add-drag-and-drop-to-your-vuejs-project/#adding-drag-and-drop-functionality
     startDrag (evt, item) {
       evt.dataTransfer.dropEffect = 'move'
