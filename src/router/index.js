@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Menu from '../views/Menu.vue'
 import Orders from '../views/Orders.vue'
 import Order from '../views/Order.vue'
-import DishOverview from "@/views/DishOverview";
+import dishOverview from "@/views/DishOverview";
 
 const routes = [
   {
@@ -22,8 +22,8 @@ const routes = [
   },
   {
     path: '/dish-overview',
-    name: 'DishOverviews',
-    component: DishOverview
+    name: 'DishOverview',
+    component: dishOverview
   }
 ]
 
