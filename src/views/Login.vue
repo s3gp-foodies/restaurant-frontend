@@ -20,24 +20,41 @@
 </template> 
 
 <script>
-import { websocketConnection } from '../services/websocketConnectionService.js'
+//import { websocketConnection } from '../services/websocketConnectionService.js'
+import axios from 'axios'
 
 export default {
   name: 'LoginPage',
   data: () => {
     return {
-      username: ''
+      username: '',
+      password: ''
     }
   },
   created() {
-    websocketConnection.openWebsocketConnection();
+    //websocketConnection.openWebsocketConnection();
   },  
   methods: {
     login(action) {
-      const {username, password} = Object.fromEntries(new FormData(action.target));
+      const { username, password } = Object.fromEntries(new FormData(action.target));
 
-      console.log('username:'+username);
-      console.log('password:'+password);
+      const data = {  
+        userName: username,  
+        password: password  
+      };
+
+      console.log(data);
+
+      axios.post('https://localhost:7209/api/Account/login', data)
+        .then(
+          response => {
+            console.log(response);
+          }
+        ).catch(
+          error => {
+            console.log(error);
+          }
+        )
     },
   }
 }
