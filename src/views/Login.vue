@@ -1,6 +1,6 @@
-<template>
-    <hr size="3" width="85%">  
+<template> 
   <div class="login">
+    <hr size="3" width="85%"> 
     <div class="panel">
       <form action="#" @submit.prevent="login">
         <div class="section">
@@ -26,6 +26,9 @@ export default {
 </script>
 
 <style scoped>
+.login hr {
+  margin: 24px auto;
+}
 .login.panel {
    margin-top: 300px;
 }
