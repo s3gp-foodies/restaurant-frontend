@@ -1,92 +1,80 @@
 <template>
   <div class="orders">
-
-    <table>
-      <tr>
-        <td>gerecht1</td>
-        <td>3 x 9.50</td>
-        <td>28.50</td>
-      </tr>
-      <tr>
-        <td>gerecht2</td>
-        <td>2 x 5.50</td>
-        <td>11.00</td>
-      </tr>
-      <tr>
-        <td>gerecht3</td>
-        <td>1 x 7.50</td>
-        <td>15.00</td>
-      </tr>
-      <tr>
-        <th>bestelling1</th>
-        <th></th>
-        <th>47.00</th>
-      </tr>
-    </table>
-
-    <table>
-      <tr>
-        <td>gerecht1</td>
-        <td>3 x 9.50</td>
-        <td>28.50</td>
-      </tr>
-      <tr>
-        <td>gerecht2</td>
-        <td>2 x 5.50</td>
-        <td>11.00</td>
-      </tr>
-      <tr>
-        <td>gerecht3</td>
-        <td>1 x 7.50</td>
-        <td>15.00</td>
-      </tr>
-      <tr>
-        <th>bestelling2</th>
-        <th></th>
-        <th>47.00</th>
-      </tr>
-    </table>
-
-    <p>Totaal: 84.00</p>
-
-    <span>
-      <button>Kassa betalen</button>&nbsp;
-      <button>Digitaal betalen</button>
-    </span>
-
+    <hr size="3" width="85%">  
+    <div class="overview">
+      <table v-for="order in data['orders']" :key="order">
+        <tr v-for="product in order['product']" :key="product">
+          <td>{{ product.name }}</td>
+          <td>{{ product.amount }} x &euro;&thinsp;{{ product.price }}</td>
+          <td>&euro;&thinsp;{{ product.totalprice }}</td>
+        </tr>
+        <tr>
+          <th>{{ order.name }}</th>
+          <th></th>
+          <th>&euro;&thinsp;{{ order.totalprice }}</th>
+        </tr>
+      </table>
+    </div>
+    <hr size="3" width="85%">  
+    <div class="totalprice">
+      <h4>Totaal: &euro;&thinsp;{{ data['orders'].totalprice }}</h4>
+    </div>
+    <div class="payment-buttons">
+      <button class="btn btn-primary">Kassa betalen</button>
+      <button class="btn btn-primary">Digitaal betalen</button>
+    </div>
   </div>
 </template> 
 
 <script>
+import orders from '../temp/orders.json'
 export default {
   name: 'OrdersPage',
   data: () => {
     return {
-      allOrders: []
+      data: orders
     }
   },
   props: {
     orders: Array
   },
-  async created() {
-    await this.getAllOrders()
+  created() {
+    this.multiplyPriceTotalProduct();
+    this.addPriceTotalOrder();
+    this.addPriceTotalOrders(); 
   },  
   methods: {
-    async getAllOrders() {
+    multiplyPriceTotalProduct() {    
+      for (let i = 0; i < this.data['orders'].length; i++) {
+        for (let j = 0; j < this.data['orders'][i]['product'].length; j++) {  
+          var orderprice = this.data['orders'][i]['product'][j].price;
+          var orderamount = this.data['orders'][i]['product'][j].amount;
+
+          this.data['orders'][i]['product'][j].totalprice = (orderamount * orderprice).toFixed(2);
+        }
+      }
+    },
+    addPriceTotalOrder() {
+      var totalprice = 0;
+
+      for (let i = 0; i < this.data['orders'].length; i++) {
+        for (let j = 0; j < this.data['orders'][i]['product'].length; j++) {  
+          totalprice += parseFloat(this.data['orders'][i]['product'][j].totalprice); 
+
+          this.data['orders'][i].totalprice = totalprice.toFixed(2);    
+        }
+      }
+    },
+    addPriceTotalOrders() {
+      var totalprice = 0;
+
+      for (let i = 0; i < this.data['orders'].length; i++) {
+        totalprice += parseFloat(this.data['orders'][i].totalprice); 
+      } 
       
-    },
-    createHardcodedOrder() {
-      //name: String
-      //products: Array
-      //totalprice: Decimal
-    },
-    createHardcodedProduct() {
-      //name: String
-      //amount: Int
-      //price: Decimal
-      //totalprice: Decimal
+      this.data['orders'].totalprice = totalprice.toFixed(2);
     }
-  }
+  } 
 }
 </script>
 
@@ -97,19 +85,39 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
+.orders td, .orders th {
+  padding-top: 1px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 1px;
+}
 .orders td:first-of-type, .orders th:first-of-type {
-  padding-right: 50px;
+  padding-right: 162px;
+  padding-top: 3px;
 }
 .orders td:last-of-type, .orders th:last-of-type {
-  padding-left: 20px;
+  padding-left: 52px;
 }
 .orders td:first-of-type {
   float: left;
 }
 .orders tr {
-  background-color: rgba(160, 248, 219, 0.514);
+  background-color: #bbbbbb8c;
 }
 .orders table {
   padding: 10px;
+}
+.orders table:first-of-type {
+  margin-bottom: 16px;
+}
+.orders .payment-buttons {
+  margin-top: 8px;
+}
+.orders .payment-buttons button:first-of-type {
+  margin-right: 38px;
+}
+.orders .overview {
+  margin-bottom: 6px;
+  margin-top: 6px;
 }
 </style>
