@@ -3,7 +3,7 @@ import Stomp from 'webstomp-client'
 
 export const websocketConnection = {
     openWebsocketConnection() {
-        this.socket = new SockJS("http://localhost:8080/sockjs");
+        this.socket = new SockJS("http://localhost:7209/hubs/table");
         this.stompClient = Stomp.over(this.socket);
     },
     createWebsocketConnection(items, name) {
