@@ -1,6 +1,6 @@
 <template>
 
-  <div id="nav justify-content-center">
+  <div class="nav justify-content-center">
     <router-link to="/" class="nav-link">Login</router-link>&nbsp;
     <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;
     <router-link to="/orders" class="nav-link">Overzicht Bestellingen</router-link>&nbsp;
@@ -24,7 +24,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /*margin-top: 60px;*/
 }
 .active {
   background: #bbb;

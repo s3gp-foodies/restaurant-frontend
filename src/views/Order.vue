@@ -1,6 +1,6 @@
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <div v-if="this.test == false">Testing</div>
+<!--  <div v-if="this.test == false">Testing</div>-->
   <div v-for="(dishes, item) in haha" :key="dishes">
     <div  class="divider">
       <p class="dividerBarTxt"> {{ item }} </p>
