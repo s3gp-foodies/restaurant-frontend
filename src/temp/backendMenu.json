@@ -1,0 +1,62 @@
+[
+  {
+    "id": 0,
+    "title": "Salade",
+    "description": "Een verse Salade met vers gepikte groente van het land",
+    "price": 2.50,
+    "allergy": [
+      {
+        "id": 0
+      }
+    ],
+    "category": {
+      "id": 1,
+      "name": "Voorgerechten"
+    }
+  },
+  {
+    "id": 0,
+    "title": "Fruit punch",
+    "description": "Punch je mond met een verfrissende fruit punch ",
+    "price": 2.50,
+    "allergy": [
+      {
+        "id": 0
+      }
+    ],
+    "category": {
+      "id": 3,
+      "name": "Nagerechten"
+    }
+  },
+  {
+    "id": 1,
+    "title": "Zalm Toasts",
+    "description": "Vers gebakken toast met een kalm bereide zalm. Licht en frissend van smaak",
+    "price": 4.50,
+    "allergy": [
+      {
+        "id": 0
+      }
+    ],
+    "category": {
+      "id": 1,
+      "name": "Voorgerechten"
+    }
+  },
+  {
+    "id": 2,
+    "title": "T-Bone Steak",
+    "description": "T-bone steak for the ones with a tough stomach ",
+    "price": 14.50,
+    "allergy": [
+      {
+        "id": 0
+      }
+    ],
+    "category": {
+      "id": 2,
+      "name": "Hoofdgerechten"
+    }
+  }
+]

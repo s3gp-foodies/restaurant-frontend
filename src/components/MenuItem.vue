@@ -3,7 +3,6 @@
 
   <!-- Styled Menu Item with Bootstrap -->
     <div v-for="(dishes, catKey) in data['MenuList']" :key="dishes">
-      <!--v-on:click="collapsed = !collapsed" v-show="collapsed"-->
       <div v-for="menuItems in data" :key="menuItems" class="divider" v-on:click="hideDive({catKey})">
           <p class="dividerBarTxt">{{catKey}}</p>
       </div>
@@ -22,17 +21,31 @@
             </div>
           </div>
     </div>
+
+  <!-- v-for="(dishes, catKey) in data['MenuList']" :key="dishes" -->
+  <div v-for="(menu, index) in backendMenu" :key="backendMenu[index]['id']">
+    {{ filterArray }}
+  </div>
 </template>
 
 <script>
 import MenuData from "../temp/JSONMenu.json"
+import backendMenu from "../temp/backendMenu.json"
+let filterArray = [];
+let number = 0;
+
+for (number; number < backendMenu.length; number++) {
+    filterArray.push({'key':  backendMenu[number]["category"]["id"], "value": backendMenu[number]["category"]["name"]})
+}
+
+filterArray.sort((a, b) => a.key - b.key)
 
 export default {
   name: "MenuItem",
   data: () => {
     return {
       isHidden: false,
-      data: MenuData
+      data: MenuData, backendMenu, filterArray
     }
   },
   methods: {
@@ -49,6 +62,9 @@ export default {
         }
       }
     }
+  },
+  computed: {
+
   }
 }
 
