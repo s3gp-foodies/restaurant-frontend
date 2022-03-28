@@ -35,7 +35,7 @@ export default {
     //websocketConnection.openWebsocketConnection();
   },  
   methods: {
-    login(action) {
+    /*login(action) {
       const { username, password } = Object.fromEntries(new FormData(action.target));
 
       const data = {  
@@ -43,7 +43,22 @@ export default {
         password: password  
       };
 
-      console.log(data);
+      axios.post('https://localhost:7209/api/Account/login', data)
+        .then(
+          response => {
+            console.log(response);
+          }
+        ).catch(
+          error => {
+            console.log(error);
+          }
+        )
+    },*/
+    login() {
+      const data = {  
+        userName: "david",  
+        password: "Passw0rd!" 
+      };
 
       axios.post('https://localhost:7209/api/Account/login', data)
         .then(
