@@ -9,9 +9,9 @@
 		},
 		{"name": "bestelling2",
 			"product": [
-				{"name": "gerecht4", "amount": 2, "price": "6.25", "list": 1},
-				{"name": "gerecht5", "amount": 4, "price": "3.50", "list": 1},
-				{"name": "gerecht6", "amount": 2, "price": "4.75", "list": 1}
+				{"name": "gerecht4", "amount": 2, "price": "6.25", "list": 2},
+				{"name": "gerecht5", "amount": 4, "price": "3.50", "list": 2},
+				{"name": "gerecht6", "amount": 2, "price": "4.75", "list": 2}
 			]
 		}
 	]

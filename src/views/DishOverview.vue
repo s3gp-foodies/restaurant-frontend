@@ -12,20 +12,45 @@
     </thead>
     <tbody>
     <tr v-for="order in data['orders']" :key="order">
-      <th class="dropzone" scope="row" @drop="onDrop($event, 1)" @dragover.prevent @dragenter.prevent>
-          <div v-for="product in order['product']" :key="product"  class="card bg-dark text-white mb-3" style="max-width: 18rem;" draggable="true" @dragstart="startDrag($event, product)">
+      <td class="dropzone" scope="row" @drop="onDrop($event, 1)" @dragover.prevent @dragenter.prevent>
+        <div v-for="product in order['product']" :key="product" >
+          <div v-if="product.list === 1" class="card bg-dark text-white mb-3" style="max-width: 18rem;" draggable="true" @dragstart="startDrag($event, product)">
             <div class="card-header">{{order["name"]}}</div>
-            <div class="card-body">
-              <h5 class="card-title">Table 1</h5>
-              <p class="card-text">{{ product.name }} x{{ product.amount }}</p>
-            </div>
+              <div class="card-body">
+                <p class="card-text">{{ product.name }} x{{ product.amount }}</p>
+              </div>
           </div>
-      </th>
+        </div>
+      </td>
       <td class="dropzone" @drop="onDrop($event, 2)" @dragover.prevent @dragenter.prevent>
+        <div v-for="product in order['product']" :key="product" >
+        <div v-if="product.list === 2" class="card bg-dark text-white mb-3" style="max-width: 18rem;" draggable="true" @dragstart="startDrag($event, product)">
+          <div class="card-header">{{order["name"]}}</div>
+          <div class="card-body">
+            <p class="card-text">{{ product.name }} x{{ product.amount }}</p>
+          </div>
+        </div>
+      </div>
       </td>
       <td class="dropzone" @drop="onDrop($event, 3)" @dragover.prevent @dragenter.prevent>
+        <div v-for="product in order['product']" :key="product" >
+        <div v-if="product.list === 3" class="card bg-dark text-white mb-3" style="max-width: 18rem;" draggable="true" @dragstart="startDrag($event, product)">
+          <div class="card-header">{{order["name"]}}</div>
+          <div class="card-body">
+            <p class="card-text">{{ product.name }} x{{ product.amount }}</p>
+          </div>
+        </div>
+      </div>
       </td>
       <td class="dropzone" @drop="onDrop($event, 4)" @dragover.prevent @dragenter.prevent>
+        <div v-for="product in order['product']" :key="product" >
+        <div v-if="product.list === 4" class="card bg-dark text-white mb-3" style="max-width: 18rem;" draggable="true" @dragstart="startDrag($event, product)">
+          <div class="card-header">{{order["name"]}}</div>
+          <div class="card-body">
+            <p class="card-text">{{ product.name }} x{{ product.amount }}</p>
+          </div>
+        </div>
+      </div>
       </td>
     </tr>
     </tbody>
@@ -53,18 +78,22 @@ export default {
     },
     onDrop (evt, list) {
       const itemID = evt.dataTransfer.getData('productId')
-      console.log(itemID);
-      console.log(list);
       let i = 0;
       let j = 0;
+      let jsonArray = [];
+
 
       for(i; i < orders["orders"].length; i++) {
-          console.log(orders["orders"][i]["product"][j])
-          console.log()
-          //const item = orders["orders"][i]["product"][j].find(item => item.name === itemID)
+          jsonArray.push(orders["orders"][i]["product"][j])
+          const item = jsonArray.find(item => item.name === itemID)
+          console.log(item)
+
           //item.list = list
-        j++
+          j++
       }
+
+      console.log(jsonArray);
+      console.log(list);
       /*
       const item = this.items.find(item => item.id === itemID)
       item.list = list
