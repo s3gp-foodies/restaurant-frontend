@@ -67,6 +67,7 @@ export default {
       } else if (dish.amount >= 15) {
         dish.amount = 15
       }
+      sessionStorage.setItem("Test",  JSON.stringify(this.data.MenuList))
     }
   }
 }
