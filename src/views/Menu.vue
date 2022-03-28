@@ -13,6 +13,7 @@ export default {
     DishItem
   }
 }
+
 </script>
 
 <style scoped>
