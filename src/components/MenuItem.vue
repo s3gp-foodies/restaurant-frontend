@@ -14,10 +14,14 @@
           <img v-else class="foodImage" :src="dish.imgLink" alt="">
           <p class="foodTxt"> {{dish.description}} </p>
               <p class="priceTxT">
-                <button type="button" class="btn btn-outline-secondary"><i class="fa fa-minus"></i></button>
-                <input style="height: 35px; width: 50%;" type="number" class="numberInput" />
-                <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></button>
-                <button  type="submit" class="btn btn-outline-secondary"> Voeg toe </button> <br>
+                <button type="button" class="btn btn-outline-secondary" @click="subtractfrom(dish)"><i
+                    class="fa fa-minus"></i></button>
+                <input style="height: 30px;" type="number" class="numberInput" v-model="dish.amount"
+                       @input="OnInput(dish.amount, dish)"/>
+                <strong v-if="dish.amount >14">Cannot be more then 15</strong>
+                <strong v-if="dish.amount <0 ">Cannot be less then 0</strong>
+                <button type="button" class="btn btn-outline-secondary" @click="addto(dish)"><i class="fa fa-plus"></i>
+                </button>
                 &euro; {{dish.price}} Per stuk  </p>
             </div>
           </div>
@@ -47,6 +51,21 @@ export default {
         } else {
           className[i].style.display = "inline-block"
         }
+      }
+    },
+    addto: function (dish) {
+      dish.amount++
+      this.OnInput(dish.amount, dish)
+    },
+    subtractfrom: function (dish) {
+      dish.amount--
+      this.OnInput(dish.amount, dish)
+    },
+    OnInput: function (amount, dish) {
+      if (dish.amount < 0) {
+        dish.amount = 0
+      } else if (dish.amount >= 15) {
+        dish.amount = 15
       }
     }
   }

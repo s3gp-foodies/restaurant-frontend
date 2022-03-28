@@ -1,6 +1,6 @@
 <template>
 
-  <div id="nav">
+  <div id="nav justify-content-center">
     <router-link to="/" class="nav-link">Login</router-link>&nbsp;
     <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;
     <router-link to="/orders" class="nav-link">Overzicht Bestellingen</router-link>&nbsp;
