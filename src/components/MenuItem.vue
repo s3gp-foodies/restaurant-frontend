@@ -1,7 +1,7 @@
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- Styled Menu Item with Bootstrap -->
+  <!-- Styled Menu Item with Bootstrap
     <div v-for="(dishes, catKey) in data['MenuList']" :key="dishes">
       <div v-for="menuItems in data" :key="menuItems" class="divider" v-on:click="hideDive({catKey})">
           <p class="dividerBarTxt">{{catKey}}</p>
@@ -20,11 +20,32 @@
                 &euro; {{dish.price}} Per stuk  </p>
             </div>
           </div>
+    </div> -->
+
+  <div v-for="(dividers, number) in filterArray" :key="filterArray[number]['id']" >
+
+    <div class="divider" v-on:click="hideDive({dividers})">
+      <p class="dividerBarTxt">{{dividers}}</p>
     </div>
 
-  <!-- v-for="(dishes, catKey) in data['MenuList']" :key="dishes" -->
-  <div v-for="(menu, index) in backendMenu" :key="backendMenu[index]['id']">
-    {{ filterArray }}
+    <template v-for="(menuItems, index) in backendMenu" :key="backendMenu[index]['id']">
+    <!-- <div v-for="(menuItems, index) in backendMenu" :key="backendMenu[index]['id']"> -->
+      <div v-if="menuItems['category']['name'] === dividers" :class="dividers" class="card text-black bg-light mb-3 menuItem">
+
+        <h3 class="display-6 card-header">{{menuItems["title"]}}</h3>
+        <div class="card-body text-black">
+          <p class="foodTxt"> {{menuItems["description"]}} </p>
+          <p class="priceTxT">
+            <button type="button" class="btn btn-outline-secondary"><i class="fa fa-minus"></i></button>
+            <input style="height: 35px; width: 50%;" type="number" class="numberInput" />
+            <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></button>
+            <button  type="submit" class="btn btn-outline-secondary"> Voeg toe </button> <br>
+            &euro; {{menuItems["price"]}} Per stuk  </p>
+        </div>
+      </div>
+      </template>
+
+    <!-- </div> -->
   </div>
 </template>
 
@@ -40,6 +61,18 @@ for (number; number < backendMenu.length; number++) {
 
 filterArray.sort((a, b) => a.key - b.key)
 
+function removeDuplicates(array) {
+    var uniqueArray = [];
+    array.forEach(element => {
+        if(!uniqueArray.includes(element["value"])) {
+          uniqueArray.push(element["value"])
+        }
+    });
+    return uniqueArray;
+}
+
+filterArray = removeDuplicates(filterArray);
+
 export default {
   name: "MenuItem",
   data: () => {
@@ -50,7 +83,7 @@ export default {
   },
   methods: {
     hideDive(key) {
-      let className = document.getElementsByClassName(key["catKey"]);
+      let className = document.getElementsByClassName(key["catKey"] || key["dividers"]);
       let i;
 
       for(i = 0; i < className.length; i++)
@@ -62,9 +95,6 @@ export default {
         }
       }
     }
-  },
-  computed: {
-
   }
 }
 
@@ -89,7 +119,6 @@ export default {
     display: inline-block;
     border:  black 1px solid;
     margin: 10px 10px 10px 30px;
-    padding: 10px;
     width: 33%;
   }
 
