@@ -65,9 +65,9 @@ export default {
     let haha = JSON.parse(sessionStorage.getItem("Test"))
     this.haha = haha
     console.log(haha)
-    if (!haha.length) {
-      this.test = true
-    }
+    // if (!haha.length) {
+    //   this.test = true
+    // }
 
     // for(let items in haha){
     //   console.log(items)
