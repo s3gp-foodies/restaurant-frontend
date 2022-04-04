@@ -20,8 +20,8 @@
 </template> 
 
 <script>
-//import { websocketConnection } from '../services/websocketConnectionService.js'
-import axios from 'axios'
+import axios from 'axios';
+import * as signalR from "@aspnet/signalr";
 
 export default {
   name: 'LoginPage',
@@ -32,45 +32,32 @@ export default {
     }
   },
   created() {
-    //websocketConnection.openWebsocketConnection();
   },  
   methods: {
-    /*login(action) {
-      const { username, password } = Object.fromEntries(new FormData(action.target));
+    login(action) {
+      const {username, password} = Object.fromEntries(new FormData(action.target));
 
       const data = {  
         userName: username,  
-        password: password  
+        password: password
       };
 
       axios.post('https://localhost:7209/api/Account/login', data)
         .then(
           response => {
             console.log(response);
-          }
-        ).catch(
-          error => {
-            console.log(error);
-          }
-        )
-    },*/
-    login() {
-      const data = {  
-        userName: "david",  
-        password: "Passw0rd!" 
-      };
 
-      axios.post('https://localhost:7209/api/Account/login', data)
-        .then(
-          response => {
-            console.log(response);
+            const client = new signalR.HubConnectionBuilder()
+              .withUrl(`https://localhost:7209/hubs/table`)
+              .build();
+            client.start().catch(err => console.error(err.toString()));
           }
         ).catch(
           error => {
             console.log(error);
           }
         )
-    },
+    }
   }
 }
 </script>
