@@ -21,7 +21,7 @@
 
 <script>
 import axios from 'axios';
-import * as signalR from "@aspnet/signalr";
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
 export default {
   name: 'LoginPage',
@@ -47,12 +47,12 @@ export default {
           response => {
             console.log(response);
 
-            const client = new signalR.HubConnectionBuilder()
-              .withUrl(`https://localhost:7209/hubs/table`)
-              .build();
-            client.start().catch(err => console.error(err.toString()));
-
-            //client.invoke("OnConnectedAsync");
+            const connection = new HubConnectionBuilder()
+              .withUrl('https://localhost:7209/hubs/table')
+              .configureLogging(LogLevel.Information)
+              .build()
+            connection.start()
+            //connection.invoke("OnConnectedAsync");
           }
         ).catch(
           error => {
