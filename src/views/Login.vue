@@ -35,11 +35,11 @@ export default {
   },  
   methods: {
     login(action) {
-      const {username, password} = Object.fromEntries(new FormData(action.target));
+      const { username } = Object.fromEntries(new FormData(action.target));
 
       const data = {  
         userName: username,  
-        password: password
+        password: 'Passw0rd!'
       };
 
       axios.post('https://localhost:7209/api/Account/login', data)
@@ -51,6 +51,8 @@ export default {
               .withUrl(`https://localhost:7209/hubs/table`)
               .build();
             client.start().catch(err => console.error(err.toString()));
+
+            //client.invoke("OnConnectedAsync");
           }
         ).catch(
           error => {
