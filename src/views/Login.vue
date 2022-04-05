@@ -21,7 +21,7 @@
 
 <script>
 import axios from 'axios';
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { HubConnectionBuilder } from '@microsoft/signalr';
 
 export default {
   name: 'LoginPage',
@@ -30,8 +30,6 @@ export default {
       username: '',
       password: ''
     }
-  },
-  created() {
   },  
   methods: {
     login(action) {
@@ -45,8 +43,8 @@ export default {
       axios.post('https://localhost:7209/api/Account/login', data)
         .then(
           response => {
-            localStorage.userName=response.data.userName;
-            localStorage.token=response.data.token;
+            localStorage.userName = response.data.userName;
+            localStorage.token = response.data.token;
           }
         ).catch(
           error => {
@@ -54,16 +52,15 @@ export default {
           }
         )
 
-    const connection = new HubConnectionBuilder()
-      .withUrl('https://localhost:7209/hubs/table', {accessTokenFactory: ()=>localStorage.token})
-      .configureLogging(LogLevel.Information)
-      .build();
-    connection.on("Connected",function (message) {
-      console.log(message);
-    }); 
-    connection.start();
-    
-    }
+      const connection = new HubConnectionBuilder()
+        .withUrl('https://localhost:7209/hubs/table', {accessTokenFactory: ()=> localStorage.token })
+        .build();
+      connection.on("Connected",function (message) {
+        console.log(message);
+      }); 
+      connection.start();
+       
+      }
   }
 }
 </script>
