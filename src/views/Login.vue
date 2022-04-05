@@ -53,7 +53,7 @@ export default {
         )
 
       const connection = new HubConnectionBuilder()
-        .withUrl('https://localhost:7209/hubs/table', {accessTokenFactory: ()=> localStorage.token })
+        .withUrl('https://localhost:7209/hubs/table', { accessTokenFactory: ()=> localStorage.token })
         .build();
       connection.on("Connected",function (message) {
         console.log(message);
