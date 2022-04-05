@@ -22,13 +22,15 @@
           </div>
     </div> -->
 
-  <div v-for="(dividers, number) in filterArray" :key="filterArray[number]['id']" >
+
+
+  <div v-for="(dividers, number) in filterArray = makeFilterArray(MenuItems)" :key="filterArray[number]['id']" >
 
     <div class="divider" v-on:click="hideDive({dividers})">
       <p class="dividerBarTxt">{{dividers}}</p>
     </div>
 
-    <template v-for="(menuItems, index) in backendMenu" :key="backendMenu[index]['id']">
+    <template v-for="(menuItems, index) in MenuItems" :key="MenuItems[index]['id']">
     <!-- <div v-for="(menuItems, index) in backendMenu" :key="backendMenu[index]['id']"> -->
       <div v-if="menuItems['category']['name'] === dividers" :class="dividers" class="card text-black bg-light mb-3 menuItem">
 
@@ -51,36 +53,24 @@
 
 <script>
 import MenuData from "../temp/JSONMenu.json"
-import backendMenu from "../temp/backendMenu.json"
-let filterArray = [];
-let number = 0;
-
-for (number; number < backendMenu.length; number++) {
-    filterArray.push({'key':  backendMenu[number]["category"]["id"], "value": backendMenu[number]["category"]["name"]})
-}
-
-filterArray.sort((a, b) => a.key - b.key)
-
-function removeDuplicates(array) {
-    var uniqueArray = [];
-    array.forEach(element => {
-        if(!uniqueArray.includes(element["value"])) {
-          uniqueArray.push(element["value"])
-        }
-    });
-    return uniqueArray;
-}
-
-filterArray = removeDuplicates(filterArray);
+//import backendMenu from "../temp/backendMenu.json"
+import axios from "axios";
 
 export default {
   name: "MenuItem",
   data: () => {
     return {
       isHidden: false,
-      data: MenuData, backendMenu, filterArray
+      data: MenuData,
+      MenuItems: null,
+      filterArray: null
     }
   },
+  created() {
+    // Simple GET request using axios
+    axios.get("https://localhost:7209/api/MenuItem")
+        .then(response => this.MenuItems = response.data);
+    },
   methods: {
     hideDive(key) {
       let className = document.getElementsByClassName(key["catKey"] || key["dividers"]);
@@ -94,6 +84,29 @@ export default {
           className[i].style.display = "inline-block"
         }
       }
+    },
+    makeFilterArray(inputArray) {
+      let filterArray = [];
+      let number = 0;
+
+      for (number; number < inputArray?.length; number++) {
+        filterArray.push({'key':  inputArray[number]["category"]["id"], "value": inputArray[number]["category"]["name"]});
+      }
+
+      filterArray.sort((a, b) => a.key - b.key)
+
+      function removeDuplicates(array) {
+        let uniqueArray = [];
+        array.forEach(element => {
+          if(!uniqueArray.includes(element["value"])) {
+            uniqueArray.push(element["value"])
+          }
+        });
+        return uniqueArray;
+      }
+
+      filterArray = removeDuplicates(filterArray);
+      return filterArray
     }
   }
 }
