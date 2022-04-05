@@ -45,20 +45,24 @@ export default {
       axios.post('https://localhost:7209/api/Account/login', data)
         .then(
           response => {
-            console.log(response);
-
-            const connection = new HubConnectionBuilder()
-              .withUrl('https://localhost:7209/hubs/table')
-              .configureLogging(LogLevel.Information)
-              .build()
-            connection.start()
-            //connection.invoke("OnConnectedAsync");
+            localStorage.userName=response.data.userName;
+            localStorage.token=response.data.token;
           }
         ).catch(
           error => {
             console.log(error);
           }
         )
+
+    const connection = new HubConnectionBuilder()
+      .withUrl('https://localhost:7209/hubs/table', {accessTokenFactory: ()=>localStorage.token})
+      .configureLogging(LogLevel.Information)
+      .build();
+    connection.on("Connected",function (message) {
+      console.log(message);
+    }); 
+    connection.start();
+    
     }
   }
 }
