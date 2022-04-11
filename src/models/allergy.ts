@@ -1,4 +1,4 @@
-export default class Alergy {
+export default class Allergy {
     id: Number;
     name: string;
 

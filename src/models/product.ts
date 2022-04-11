@@ -1,4 +1,4 @@
-import Alergy from "./algergy";
+import Allergy from "./allergy";
 import Category from "./category";
 
 export default class Product {
@@ -7,9 +7,9 @@ export default class Product {
   price: string;
   description: string;
   category: Category;
-  alleries: Alergy[];
+  alleries: Allergy[];
 
-  constructor(id: Number, name: string, price: string, description: string, category: Category, alleries: Alergy[]) {
+  constructor(id: Number, name: string, price: string, description: string, category: Category, alleries: Allergy[]) {
     this.id = id;
     this.name = name;
     this.price = price;
