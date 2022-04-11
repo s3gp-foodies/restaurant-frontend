@@ -32,9 +32,9 @@
 </template> 
 
 <script>
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import User from "../models/user";
 import AccountService from '../services/account.service';
+import TableSocketService from '../services/tablesocket.service';
 
 export default {
   name: "LoginPage",
@@ -45,19 +45,8 @@ export default {
   },
   methods: {
     handleLogin() {
-      //api
       AccountService.Login(this.user);
-
-      //websocket
-      const connection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7209/hubs/table", {
-          accessTokenFactory: () => localStorage.token,
-        })
-        .build();
-      connection.on("Connected", function (message) {
-        console.log(message);
-      });
-      connection.start();
+      TableSocketService.Connect();
     },
   },
 };
