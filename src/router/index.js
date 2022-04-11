@@ -3,6 +3,8 @@ import Menu from '../views/Menu.vue'
 import Orders from '../views/Orders.vue'
 import Order from '../views/Order.vue'
 import dishOverview from "@/views/DishOverview";
+import testDraggble from "@/views/testDraggble";
+import vueDraggableTest from "@/views/vueDraggbleTest";
 
 const routes = [
   {
@@ -24,6 +26,16 @@ const routes = [
     path: '/dish-overview',
     name: 'DishOverview',
     component: dishOverview
+  },
+  {
+    path: '/testDrag',
+    name: 'testDrag',
+    component: testDraggble
+  },
+  {
+    path: '/VueDrag',
+    name: 'vueDrag',
+    component: vueDraggableTest
   }
 ]
 

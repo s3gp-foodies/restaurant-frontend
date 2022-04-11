@@ -1,29 +1,6 @@
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- Styled Menu Item with Bootstrap
-    <div v-for="(dishes, catKey) in data['MenuList']" :key="dishes">
-      <div v-for="menuItems in data" :key="menuItems" class="divider" v-on:click="hideDive({catKey})">
-          <p class="dividerBarTxt">{{catKey}}</p>
-      </div>
-        <div v-for="(dish, key) in dishes" :key="dish" :class="catKey" class="card text-black bg-light mb-3 menuItem">
-          <h3 class="display-6 card-header">{{key}}</h3>
-          <div class="card-body text-black">
-          <img v-if="dish.imgLink == null" class="foodImage" src="https://www.martijnkardol.nl/wp-content/uploads/2021/07/placeholder-5.png">
-          <img v-else class="foodImage" :src="dish.imgLink" alt="">
-          <p class="foodTxt"> {{dish.description}} </p>
-              <p class="priceTxT">
-                <button type="button" class="btn btn-outline-secondary"><i class="fa fa-minus"></i></button>
-                <input style="height: 35px; width: 50%;" type="number" class="numberInput" />
-                <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></button>
-                <button  type="submit" class="btn btn-outline-secondary"> Voeg toe </button> <br>
-                &euro; {{dish.price}} Per stuk  </p>
-            </div>
-          </div>
-    </div> -->
-
-
-
   <div v-for="(dividers, number) in filterArray = makeFilterArray(MenuItems)" :key="filterArray[number]['id']" >
 
     <div class="divider" v-on:click="hideDive({dividers})">
@@ -52,8 +29,6 @@
 </template>
 
 <script>
-import MenuData from "../temp/JSONMenu.json"
-//import backendMenu from "../temp/backendMenu.json"
 import axios from "axios";
 
 export default {
@@ -61,7 +36,6 @@ export default {
   data: () => {
     return {
       isHidden: false,
-      data: MenuData,
       MenuItems: null,
       filterArray: null
     }
