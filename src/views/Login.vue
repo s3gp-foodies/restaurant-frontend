@@ -32,10 +32,9 @@
 </template> 
 
 <script>
-import axios from "axios";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import User from "../models/user";
-import UserService from '../helpers/user.service';
+import AccountService from '../helpers/account.service';
 
 export default {
   name: "LoginPage",
@@ -46,17 +45,10 @@ export default {
   },
   methods: {
     handleLogin() {
-      axios
-        .post("https://localhost:7209/api/Account/login", this.user)
-        .then((response) => {
-          localStorage.userId = response.data.id;
-          localStorage.userName = response.data.userName;
-          localStorage.token = response.data.token;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      //api
+      AccountService.Login(this.user);
 
+      //websocket
       const connection = new HubConnectionBuilder()
         .withUrl("https://localhost:7209/hubs/table", {
           accessTokenFactory: () => localStorage.token,
@@ -64,7 +56,6 @@ export default {
         .build();
       connection.on("Connected", function (message) {
         console.log(message);
-        console.log(UserService);
       });
       connection.start();
     },
