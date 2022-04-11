@@ -4,19 +4,6 @@ import App from './App.vue'
 import router from './router'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
-
-const store = createStore({
-    state () {
-        return {
-            count: 0
-        }
-    },
-    mutations: {
-        increment (state) {
-            state.count++
-        }
-    }
-})
 import VeeValidate from 'vee-validate';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -30,4 +17,4 @@ import {
 
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 
-createApp(App).component('FontAwesomeIcon', FontAwesomeIcon).use(router, store, VeeValidate).mount('#app')
+createApp(App).component('FontAwesomeIcon', FontAwesomeIcon).use(router, VeeValidate).mount('#app')

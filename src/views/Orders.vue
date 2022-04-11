@@ -28,7 +28,7 @@
 
 <script>
 import orders from '../temp/orders.json'
-import { ordersCalculations } from '../helpers/ordersHelper.js'
+import { ordersCalculations } from '../helpers/ordersHelper.ts'
 
 export default {
   name: 'OrdersPage',

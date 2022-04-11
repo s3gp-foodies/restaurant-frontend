@@ -1,9 +1,10 @@
+import User from '@/models/user';
 import axios from 'axios';
 
 const API_URL = 'https://localhost:7209/api/account/';
 
 class AccountService {
-    Login(user) {
+    Login(user: User) {
         return axios
             .post(API_URL + "login", user)
             .then((response) => {
