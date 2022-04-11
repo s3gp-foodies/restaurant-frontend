@@ -7,8 +7,7 @@
           <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
             <div class="card-header">{{element.name}}</div>
             <div class="card-body">
-              <h5 class="card-title">{{ element.amount }} times orderd</h5>
-              <p class="card-text">{{element.price}}</p>
+              <h5 class="card-title">{{ element.amount }} times orderd</h5> 
             </div>
           </div>
       </template>
