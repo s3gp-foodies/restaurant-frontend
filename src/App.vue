@@ -2,8 +2,8 @@
 
   <div class="nav justify-content-center">
     <router-link to="/" class="nav-link">Menu</router-link>&nbsp;
-    <router-link to="/orders" class="nav-link">Overzicht Bestellingen</router-link>&nbsp;
-    <router-link to="/order" class="nav-link">Huidige Bestelling</router-link>
+    <router-link to="/orders" class="nav-link">Overzicht Bestellingen</router-link>
+    <router-link v-if="haha != null" to="/order" class="nav-link">Huidige Bestelling</router-link>
   </div>
 
   <router-view/>
@@ -12,7 +12,18 @@
 <script>
 
 export default {
-  name: 'App'
+  name: 'App',
+  mounted()
+  {
+    let haha = JSON.parse(sessionStorage.getItem("Test"))
+    this.haha = haha
+    console.log(haha)
+  },
+  data (){
+    return{
+      haha : {}
+    }
+  }
 }
 </script>
 
