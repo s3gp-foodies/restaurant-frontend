@@ -17,7 +17,6 @@ export default {
   {
     let haha = JSON.parse(sessionStorage.getItem("Test"))
     this.haha = haha
-    console.log(haha)
   },
   data (){
     return{

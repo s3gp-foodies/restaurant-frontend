@@ -73,9 +73,11 @@ export default {
   },
   mounted(){
     let itemlist = JSON.parse(sessionStorage.getItem("Test"))
+    console.log(itemlist)
     if(itemlist != null){
       console.log("test")
-      this.MenuData = itemlist
+      this.data.MenuList = itemlist
+      console.log(this.data.MenuList)
     }
     console.log(itemlist)
   }
