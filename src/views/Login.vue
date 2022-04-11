@@ -35,6 +35,7 @@
 import axios from "axios";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import User from "../models/user";
+import UserService from '../helpers/user.service';
 
 export default {
   name: "LoginPage",
@@ -63,6 +64,7 @@ export default {
         .build();
       connection.on("Connected", function (message) {
         console.log(message);
+        console.log(UserService);
       });
       connection.start();
     },
