@@ -1,6 +1,6 @@
 <template>
   <h2>Ordres that came in</h2>
-  <p> Interact with the the element by touching them </p>
+  <p> Interact with the the element by dragging them across the screen </p>
   <table class="table table-bordered table-info">
     <thead class="thead-dark">
     <tr>
