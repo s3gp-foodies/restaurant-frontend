@@ -1,5 +1,5 @@
 import axios from 'axios';
-import authHeader from './auth-header';
+import authHeader from '../helpers/auth-header';
 
 const API_URL = 'https://localhost:7209/api/menu/';
 

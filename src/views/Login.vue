@@ -34,7 +34,7 @@
 <script>
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import User from "../models/user";
-import AccountService from '../helpers/account.service';
+import AccountService from '../services/account.service';
 
 export default {
   name: "LoginPage",
