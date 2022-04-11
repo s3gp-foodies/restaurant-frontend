@@ -1,6 +1,6 @@
-<template> 
+<template>
   <div class="menu">
-    <DishItem></DishItem>  
+    <DishItem></DishItem>
   </div>
 </template>
 
@@ -10,13 +10,15 @@ import DishItem from "../components/DishItem";
 export default {
   name: "MenuItem",
   components: {
-    DishItem
-  }
-}
+    DishItem,
+  },
+};
 </script>
 
 <style scoped>
-body {margin:0;}
+body {
+  margin: 0;
+}
 
 .stickyMenu {
   list-style-type: none;
@@ -32,7 +34,7 @@ body {margin:0;}
 .stickyMenuItem {
   float: left;
   border-right: 1px solid #bbb;
- }
+}
 
 .stickyMenuItem:last-child {
   border-right: none;
@@ -52,6 +54,6 @@ body {margin:0;}
 
 .active {
   background-color: #0094d8;
-  color: #fff
+  color: #fff;
 }
 </style>
