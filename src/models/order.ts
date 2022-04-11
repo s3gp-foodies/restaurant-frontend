@@ -1,7 +1,13 @@
-export default class Order {
-    products: []; 
+import ProductOrder from "./productorder";
 
-    constructor(products: []) {
+export default class Order {
+    id: Number;
+    time: Date;
+    products: ProductOrder[]; 
+
+    constructor(id: Number, time: Date, products: ProductOrder[]) {
+      this.id = id;
+      this.time = time;
       this.products = products;
     }
 }
