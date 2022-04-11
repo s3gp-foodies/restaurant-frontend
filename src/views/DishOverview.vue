@@ -4,10 +4,11 @@
   <table class="table table-bordered table-info">
     <thead class="thead-dark">
     <tr>
-      <th scope="col">Bestelling</th>
-      <th scope="col">Bezig</th>
-      <th scope="col">Bijna klaar</th>
-      <th scope="col">Klaar voor servering</th>
+      <th scope="col">New</th>
+      <th scope="col">Accepted</th>
+      <th scope="col">In Progress</th>
+      <th scope="col">Done</th>
+      <th scope="col">Beaning served</th>
     </tr>
     </thead>
     <tbody>
@@ -15,6 +16,54 @@
       <dish-overview-component class="list-group-item">
 
       </dish-overview-component>
+      <td>
+        <draggable :list="acceptedList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
+        <template #item="{ element }">
+          <div class="card text-black bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{element.name}}</div>
+            <div class="card-body">
+              <h5 class="card-title">{{ element.amount }}x ordered </h5>
+            </div>
+          </div>
+        </template>
+      </draggable>
+      </td>
+      <td>
+        <draggable :list="inProgressList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
+            <template #item="{ element }">
+              <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">{{element.name}}</div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ element.amount }}x ordered </h5>
+                </div>
+              </div>
+            </template>
+        </draggable>
+      </td>
+      <td>
+        <draggable :list="doneList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
+        <template #item="{ element }">
+          <div class="card text-black bg-info mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{element.name}}</div>
+            <div class="card-body">
+              <h5 class="card-title">{{ element.amount }}x ordered </h5>
+            </div>
+          </div>
+        </template>
+      </draggable>
+      </td>
+      <td>
+        <draggable :list="servingList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
+        <template #item="{ element }">
+          <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{element.name}}</div>
+            <div class="card-body">
+              <h5 class="card-title">{{ element.amount }}x ordered </h5>
+            </div>
+          </div>
+        </template>
+      </draggable>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -22,12 +71,25 @@
 
 <script>
 import dishOverviewComponent from "@/components/DishOverviewComponent";
-
+import draggable from "vuedraggable";
+let acceptedList = [];
+let inProgressList = [];
+let doneList = [];
+let servingList = [];
 
 export default {
   name: "DishOverview",
   components: {
-    dishOverviewComponent
+    dishOverviewComponent,
+    draggable
+  },
+  data: () => {
+    return {
+      acceptedList,
+      inProgressList,
+      doneList,
+      servingList,
+    }
   }
 }
 
