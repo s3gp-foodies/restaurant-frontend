@@ -1,24 +1,24 @@
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <div v-show="this.bool == true">First go to the menu page </div>
-  <div v-for="(dishes, item) in itemlist" :key="dishes">
+  <div v-if="this.test == false">Testing</div>
+  <div v-for="(dishes, item) in haha" :key="dishes">
     <div  class="divider">
       <p class="dividerBarTxt"> {{ item }} </p>
     </div>
-    <div v-for="(dish, key) in dishes" :key="dish" class="" >
-      <div v-if="dish.amount !== 0" class="card text-black bg-light mb-3 menuItem">
+    <div v-for="(dish, key) in dishes" :key="dish" >
+      <div v-if="dish.amount != 0" class="card text-black bg-light mb-3 menuItem">
         <h3 class="display-6 card-header">{{ key }}</h3>
         <div class="card-body text-black">
           <img class="foodImage" :src="dish.imgLink" alt="">
           <p class="foodTxt"> {{ dish.description }} </p>
-          <p class="priceTxT row">
-            <button type="button" class="btn btn-outline-secondary col-2" @click="subtractfrom(dish)"><i
+          <p class="priceTxT">
+            <button type="button" class="btn btn-outline-secondary" @click="subtractfrom(dish)"><i
                 class="fa fa-minus"></i></button>
-            <input style="height: 30px;" type="number" class="numberInput col-8" v-model="dish.amount"
+            <input style="height: 30px;" type="number" class="numberInput" v-model="dish.amount"
                    @input="OnInput(dish.amount, dish)"/>
             <strong v-if="dish.amount >14">Cannot be more then 15</strong>
             <strong v-if="dish.amount <0 ">Cannot be less then 0</strong>
-            <button type="button" class="btn btn-outline-secondary col-2" @click="addto(dish)"><i class="fa fa-plus"></i>
+            <button type="button" class="btn btn-outline-secondary" @click="addto(dish)"><i class="fa fa-plus"></i>
             </button>
             <!--      <button  type="submit" class="btn btn-outline-secondary"> Voeg toe </button> <br>-->
             &euro; {{ dish.price }} Per stuk
@@ -50,29 +50,33 @@ export default {
       } else if (dish.amount >= 15) {
         dish.amount = 15
       }
-      else if(dish.amount == 0){
-        console.log("hiermoetiets")
-
-      }
-      sessionStorage.setItem("Test",  JSON.stringify(this.itemlist))
+    },
+    filtermethod: function (dish) {
+      console.log(dish)
     }
   },
   data() {
     return {
-      itemlist: {},
-      bool: false
+      haha: {},
+      test: false
     }
   },
   mounted() {
-    let itemlist = JSON.parse(sessionStorage.getItem("Test"))
-    this.itemlist = itemlist
-    console.log(itemlist)
-    if(itemlist == null){
-      console.log('testing')
-      this.bool = true
+    let haha = JSON.parse(sessionStorage.getItem("Test"))
+    this.haha = haha
+    console.log(haha)
+    if (!haha.length) {
+      this.test = true
     }
 
-  }
+    // for(let items in haha){
+    //   console.log(items)
+    //   for(let dishes in items["Salade"]){
+    //     console.log(dishes)
+    //   }
+    // }
+  },
+  computed: {}
 }
 </script>
 
