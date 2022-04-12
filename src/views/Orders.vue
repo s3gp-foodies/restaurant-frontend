@@ -32,6 +32,7 @@ import menu from '../temp/backendMenu.json'
 import { ordersCalculations } from '../helpers/ordersHelper.ts'
 import ProductOrder from '@/models/productorder'
 import Order from '@/models/order'
+//import Menu from '@/models/menu'
 
 export default {
   name: 'OrdersPage',
@@ -50,14 +51,17 @@ export default {
     var product_order_2 = new ProductOrder(1, 4); // 4*Fruit Punch
     var product_order_3 = new ProductOrder(2, 2); // 2*Zalm Toast
 
-    // added orders
+    // added orders with ordered products
     var order_1 = new Order(0, '01:10' , [product_order_1, product_order_3]);
     var order_2 = new Order(1, '02:10' , [product_order_2]);
+    console.log(order_1, order_2);
 
-    console.log(order_1);
-    console.log(order_2);
+    // find products in menu from ordered products
+    
 
-    //console.log(menu);
+    // added menu with products
+    //var menu_1 = new Menu([products_1, products_2]);
+    //console.log(menu_1);
 
     this.data['orders'] = ordersCalculations.multiplyPriceTotalProduct(this.data['orders']);
     this.data['orders'] = ordersCalculations.addPriceTotalOrder(this.data['orders']);
