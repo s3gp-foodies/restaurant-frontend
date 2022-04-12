@@ -45,7 +45,7 @@
       <td style="width: 18rem">
         <draggable :list="doneList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
         <template #item="{ element }">
-          <div class="card text-black bg-info mb-3">
+          <div class="card text-white bg-success mb-3">
             <div class="card-header">{{element.name}}</div>
             <div class="card-body">
               <h5 class="card-title">{{ element.amount }}x ordered </h5>
@@ -57,7 +57,7 @@
       <td style="width: 18rem">
         <draggable :list="servingList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
         <template #item="{ element }">
-          <div class="card text-white bg-success mb-3 remove">
+          <div class="card text-black bg-info mb-3 remove">
             <div class="card-header">{{element.name}}</div>
             <div class="card-body">
               <h5 class="card-title">{{ element.amount }}x ordered </h5>
