@@ -30,17 +30,17 @@
 import orders from '../temp/orders.json'
 import fullMenu from '../temp/backendMenu.json'
 import { ordersCalculations } from '../helpers/ordersHelper.ts'
-import ProductOrder from '@/models/productorder'
-import Order from '@/models/order'
-//import Menu from '@/models/menu'
+import ProductOrder from '@/models/productorder.ts'
+import Order from '@/models/order.ts'
+import Product from '@/models/product.ts'
 
 export default {
   name: 'OrdersPage',
   data: () => {
     return {
       data: orders,
-      fullMenu/*,
-      orderedMenu*/
+      fullMenu,
+      ordereredMenu: []
     }
   },
   props: {
@@ -62,6 +62,11 @@ export default {
         if(ordered_product.productid == product.id) {
           console.log("Name, price and amount in order_1 with time: "+order_1['time']);
           console.log(product.name  + " | €" + product.price + " | " + ordered_product.count);
+
+          this.ordereredMenu.push([
+            [order_1['time'], ordered_product.count], 
+            new Product(ordered_product.productid, product.name, product.price, product.description, product.category, product.allergies)
+          ]);
         } 
       });
 
@@ -69,14 +74,17 @@ export default {
         if(ordered_product.productid == product.id) {
           console.log("Name, price and and amount in order_2 with time: "+order_2['time']);
           console.log(product.name  + " | €" + product.price + " | " + ordered_product.count);
+
+          this.ordereredMenu.push([
+            [order_2['time'], ordered_product.count], 
+            new Product(ordered_product.productid, product.name, product.price, product.description, product.category, product.allergies)
+          ]);
         } 
       });
     });
 
     // get orderered menu
-    //console.log(orderedMenu);
-
-
+    console.log(this.ordereredMenu);
 
     //temporary
     this.data['orders'] = ordersCalculations.multiplyPriceTotalProduct(this.data['orders']);
