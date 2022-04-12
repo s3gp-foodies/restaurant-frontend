@@ -13,15 +13,15 @@
     </thead>
     <tbody>
     <tr>
-      <td>
+      <td style="width: 18rem">
       <dish-overview-component class="list-group-item">
 
       </dish-overview-component>
       </td>
-      <td>
+      <td style="width: 18rem">
         <draggable :list="acceptedList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
         <template #item="{ element }">
-          <div class="card text-black bg-warning mb-3" style="max-width: 18rem;">
+          <div class="card text-black bg-warning mb-3">
             <div class="card-header">{{element.name}}</div>
             <div class="card-body">
               <h5 class="card-title">{{ element.amount }}x ordered </h5>
@@ -30,10 +30,10 @@
         </template>
       </draggable>
       </td>
-      <td>
+      <td style="width: 18rem">
         <draggable :list="inProgressList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
             <template #item="{ element }">
-              <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+              <div class="card text-white bg-danger mb-3">
                 <div class="card-header">{{element.name}}</div>
                 <div class="card-body">
                   <h5 class="card-title">{{ element.amount }}x ordered </h5>
@@ -42,10 +42,10 @@
             </template>
         </draggable>
       </td>
-      <td>
+      <td style="width: 18rem">
         <draggable :list="doneList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
         <template #item="{ element }">
-          <div class="card text-black bg-info mb-3" style="max-width: 18rem;">
+          <div class="card text-black bg-info mb-3">
             <div class="card-header">{{element.name}}</div>
             <div class="card-body">
               <h5 class="card-title">{{ element.amount }}x ordered </h5>
@@ -54,10 +54,10 @@
         </template>
       </draggable>
       </td>
-      <td>
+      <td style="width: 18rem">
         <draggable :list="servingList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
         <template #item="{ element }">
-          <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+          <div class="card text-white bg-success mb-3 remove">
             <div class="card-header">{{element.name}}</div>
             <div class="card-body">
               <h5 class="card-title">{{ element.amount }}x ordered </h5>
@@ -85,6 +85,13 @@ window.setInterval(() => {
 }, 60000)
 
 function emptyServingList() {
+  let removeArray = []
+  let counter = 0
+
+  removeArray = document.getElementsByClassName("remove");
+  for(counter; counter < removeArray.length; counter++) {
+    removeArray[counter].style.display = "none"
+  }
   servingList.splice(0, servingList.length)
 }
 
