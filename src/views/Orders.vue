@@ -28,19 +28,37 @@
 
 <script>
 import orders from '../temp/orders.json'
+import menu from '../temp/backendMenu.json'
 import { ordersCalculations } from '../helpers/ordersHelper.ts'
+import ProductOrder from '@/models/productorder'
+import Order from '@/models/order'
 
 export default {
   name: 'OrdersPage',
   data: () => {
     return {
       data: orders,
+      menu
     }
   },
   props: {
     orders: Array
   },
   created() {
+    // added ordered products 
+    var product_order_1 = new ProductOrder(0, 3); // 3*Salade
+    var product_order_2 = new ProductOrder(1, 4); // 4*Fruit Punch
+    var product_order_3 = new ProductOrder(2, 2); // 2*Zalm Toast
+
+    // added orders
+    var order_1 = new Order(0, '01:10' , [product_order_1, product_order_3]);
+    var order_2 = new Order(1, '02:10' , [product_order_2]);
+
+    console.log(order_1);
+    console.log(order_2);
+
+    //console.log(menu);
+
     this.data['orders'] = ordersCalculations.multiplyPriceTotalProduct(this.data['orders']);
     this.data['orders'] = ordersCalculations.addPriceTotalOrder(this.data['orders']);
     this.data['orders'] = ordersCalculations.addPriceTotalOrders(this.data['orders']); 

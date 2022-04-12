@@ -16,7 +16,7 @@
   },
   {
     "id": 1,
-    "name": "Fruit punch",
+    "name": "Fruit Punch",
     "description": "Punch je mond met een verfrissende fruit punch ",
     "price": 2.50,
     "allergy": [
@@ -31,7 +31,7 @@
   },
   {
     "id": 2,
-    "name": "Zalm Toasts",
+    "name": "Zalm Toast",
     "description": "Vers gebakken toast met een kalm bereide zalm. Licht en frissend van smaak",
     "price": 4.50,
     "allergy": [
