@@ -1,5 +1,4 @@
 <template>
-
   <div id="nav">
     <router-link to="/" class="nav-link">Login</router-link>&nbsp;
     <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;
@@ -10,11 +9,16 @@
   <router-view/>
 </template>
 
-<script>
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import HelloWorld from './components/HelloWorld.vue';
 
-export default {
-  name: 'App'
-}
+@Options({
+  components: {
+    HelloWorld,
+  },
+})
+export default class App extends Vue {}
 </script>
 
 <style>
@@ -25,8 +29,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-.active {
-  background: #bbb;
 }
 </style>

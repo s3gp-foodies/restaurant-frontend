@@ -1,15 +1,27 @@
-<template> 
+<template>
   <div class="login">
-    <hr size="3" width="85%"> 
+    <hr size="3" width="85%" />
     <div class="panel">
-      <form action="#" @submit.prevent="login">
+      <form action="#" @submit.prevent="handleLogin">
         <div class="section">
-          <label for="username">Username:</label>
-          <input required type="text" name="username"/>  
+          <label>Username:</label>
+          <input
+            v-model="user.username"
+            type="text"
+            class="form-control"
+            name="username"
+            required
+          />
         </div>
         <div class="section">
-          <label for="password">Password:</label>
-          <input required type="password" name="password"/>  
+          <label>Password:</label>
+          <input
+            v-model="user.password"
+            type="password"
+            class="form-control"
+            name="password"
+            required
+          />
         </div>
         <div class="section">
           <button type="login">Login</button>
@@ -20,49 +32,24 @@
 </template> 
 
 <script>
-import axios from 'axios';
-import { HubConnectionBuilder } from '@microsoft/signalr';
+import User from "../models/user";
+import AccountService from '../services/account.service';
+import TableSocketService from '../services/tablesocket.service';
 
 export default {
-  name: 'LoginPage',
+  name: "LoginPage",
   data: () => {
     return {
-      username: '',
-      password: ''
-    }
-  },  
+      user: new User("", "Passw0rd!"),
+    };
+  },
   methods: {
-    login(action) {
-      const { username } = Object.fromEntries(new FormData(action.target));
-
-      const data = {  
-        userName: username,  
-        password: 'Passw0rd!'
-      };
-
-      axios.post('https://localhost:7209/api/Account/login', data)
-        .then(
-          response => {
-            localStorage.userName = response.data.userName;
-            localStorage.token = response.data.token;
-          }
-        ).catch(
-          error => {
-            console.log(error);
-          }
-        )
-
-      const connection = new HubConnectionBuilder()
-        .withUrl('https://localhost:7209/hubs/table', {accessTokenFactory: ()=> localStorage.token })
-        .build();
-      connection.on("Connected",function (message) {
-        console.log(message);
-      }); 
-      connection.start();
-       
-      }
-  }
-}
+    handleLogin() {
+      AccountService.Login(this.user);
+      TableSocketService.Connect();
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -70,16 +57,17 @@ export default {
   margin: 24px auto;
 }
 .login.panel {
-   margin-top: 300px;
+  margin-top: 300px;
 }
 .login form {
   display: block;
   margin: auto;
   border: 1px solid black;
-  width: 250px;
-  padding: 15px 5px;
+  width: 270px;
+  padding: 15px 20px;
 }
-.login .section:not(:first-of-type), .loginpage input {
+.login .section:not(:first-of-type),
+.loginpage input {
   margin-top: 10px;
 }
 </style>
