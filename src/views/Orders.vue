@@ -39,7 +39,8 @@ export default {
   data: () => {
     return {
       data: orders,
-      fullMenu
+      fullMenu/*,
+      orderedMenu*/
     }
   },
   props: {
@@ -73,12 +74,8 @@ export default {
       console.log(product.id + " | " + product.name);
     });
 
-    //find products in menu from ordered products
-    
-
-    // added menu with products
-    //var orderedMenu = new Menu([products_1, products_2]);
-    //console.log(OrderedMenu);
+    // get orderered menu
+    //console.log(orderedMenu);
 
 
 
