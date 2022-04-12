@@ -13,9 +13,11 @@
     </thead>
     <tbody>
     <tr>
+      <td>
       <dish-overview-component class="list-group-item">
 
       </dish-overview-component>
+      </td>
       <td>
         <draggable :list="acceptedList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
         <template #item="{ element }">
@@ -77,6 +79,15 @@ let inProgressList = [];
 let doneList = [];
 let servingList = [];
 
+
+window.setInterval(() => {
+  emptyServingList()
+}, 60000)
+
+function emptyServingList() {
+  servingList.splice(0, servingList.length)
+}
+
 export default {
   name: "DishOverview",
   components: {
@@ -90,7 +101,7 @@ export default {
       doneList,
       servingList,
     }
-  }
+  },
 }
 
 
@@ -99,5 +110,9 @@ export default {
 <style scoped>
 .table {
   min-height: 10px;
+}
+
+draggable {
+  position: fixed!important;
 }
 </style>
