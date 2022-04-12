@@ -56,22 +56,21 @@ export default {
     var order_1 = new Order(0, '01:10' , [product_order_1, product_order_3]);
     var order_2 = new Order(1, '02:10' , [product_order_2]);
 
-    // find ordered products ids and amounts in order1
-    console.log("find ordered products ids and amounts in order1");
-    order_1['products'].forEach((ordered_product) => {
-      console.log(ordered_product.productid + " | " + ordered_product.count);
-    });
-
-    // find ordered products ids and amounts in order2
-    console.log("find ordered products ids and amounts in order2");
-    order_2['products'].forEach((ordered_product) => {
-      console.log(ordered_product.productid + " | " + ordered_product.count);
-    });
-
-    // find ids and names from all products
-    console.log("find ids and names from all products");
+    //find products in menu from ordered products
     fullMenu.forEach((product) => {
-      console.log(product.id + " | " + product.name);
+      order_1['products'].forEach((ordered_product) => {  
+        if(ordered_product.productid == product.id) {
+          console.log("Name, price and amount in order_1 with time: "+order_1['time']);
+          console.log(product.name  + " | €" + product.price + " | " + ordered_product.count);
+        } 
+      });
+
+      order_2['products'].forEach((ordered_product) => {
+        if(ordered_product.productid == product.id) {
+          console.log("Name, price and and amount in order_2 with time: "+order_2['time']);
+          console.log(product.name  + " | €" + product.price + " | " + ordered_product.count);
+        } 
+      });
     });
 
     // get orderered menu
