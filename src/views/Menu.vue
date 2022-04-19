@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DishItem from "../components/DishItem";
+import DishItem from "../components/MenuItem";
 
 export default {
   name: "MenuItem",

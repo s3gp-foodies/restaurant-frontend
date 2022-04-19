@@ -1,7 +1,7 @@
 [
   {
     "id": 0,
-    "name": "Salade",
+    "title": "Salade",
     "description": "Een verse Salade met vers gepikte groente van het land",
     "price": 2.50,
     "allergy": [
@@ -16,7 +16,7 @@
   },
   {
     "id": 1,
-    "name": "Fruit Punch",
+    "title": "Fruit punch",
     "description": "Punch je mond met een verfrissende fruit punch ",
     "price": 2.50,
     "allergy": [
@@ -31,7 +31,7 @@
   },
   {
     "id": 2,
-    "name": "Zalm Toast",
+    "title": "Zalm Toasts",
     "description": "Vers gebakken toast met een kalm bereide zalm. Licht en frissend van smaak",
     "price": 4.50,
     "allergy": [
@@ -46,7 +46,7 @@
   },
   {
     "id": 3,
-    "name": "T-Bone Steak",
+    "title": "T-Bone Steak",
     "description": "T-bone steak for the ones with a tough stomach ",
     "price": 14.50,
     "allergy": [
@@ -61,7 +61,7 @@
   },
   {
     "id": 6,
-    "name": "Kruiden Boter",
+    "title": "Kruiden Boter",
     "description": "Begin de avond vers met wat stokbrood en kruidenboter",
     "price": 5.50,
     "allergy": [
@@ -76,7 +76,7 @@
   },
   {
     "id": 4,
-    "name": "Burger menu",
+    "title": "Burger menu",
     "description": "Laat je verleiden door ons vers keuze aan burgers met een frietje en een drankje",
     "price": 14.50,
     "allergy": [
@@ -91,7 +91,7 @@
   },
   {
     "id": 5,
-    "name": "Cheesecake",
+    "title": "Cheesecake",
     "description": "Nooit genoeg gehad? Honger? Na het eten van onze cheesecase ga jij zeker gevuld naar huis ",
     "price": 14.50,
     "allergy": [
