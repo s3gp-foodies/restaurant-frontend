@@ -56,32 +56,43 @@ export default {
     var order_1 = new Order(0, '01:10' , [product_order_1, product_order_3]);
     var order_2 = new Order(1, '02:10' , [product_order_2]);
 
-    //find products in menu from ordered products
+    // added orders with ordered products ouptut
+    var ordered_products_1 = [];
+    var ordered_1 = ['01:10', ordered_products_1];
+
+    var ordered_products_2 = [];
+    var ordered_2 = ['02:10', ordered_products_2];
+
+    // find products in menu from ordered products
     fullMenu.forEach((product) => {
       order_1['products'].forEach((ordered_product) => {  
         if(ordered_product.productid == product.id) {
-          console.log("Name, price and amount in order_1 with time: "+order_1['time']);
+          console.log("Name, price and amount in order_1 with time: " + order_1['time']);
           console.log(product.name  + " | €" + product.price + " | " + ordered_product.count);
 
-          this.ordereredMenu.push([
-            [order_1['time'], ordered_product.count], 
-            new Product(ordered_product.productid, product.name, product.price, product.description, product.category, product.allergies)
+          // push products and counts to orderered products 1
+          ordered_products_1.push([
+            [new Product(ordered_product.productid, product.name, product.price, product.description, product.category, product.allergies), ordered_product.count]
           ]);
         } 
       });
 
       order_2['products'].forEach((ordered_product) => {
         if(ordered_product.productid == product.id) {
-          console.log("Name, price and and amount in order_2 with time: "+order_2['time']);
+          console.log("Name, price and and amount in order_2 with time: " + order_2['time']);
           console.log(product.name  + " | €" + product.price + " | " + ordered_product.count);
 
-          this.ordereredMenu.push([
-            [order_2['time'], ordered_product.count], 
-            new Product(ordered_product.productid, product.name, product.price, product.description, product.category, product.allergies)
+          // push products and counts to orderered products 2
+          ordered_products_2.push([
+            [new Product(ordered_product.productid, product.name, product.price, product.description, product.category, product.allergies), ordered_product.count]
           ]);
         } 
       });
     });
+
+    // add ordered products to ordered menu
+    this.ordereredMenu.push(ordered_1);
+    this.ordereredMenu.push(ordered_2);
 
     // get orderered menu
     console.log(this.ordereredMenu);
