@@ -8,25 +8,27 @@
     </div>
 
     <template v-for="(menuItems, index) in MenuItems" :key="MenuItems[index]['id']">
-    <!-- <div v-for="(menuItems, index) in backendMenu" :key="backendMenu[index]['id']"> -->
       <div v-if="menuItems['category']['name'] === dividers" :class="dividers" class="card text-black bg-light mb-3 menuItem">
 
         <h3 class="display-6 card-header">{{menuItems["title"]}}</h3>
         <div class="card-body text-black">
+          <img v-if="menuItems['imgLink'] == null" class="foodImage" src="https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640">
+          <img v-else class="foodImage" :src="menuItems['imgLink']" alt="">
           <p class="foodTxt"> {{menuItems["description"]}} </p>
           <p class="priceTxT">
             <button type="button" class="btn btn-outline-secondary"><i class="fa fa-minus"></i></button>
-            <input style="height: 35px; width: 50%;" type="number" class="numberInput" />
+            <input style="height: 35px; width: 50%;" type="number" class="numberInput" min="0"/>
             <button type="button" class="btn btn-outline-secondary"><i class="fa fa-plus"></i></button>
             <button  type="submit" class="btn btn-outline-secondary"> Voeg toe </button> <br>
             &euro; {{menuItems["price"]}} Per stuk  </p>
         </div>
       </div>
       </template>
-
-    <!-- </div> -->
   </div>
 </template>
+
+<!-- <img v-if="dish.imgLink == null" class="foodImage" src="https://www.martijnkardol.nl/wp-content/uploads/2021/07/placeholder-5.png">
+          <img v-else class="foodImage" :src="dish.imgLink" alt=""> -->
 
 <script>
 import axios from "axios";
