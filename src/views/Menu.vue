@@ -1,16 +1,16 @@
 <template>
   <div class="menu">
-    <DishItem></DishItem>
+    <MenuList></MenuList>
   </div>
 </template>
 
 <script>
-import DishItem from "../components/MenuItem";
+import MenuList from "../components/MenuList";
 
 export default {
   name: "MenuItem",
   components: {
-    DishItem,
+    MenuList,
   },
 };
 </script>

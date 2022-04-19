@@ -1,5 +1,5 @@
 import Product from "./product";
-import ProductOrder from "./productorder";
+import OrderProduct from "./order-product";
 
 export default class Menu {
     products: Product[];
