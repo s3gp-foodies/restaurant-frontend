@@ -5,19 +5,19 @@
       <table v-for="order in order_listings" :key="order">
         <tr v-for="product in order.products" :key="product">
           <td>{{ product.name }}</td>
-          <td>{{ product.count }} x &euro;&thinsp;{{ product.price }}</td>
-          <td>&euro;&thinsp;{{ product.totalprice }}</td>
+          <td>{{ product.count }} x &euro;&thinsp;{{ parseFloat(product.price).toFixed(2) }}</td>
+          <td>&euro;&thinsp;{{ parseFloat(product.totalprice).toFixed(2) }}</td>
         </tr>
         <tr>
           <th>{{ order.time }}</th>
           <th></th>
-          <th>&euro;&thinsp;{{ order.totalprice }}</th>
+          <th>&euro;&thinsp;{{ parseFloat(order.totalprice).toFixed(2) }}</th>
         </tr>
       </table>
     </div>
     <hr size="3" width="85%" />
     <div class="totalprice">
-      <h4>Totaal: &euro;&thinsp;{{ totalprice }}</h4>
+      <h4>Totaal: &euro;&thinsp;{{ parseFloat(totalprice).toFixed(2) }}</h4>
     </div>
     <div class="payment-buttons">
       <button class="btn btn-primary">Kassa betalen</button>
@@ -48,37 +48,29 @@ export default {
   },
   methods: {
     async loadData() {
-      console.log("started");
-      console.log("asynced");
-      console.log("trying");
-      // added ordered products
-      var product_order_1 = new ProductOrder(2, 3); // 3*Cheesecake
-      var product_order_2 = new ProductOrder(1, 4); // 4*Fruit Punch
-      var product_order_3 = new ProductOrder(3, 2); // 2*T-Bone Steak
-      var product_order_4 = new ProductOrder(1, 5); // 2*T-Bone Steak
+      var product_order_1 = new ProductOrder(2, 1); 
+      var product_order_2 = new ProductOrder(4, 4); 
+      var product_order_3 = new ProductOrder(3, 2); 
+      var product_order_4 = new ProductOrder(4, 5); 
 
-      // added order 1 and 2 to an ordered products
       var order_1 = new Order(0, "01:10", [product_order_1, product_order_3, product_order_4]);
       var order_2 = new Order(1, "02:10", [product_order_2]);
 
-      // added order-display to orderedproducts
       var orders = [];
       orders.push(order_1);
       orders.push(order_2);
 
       await menuService.LoadMenu();
 
-      //var order_listings = [];
       this.totalprice = 0;
 
-      // iterate over ordered products
       orders.forEach((order) => {
-        console.log("time: " + order.time);
-
         var product_listings = [];
         var totalprice_order = 0;
+
         order.products.forEach((ordered_product) => {
           var product = menuService.GetItem(ordered_product.productid);
+
           product_listings.push(
             new OrderListingProduct(
               product.name,
@@ -87,16 +79,16 @@ export default {
               product.price * ordered_product.count
             )
           );
+          
           totalprice_order += product.price * ordered_product.count;
         });
 
         this.order_listings.push(
           new OrderListing(order.time, totalprice_order, product_listings)
         );
+
         this.totalprice += totalprice_order;
       });
-
-      console.log(this.order_listings);
     },
   },
 };

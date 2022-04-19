@@ -7,8 +7,7 @@ import authHeader from '../helpers/auth-header';
 const API_URL = 'https://localhost:7209/api/menuitem/';
 const menu : Menu = new Menu([]);
 
-class MenuService {
-    
+class MenuService {  
     GetItem(id: number){
         return menu.products.find(p => p.id == id);
     }
@@ -26,7 +25,8 @@ class MenuService {
                 description:prod.description,
                 price:prod.price,
                 allergies:prod.allergy,
-                //TODO: Categories los opbouwen en
+
+                //TODO: Categories los opbouwen
                 category: new Category(prod.category.id, prod.category.name)
             }));
            });
