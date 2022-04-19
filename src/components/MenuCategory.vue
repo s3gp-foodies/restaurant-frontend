@@ -2,13 +2,11 @@
   <div class="divider" v-on:click="toggle()">
     <p class="dividerBarTxt">{{ category.name }}</p>
   </div>
-  <template v-for="item in categoryItems" :key="item" >
+  <template v-for="product in categoryProducts" :key="product" >
     <MenuCard
-        v-show="showSection"
-        :name="item.name"
-        :photo="null"
-        :description="item.description"
-        :price="item.price"
+        v-if="showSection"
+        :product ="product"
+        :show-not-ordered = "showNotOrdered"
     ></MenuCard>
   </template>
 </template>
@@ -22,7 +20,8 @@ export default {
   components: {MenuCard},
   props: {
     category: Category,
-    categoryItems: {}
+    categoryProducts: {},
+    showNotOrdered: Boolean
   },
   data: () => {
     return {

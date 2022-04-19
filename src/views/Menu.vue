@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <MenuList></MenuList>
+    <MenuList :show-not-ordered="true"></MenuList>
   </div>
 </template>
 

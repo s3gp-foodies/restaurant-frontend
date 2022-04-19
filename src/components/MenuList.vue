@@ -2,7 +2,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <div v-for="category in categories" :key="category">
-    <MenuCategory :category="category" :categoryItems="menuPerCategory[category.id]"></MenuCategory>
+    <MenuCategory :category="category" :categoryProducts="menuPerCategory[category.id]" :show-not-ordered="showNotOrdered"></MenuCategory>
   </div>
 </template>
 
@@ -18,6 +18,9 @@ import MenuCategory from "@/components/MenuCategory";
 export default {
   name: "MenuList",
   components: {MenuCategory},
+  props:{
+    showNotOrdered: Boolean
+  },
   data: () => {
     return {
       isLoading: true,

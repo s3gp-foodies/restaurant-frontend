@@ -27,9 +27,8 @@
 </template>
 
 <script>
-import OrderProduct from "@/models/order-product.ts";
-import Order from "@/models/order.ts";
 import MenuService from "@/services/menu.service";
+import OrderService from "@/services/order.service";
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
 import OrderOverview from "@/models/order-overview.ts";
 
@@ -44,32 +43,23 @@ export default {
   },
   created() {
     this.isFetching = true;
-    menuService.Load().then(() => {
-      this.loadData();
-      this.isFetching = false;
+    MenuService.Load().then(() => {
+      OrderService.LoadOrders().then(() => {
+        this.loadData();
+        this.isFetching = false;
+      })
     })
   },
   methods: {
     async loadData() {
-      var product_order_1 = new OrderProduct(2, 1);
-      var product_order_2 = new OrderProduct(2, 4);
-      var product_order_3 = new OrderProduct(3, 2);
-      var product_order_4 = new OrderProduct(4, 5);
-
-      const order_1 = new Order(0, "01:10", [product_order_1, product_order_3, product_order_4]);
-      const order_2 = new Order(1, "02:10", [product_order_2]);
-
-      const orders = [];
-      orders.push(order_1);
-      orders.push(order_2);
 
       this.totalPrice = 0;
 
-      orders.forEach((order) => {
+      OrderService.GetOrders().orders.forEach((order) => {
         const product_listings = [];
         let totalPriceOrder = 0;
         order.products.forEach((orderedProduct) => {
-          let product = menuService.GetProductById(orderedProduct.productId);
+          let product = MenuService.GetProductById(orderedProduct.productId);
           product_listings.push(
               new OrderOverviewProduct(
                   product.name,
@@ -114,6 +104,7 @@ export default {
 .order-display th:last-of-type {
   padding-left: 52px;
 }
+
 .order-display td:first-of-type, .order-display th:first-of-type {
   float: left;
 }

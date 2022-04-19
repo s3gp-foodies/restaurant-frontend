@@ -4,66 +4,60 @@
       "Salade": {
         "description": "Een verse Salade met vers gepikte groente van het land",
         "imgLink": "img/fruitsalade.jpg",
-        "price": 2.50
+        "price": 2.50,
+        "amount": 0
       },
       "Zalm Toasts": {
         "description": "Vers gebakken toast met een kalm bereide zalm. Licht en frissend van smaak",
         "imgLink": "img/zalmToast.jpg",
-        "price": 5.50
+        "price": 5.50,
+        "amount": 0
       },
       "Kipfilet taartje": {
         "description": "Begin het bezoek goed met een vers taartje van salade, fruit en kipfilet. Vergeet dat het bezoek nog jong is. Dus niet teveel van snoepen",
         "imgLink": "https://www.boodschappen.nl/app/uploads/2020/11/BS12_klassieke-voorgerechten_Pagina_1560x520.jpg",
-        "price": 5.50
-      },
-      "Kruimmelend begin": {
-        "description": "Wat is er niks beter dan te beginnen met stokbrood. Wij geven keuze uit kruidenboter, kipsate, kipkerrie en boter",
-        "imgLink": null,
-        "price": 3.40
+        "price": 5.50,
+        "amount": 0
       }
     },
     "Hoofdgerechten": {
       "T-Bone Steak": {
         "description": "Een gebakken T-Bone steak. Met een verse salade en vers gebakken Aardappelen naar keuze",
         "imgLink": "img/hoofdgerecht.jpg",
-        "price": 12.85
+        "price": 12.85,
+        "amount": 0
       },
       "Burger Menu": {
         "description": "Een burger menu met friet naar keuze. De friet kan worden gekozen uit franse friet of zoete aardappelen.",
         "imgLink": "img/burger.jpg",
-        "price": 11.30
+        "price": 11.30,
+        "amount": 0
       },
       "Pizza Menu": {
         "description": "Een pizza met topping naar keuze. Bouw je eigen pizza of kies uit een van onze rijk inpsierende combinaties met een drankje naar keus",
         "imgLink": "https://www.protislank.nl/slank/wp-content/uploads/2020/09/Proteinerijke-pizza-margarita-1-500x375.png",
-        "price": 8.80
-      },
-      "Pasta Menu": {
-        "description": "Pasta met een sidedish naar keuze. Wat kan nou niet verfrissender zijn dan de itilaanse keuze",
-        "imgLink": null,
-        "price": 11.45
+        "price": 8.80,
+        "amount": 0
       }
     },
     "Nagerechten": {
       "Aardbeien Sorbet": {
         "description": "Een frissende sorbet met aardbei ijs smaak. Daarbij is de sorbet bestrooid met een strooisel naar keuze en belaagt met slagroom en aardbeiden en suiker.",
         "imgLink": "img/strawberry.jpg",
-        "price": 14.25
+        "price": 14.25,
+        "amount": 0
       },
       "Speculaas Sorbet": {
         "description": "Een hart van sepculaas of is dat de smaak van je nagerecht. Duik diep in deze speculaas mouse en laat je hart melten met de speculaas stokjes en speculaas koekjes",
         "imgLink": "img/speculaas.jpg",
-        "price": 12.45
+        "price": 12.45,
+        "amount": 0
       },
       "Chocolade taart": {
         "description": "Honger na het eten. Vul je maag met onze rijke gevulde chocolade taart. Met een chocolade vulling en een choco koekje on top. Een ding is zeker jij gaat rijk gevuld naar huis ",
         "imgLink": "https://www.24kitchen.nl/files/styles/social_media_share/public/2019-04/dessert.jpg?itok=N8_MROPw",
-        "price": 15.45
-      },
-      "Fruit juice": {
-        "description": "Tijd om weg te gaan of nog een dessert? Laten we het licht houden met onze klassieke fruit juice punch",
-        "imgLink": null,
-        "price": 7.50
+        "price": 15.45,
+        "amount": 0
       }
     }
   }
