@@ -29,7 +29,7 @@
 <script>
 import ProductOrder from "@/models/productorder.ts";
 import Order from "@/models/order.ts";
-import menuService from "@/services/menu.service";
+import MenuService from "@/services/menu.service";
 import OrderListingProduct from "@/models/order_listing_product.ts";
 import OrderListing from "@/models/order_listing.ts";
 
@@ -39,7 +39,7 @@ export default {
     return {
       order_listings: [],
       totalprice: Number,
-      is_fetching: Boolean,
+      is_fetching: Boolean
     };
   },
   created() {
@@ -60,7 +60,7 @@ export default {
       orders.push(order_1);
       orders.push(order_2);
 
-      await menuService.LoadMenu();
+      await MenuService.LoadMenu();
 
       this.totalprice = 0;
 
@@ -69,7 +69,7 @@ export default {
         var totalprice_order = 0;
 
         order.products.forEach((ordered_product) => {
-          var product = menuService.GetItem(ordered_product.productid);
+          var product = MenuService.GetItem(ordered_product.productid);
 
           product_listings.push(
             new OrderListingProduct(
