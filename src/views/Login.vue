@@ -1,26 +1,26 @@
 <template>
   <div class="login">
-    <hr size="3" width="85%" />
+    <hr size="3" width="85%"/>
     <div class="panel">
       <form action="#" @submit.prevent="handleLogin">
         <div class="section">
           <label>Username:</label>
           <input
-            v-model="user.username"
-            type="text"
-            class="form-control"
-            name="username"
-            required
+              v-model="user.username"
+              type="text"
+              class="form-control"
+              name="username"
+              required
           />
         </div>
         <div class="section">
           <label>Password:</label>
           <input
-            v-model="user.password"
-            type="password"
-            class="form-control"
-            name="password"
-            required
+              v-model="user.password"
+              type="password"
+              class="form-control"
+              name="password"
+              required
           />
         </div>
         <div class="section">
@@ -29,7 +29,7 @@
       </form>
     </div>
   </div>
-</template> 
+</template>
 
 <script>
 import User from "../models/user";
@@ -40,13 +40,14 @@ export default {
   name: "LoginPage",
   data: () => {
     return {
-      user: new User("", "Passw0rd!"),
+      user: new User("", ""),
     };
   },
   methods: {
     handleLogin() {
       AccountService.Login(this.user);
       TableSocketService.Connect();
+      this.$router.push({path: 'menu'})
     },
   },
 };
@@ -56,9 +57,11 @@ export default {
 .login hr {
   margin: 24px auto;
 }
+
 .login.panel {
   margin-top: 300px;
 }
+
 .login form {
   display: block;
   margin: auto;
@@ -66,6 +69,7 @@ export default {
   width: 270px;
   padding: 15px 20px;
 }
+
 .login .section:not(:first-of-type),
 .loginpage input {
   margin-top: 10px;
