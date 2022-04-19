@@ -49,7 +49,7 @@ export default {
   methods: {
     async loadData() {
       var product_order_1 = new ProductOrder(2, 1); 
-      var product_order_2 = new ProductOrder(4, 4); 
+      var product_order_2 = new ProductOrder(2, 4); 
       var product_order_3 = new ProductOrder(3, 2); 
       var product_order_4 = new ProductOrder(4, 5); 
 
@@ -117,7 +117,7 @@ export default {
 .order-display th:last-of-type {
   padding-left: 52px;
 }
-.order-display td:first-of-type {
+.order-display td:first-of-type, .order-display th:first-of-type {
   float: left;
 }
 .order-display tr {
@@ -126,6 +126,7 @@ export default {
 .order-display table {
   padding: 10px;
   width: 100%;
+  border-collapse: initial;
 }
 .order-display table:first-of-type {
   margin-bottom: 16px;
