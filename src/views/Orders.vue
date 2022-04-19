@@ -128,9 +128,6 @@ export default {
   width: 100%;
   border-collapse: initial;
 }
-.order-display table:first-of-type {
-  margin-bottom: 16px;
-}
 .order-display .payment-buttons {
   margin-top: 8px;
 }
