@@ -7,14 +7,14 @@ export default class Product {
   price: Number;
   description: string;
   category: Category;
-  alleries: Allergy[];
+  allergies: Allergy[];
 
-  constructor(id: Number, name: string, price: Number, description: string, category: Category, alleries: Allergy[]) {
+  constructor(id: Number, name: string, price: Number, description: string, category: Category, allergies: Allergy[]) {
     this.id = id;
     this.name = name;
     this.price = price;
     this.description = description;
     this.category = category;
-    this.alleries = alleries;
+    this.allergies = allergies;
   }
 }
