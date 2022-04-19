@@ -1,9 +1,9 @@
 export const ordersCalculations = {
-    multiplyPriceTotalProduct(orders) {
+    multiplyPriceTotalProduct(orders: any) {
         for (let i = 0; i < orders.length; i++) {
             for (let j = 0; j < orders[i]['product'].length; j++) {  
-                var orderprice = orders[i]['product'][j].price;
-                var orderamount = orders[i]['product'][j].amount;
+                const orderprice = orders[i]['product'][j].price;
+                const orderamount = orders[i]['product'][j].amount;
 
                 orders[i]['product'][j].totalprice = (orderamount * orderprice).toFixed(2);
             }
@@ -11,8 +11,8 @@ export const ordersCalculations = {
 
         return orders;
     },
-    addPriceTotalOrder(orders) {
-        var totalprice = 0;
+    addPriceTotalOrder(orders: any) {
+        let totalprice = 0;
 
         for (let i = 0; i < orders.length; i++) {
             for (let j = 0; j < orders[i]['product'].length; j++) {  
@@ -24,8 +24,8 @@ export const ordersCalculations = {
 
         return orders;
     },
-    addPriceTotalOrders(orders) {
-        var totalprice = 0;
+    addPriceTotalOrders(orders: any) {
+        let totalprice = 0;
 
         for (let i = 0; i < orders.length; i++) {
             totalprice += parseFloat(orders[i].totalprice); 

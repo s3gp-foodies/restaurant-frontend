@@ -1,23 +1,24 @@
-<template> 
+<template>
   <div class="menu">
-    <DishItem></DishItem>
+    <MenuList :show-not-ordered="true"></MenuList>
   </div>
 </template>
 
 <script>
-import DishItem from "../components/MenuItem";
+import MenuList from "../components/MenuList";
 
 export default {
   name: "MenuItem",
   components: {
-    DishItem
-  }
-}
-
+    MenuList,
+  },
+};
 </script>
 
 <style scoped>
-body {margin:0;}
+body {
+  margin: 0;
+}
 
 .stickyMenu {
   list-style-type: none;
@@ -33,7 +34,7 @@ body {margin:0;}
 .stickyMenuItem {
   float: left;
   border-right: 1px solid #bbb;
- }
+}
 
 .stickyMenuItem:last-child {
   border-right: none;
@@ -53,6 +54,6 @@ body {margin:0;}
 
 .active {
   background-color: #0094d8;
-  color: #fff
+  color: #fff;
 }
 </style>

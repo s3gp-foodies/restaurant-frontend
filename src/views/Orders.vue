@@ -1,92 +1,133 @@
 <template>
-  <div class="orders">
-    <hr size="3" width="85%">  
-    <div class="overview">
-      <table v-for="order in data['orders']" :key="order">
-        <tr v-for="product in order['product']" :key="product">
+  <div class="order-display">
+    <hr size="3" width="85%"/>
+    <div class="overview" v-if="!isFetching">
+      <table v-for="order in listedOrders" :key="order">
+        <tr v-for="product in order.products" :key="product">
           <td>{{ product.name }}</td>
-          <td>{{ product.amount }} x &euro;&thinsp;{{ product.price }}</td>
-          <td>&euro;&thinsp;{{ product.totalprice }}</td>
+          <td>{{ product.count }} x &euro;&thinsp;{{ parseFloat(product.price).toFixed(2) }}</td>
+          <td>&euro;&thinsp;{{ parseFloat(product.totalPrice).toFixed(2) }}</td>
         </tr>
         <tr>
-          <th>{{ order.name }}</th>
+          <th>{{ order.time }}</th>
           <th></th>
-          <th>&euro;&thinsp;{{ order.totalprice }}</th>
+          <th>&euro;&thinsp;{{ parseFloat(order.totalprice).toFixed(2) }}</th>
         </tr>
       </table>
     </div>
-    <hr size="3" width="85%">  
+    <hr size="3" width="85%"/>
     <div class="totalprice">
-      <h4>Totaal: &euro;&thinsp;{{ data['orders'].totalprice }}</h4>
+      <h4>Totaal: &euro;&thinsp;{{ parseFloat(totalPrice).toFixed(2) }}</h4>
     </div>
     <div class="payment-buttons">
       <button class="btn btn-primary">Kassa betalen</button>
       <button class="btn btn-primary">Digitaal betalen</button>
     </div>
   </div>
-</template> 
+</template>
 
 <script>
-import orders from '../temp/orders.json'
-import { ordersCalculations } from '../helpers/ordersHelper.js'
+import MenuService from "@/services/menu.service";
+import OrderService from "@/services/order.service";
+import OrderOverviewProduct from "@/models/order-overview-product.ts";
+import OrderOverview from "@/models/order-overview.ts";
 
 export default {
-  name: 'OrdersPage',
+  name: "OrdersPage",
   data: () => {
     return {
-      data: orders,
-    }
-  },
-  props: {
-    orders: Array
+      listedOrders: [],
+      totalPrice: Number,
+      isFetching: Boolean,
+    };
   },
   created() {
-    this.data['orders'] = ordersCalculations.multiplyPriceTotalProduct(this.data['orders']);
-    this.data['orders'] = ordersCalculations.addPriceTotalOrder(this.data['orders']);
-    this.data['orders'] = ordersCalculations.addPriceTotalOrders(this.data['orders']); 
-  }
-}
+    this.isFetching = true;
+    MenuService.Load().then(() => {
+      OrderService.LoadOrders().then(() => {
+        this.loadData();
+        this.isFetching = false;
+      })
+    })
+  },
+  methods: {
+    async loadData() {
+
+      this.totalPrice = 0;
+
+      OrderService.GetOrders().orders.forEach((order) => {
+        const product_listings = [];
+        let totalPriceOrder = 0;
+        order.products.forEach((orderedProduct) => {
+          let product = MenuService.GetProductById(orderedProduct.productId);
+          product_listings.push(
+              new OrderOverviewProduct(
+                  product.name,
+                  product.price,
+                  orderedProduct.count,
+                  product.price * orderedProduct.count
+              )
+          );
+          totalPriceOrder += product.price * orderedProduct.count;
+        });
+
+        this.listedOrders.push(
+            new OrderOverview(order.time, totalPriceOrder, product_listings)
+        );
+        this.totalPrice += totalPriceOrder;
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
-.orders {
+.order-display {
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
 }
-.orders td, .orders th {
-  padding-top: 1px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-bottom: 1px;
+
+.order-display td,
+.order-display th {
+  padding: 1px 8px;
 }
-.orders td:first-of-type, .orders th:first-of-type {
+
+.order-display td:first-of-type,
+.order-display th:first-of-type {
   padding-right: 162px;
   padding-top: 3px;
 }
-.orders td:last-of-type, .orders th:last-of-type {
+
+.order-display td:last-of-type,
+.order-display th:last-of-type {
   padding-left: 52px;
 }
-.orders td:first-of-type {
+
+.order-display td:first-of-type, .order-display th:first-of-type {
   float: left;
 }
-.orders tr {
+
+.order-display tr {
   background-color: #bbbbbb8c;
 }
-.orders table {
+
+.order-display table {
   padding: 10px;
+  width: 100%;
+  border-collapse: initial;
 }
-.orders table:first-of-type {
-  margin-bottom: 16px;
-}
-.orders .payment-buttons {
+
+.order-display .payment-buttons {
   margin-top: 8px;
 }
-.orders .payment-buttons button:first-of-type {
+
+.order-display .payment-buttons button:first-of-type {
   margin-right: 38px;
 }
-.orders .overview {
+
+.order-display .overview {
   margin-bottom: 6px;
   margin-top: 6px;
 }
