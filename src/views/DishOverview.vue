@@ -8,7 +8,7 @@
       <th scope="col">Accepted</th>
       <th scope="col">In Progress</th>
       <th scope="col">Done</th>
-      <th scope="col">Beaning served</th>
+      <th scope="col">Being served</th>
     </tr>
     </thead>
     <tbody>
@@ -42,8 +42,8 @@
             </template>
         </draggable>
       </td>
-      <td style="width: 18rem">
-        <draggable :list="doneList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
+      <td style="width: 18rem; height: 100%">
+        <draggable  :list="doneList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
         <template #item="{ element }">
           <div class="card text-white bg-success mb-3">
             <div class="card-header">{{element.name}}</div>
