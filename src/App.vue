@@ -1,16 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <nav class="navbar nav-tabs" id="nav">
+    <router-link to="/" class="nav-link">Login</router-link>&nbsp;
+    <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;
+    <router-link to="/orders" class="nav-link">Overzicht Bestellingen</router-link>&nbsp;
+    <router-link to="/current" class="nav-link">Huidige Bestelling</router-link>
+    <router-link to="/dish-overview" class="nav-link"> Employee Dishes Overview</router-link>
+    <!-- <router-link to="/testDrag" class="nav-link"> test Drag </router-link> -->
+    <!-- <router-link to="/vueDrag" class="nav-link"> vueDraggable </router-link> -->
+  </nav>
+
+  <router-view/>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import {Options, Vue} from 'vue-class-component';
+import HelloWorld from './components/HelloWorld.vue';
 
-export default {
-  name: 'App',
+@Options({
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
+})
+export default class App extends Vue {
 }
 </script>
 
@@ -21,6 +32,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.navbar {
+  background: #f8f8f8;
 }
 </style>
