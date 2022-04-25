@@ -4,65 +4,41 @@
   <table class="table table-bordered table-info">
     <thead class="thead-dark">
     <tr>
+      <th scope="col">Table</th>
+      <th scope="col">Time</th>
       <th scope="col">New</th>
-      <th scope="col">Accepted</th>
       <th scope="col">In Progress</th>
       <th scope="col">Done</th>
-      <th scope="col">Beaning served</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-      <td style="width: 18rem">
+      <td>
+        <p>Tafel 1</p>
+      </td>
+      <td>
+        <p>17:53</p>
+      </td>
+      <td>
       <dish-overview-component class="list-group-item">
 
       </dish-overview-component>
       </td>
-      <td style="width: 18rem">
-        <draggable :list="acceptedList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
-        <template #item="{ element }">
-          <div class="card text-black bg-warning mb-3">
-            <div class="card-header">{{element.name}}</div>
-            <div class="card-body">
-              <h5 class="card-title">{{ element.amount }}x ordered </h5>
-            </div>
-          </div>
-        </template>
-      </draggable>
-      </td>
-      <td style="width: 18rem">
-        <draggable :list="inProgressList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
-            <template #item="{ element }">
-              <div class="card text-white bg-danger mb-3">
-                <div class="card-header">{{element.name}}</div>
-                <div class="card-body">
-                  <h5 class="card-title">{{ element.amount }}x ordered </h5>
+      <td >
+        <draggable :list="inProgressList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false" >
+            <template #item="{ element }" >
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-header">{{element.name}} X{{element.amount}}</div>
                 </div>
-              </div>
             </template>
         </draggable>
       </td>
-      <td style="width: 18rem">
+      <td>
         <draggable :list="doneList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
         <template #item="{ element }">
-          <div class="card text-white bg-success mb-3">
-            <div class="card-header">{{element.name}}</div>
-            <div class="card-body">
-              <h5 class="card-title">{{ element.amount }}x ordered </h5>
+            <div class="card text-white bg-success mb-3">
+              <div class="card-header">{{element.name}} X{{element.amount}}</div>
             </div>
-          </div>
-        </template>
-      </draggable>
-      </td>
-      <td style="width: 18rem">
-        <draggable :list="servingList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
-        <template #item="{ element }">
-          <div class="card text-black bg-info mb-3 remove">
-            <div class="card-header">{{element.name}}</div>
-            <div class="card-body">
-              <h5 class="card-title">{{ element.amount }}x ordered </h5>
-            </div>
-          </div>
         </template>
       </draggable>
       </td>
@@ -79,7 +55,16 @@ let inProgressList = [];
 let doneList = [];
 let servingList = [];
 
+/*
+Kijken naar wanneer order helemaal in done staat om dan te verwerken naar servering
+Coloumen weg halen: Accepted --> Bening serverd
+De andere 2 TD verwerken naar Componenten en dan kijken of het in een component kan of niet
 
+Kleuren blind kijken welke kleuren werken met de cards
+Table herbouwen
+ToDO list hierboven
+
+ */
 window.setInterval(() => {
   emptyServingList()
 }, 60000)
