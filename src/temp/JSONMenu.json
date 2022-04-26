@@ -18,12 +18,6 @@
         "imgLink": "https://www.boodschappen.nl/app/uploads/2020/11/BS12_klassieke-voorgerechten_Pagina_1560x520.jpg",
         "price": 5.50,
         "amount": 0
-      },
-      "Kruimmelend begin": {
-        "description": "Wat is er niks beter dan te beginnen met stokbrood. Wij geven keuze uit kruidenboter, kipsate, kipkerrie en boter",
-        "imgLink": null,
-        "price": 3.40,
-        "amount": 0
       }
     },
     "Hoofdgerechten": {
@@ -44,12 +38,6 @@
         "imgLink": "https://www.protislank.nl/slank/wp-content/uploads/2020/09/Proteinerijke-pizza-margarita-1-500x375.png",
         "price": 8.80,
         "amount": 0
-      },
-      "Pasta Menu": {
-        "description": "Pasta met een sidedish naar keuze. Wat kan nou niet verfrissender zijn dan de itilaanse keuze",
-        "imgLink": null,
-        "price": 11.45,
-        "amount": 0
       }
     },
     "Nagerechten": {
@@ -69,12 +57,6 @@
         "description": "Honger na het eten. Vul je maag met onze rijke gevulde chocolade taart. Met een chocolade vulling en een choco koekje on top. Een ding is zeker jij gaat rijk gevuld naar huis ",
         "imgLink": "https://www.24kitchen.nl/files/styles/social_media_share/public/2019-04/dessert.jpg?itok=N8_MROPw",
         "price": 15.45,
-        "amount": 0
-      },
-      "Fruit juice": {
-        "description": "Tijd om weg te gaan of nog een dessert? Laten we het licht houden met onze klassieke fruit juice punch",
-        "imgLink": null,
-        "price": 7.50,
         "amount": 0
       }
     }

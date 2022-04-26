@@ -1,7 +1,7 @@
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!--  <div v-if="this.test == false">Testing</div>-->
-  <div v-for="(dishes, item) in haha" :key="dishes">
+  <div v-if="this.bool == false">Testing</div>
+  <div v-for="(dishes, item) in MenuItems" :key="dishes">
     <div  class="divider">
       <p class="dividerBarTxt"> {{ item }} </p>
     </div>
@@ -50,6 +50,7 @@ export default {
       } else if (dish.amount >= 15) {
         dish.amount = 15
       }
+      sessionStorage.setItem("Test",  JSON.stringify(this.MenuItems))
     },
     filtermethod: function (dish) {
       console.log(dish)
@@ -57,19 +58,19 @@ export default {
   },
   data() {
     return {
-      haha: {},
-      test: false
+      MenuItems: {},
+      bool: false
     }
   },
   mounted() {
-    let haha = JSON.parse(sessionStorage.getItem("Test"))
-    this.haha = haha
-    console.log(haha)
-    // if (!haha.length) {
-    //   this.test = true
-    // }
+    let MenuItems = JSON.parse(sessionStorage.getItem("Test"))
+    this.MenuItems = MenuItems
+    console.log(MenuItems)
+    if (!MenuItems.length) {
+      this.bool = true
+    }
 
-    // for(let items in haha){
+    // for(let items in MenuItems){
     //   console.log(items)
     //   for(let dishes in items["Salade"]){
     //     console.log(dishes)
