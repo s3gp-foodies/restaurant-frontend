@@ -23,6 +23,8 @@
       <button class="btn btn-primary">Kassa betalen</button>
       <button class="btn btn-primary">Digitaal betalen</button>
     </div>
+
+    <OrderList></OrderList>
   </div>
 </template>
 
@@ -32,8 +34,13 @@ import OrderService from "@/services/order.service";
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
 import OrderOverview from "@/models/order-overview.ts";
 
+import OrderList from "@/components/OrderList";
+
 export default {
   name: "OrdersPage",
+  components: {
+    OrderList,
+  },
   data: () => {
     return {
       listedOrders: [],
@@ -43,6 +50,7 @@ export default {
   },
   created() {
     this.isFetching = true;
+
     MenuService.Load().then(() => {
       OrderService.LoadOrders().then(() => {
         this.loadData();
@@ -52,14 +60,15 @@ export default {
   },
   methods: {
     async loadData() {
-
       this.totalPrice = 0;
 
       OrderService.GetOrders().orders.forEach((order) => {
         const product_listings = [];
         let totalPriceOrder = 0;
+
         order.products.forEach((orderedProduct) => {
           let product = MenuService.GetProductById(orderedProduct.productId);
+
           product_listings.push(
               new OrderOverviewProduct(
                   product.name,
@@ -68,16 +77,18 @@ export default {
                   product.price * orderedProduct.count
               )
           );
+
           totalPriceOrder += product.price * orderedProduct.count;
         });
 
         this.listedOrders.push(
             new OrderOverview(order.time, totalPriceOrder, product_listings)
         );
+
         this.totalPrice += totalPriceOrder;
       });
     },
-  },
+  } 
 };
 </script>
 
