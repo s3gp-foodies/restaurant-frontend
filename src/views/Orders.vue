@@ -62,6 +62,8 @@ export default {
     async loadData() {
       this.totalPrice = 0;
 
+      console.log(OrderService.GetOrders().orders);
+
       OrderService.GetOrders().orders.forEach((order) => {
         const product_listings = [];
         let totalPriceOrder = 0;
@@ -99,45 +101,36 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
-
 .order-display td,
 .order-display th {
   padding: 1px 8px;
 }
-
 .order-display td:first-of-type,
 .order-display th:first-of-type {
   padding-right: 162px;
   padding-top: 3px;
 }
-
 .order-display td:last-of-type,
 .order-display th:last-of-type {
   padding-left: 52px;
 }
-
 .order-display td:first-of-type, .order-display th:first-of-type {
   float: left;
 }
-
 .order-display tr {
   background-color: #bbbbbb8c;
 }
-
 .order-display table {
   padding: 10px;
   width: 100%;
   border-collapse: initial;
 }
-
 .order-display .payment-buttons {
   margin-top: 8px;
 }
-
 .order-display .payment-buttons button:first-of-type {
   margin-right: 38px;
 }
-
 .order-display .overview {
   margin-bottom: 6px;
   margin-top: 6px;
