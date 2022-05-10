@@ -15,8 +15,6 @@
       <button class="btn btn-primary">Kassa betalen</button>
       <button class="btn btn-primary">Digitaal betalen</button>
     </div>
-
-    <OrderList></OrderList>
   </div>
 </template>
 
@@ -25,8 +23,6 @@ import MenuService from "@/services/menu.service";
 import OrderService from "@/services/order.service";
 import OrderList from "../components/OrderList.vue";
 import OrderPrice from "../components/OrderPrice.vue";
-
-import OrderList from "@/components/OrderList";
 
 export default {
   name: "OrdersPage",
