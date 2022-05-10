@@ -1,7 +1,12 @@
 <template>
-  <div class="order-display">
+  <div class="order-display" v-if="isLoading">
+    <h3>Loading..</h3>
+  </div>
+  
+  <div class="order-display" v-if="!isLoading">
     <hr size="3" width="85%"/>
-    <div class="overview" v-if="!isFetching">
+
+    <div class="overview">
       <table v-for="order in listedOrders" :key="order">
         <tr v-for="product in order.products" :key="product">
           <td>{{ product.name }}</td>
@@ -15,13 +20,11 @@
         </tr>
       </table>
     </div>
+
     <hr size="3" width="85%"/>
+
     <div class="totalprice">
       <h4>Totaal: &euro;&thinsp;{{ parseFloat(totalPrice).toFixed(2) }}</h4>
-    </div>
-    <div class="payment-buttons">
-      <button class="btn btn-primary">Kassa betalen</button>
-      <button class="btn btn-primary">Digitaal betalen</button>
     </div>
   </div>
 </template>
@@ -38,28 +41,28 @@ export default {
     return {
       listedOrders: [],
       totalPrice: Number,
-      isFetching: Boolean,
+      isLoading: true,
     };
   },
   created() {
-    this.isFetching = true;
     MenuService.Load().then(() => {
       OrderService.LoadOrders().then(() => {
         this.loadData();
-        this.isFetching = false;
+        this.isLoading = false;
       })
     })
   },
   methods: {
     async loadData() {
-
       this.totalPrice = 0;
 
       OrderService.GetOrders().orders.forEach((order) => {
         const product_listings = [];
         let totalPriceOrder = 0;
+
         order.products.forEach((orderedProduct) => {
           let product = MenuService.GetProductById(orderedProduct.productId);
+
           product_listings.push(
               new OrderOverviewProduct(
                   product.name,
@@ -68,12 +71,14 @@ export default {
                   product.price * orderedProduct.count
               )
           );
+
           totalPriceOrder += product.price * orderedProduct.count;
         });
 
         this.listedOrders.push(
             new OrderOverview(order.time, totalPriceOrder, product_listings)
         );
+
         this.totalPrice += totalPriceOrder;
       });
     },
@@ -88,45 +93,36 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
-
 .order-display td,
 .order-display th {
   padding: 1px 8px;
 }
-
 .order-display td:first-of-type,
 .order-display th:first-of-type {
   padding-right: 162px;
   padding-top: 3px;
 }
-
 .order-display td:last-of-type,
 .order-display th:last-of-type {
   padding-left: 52px;
 }
-
 .order-display td:first-of-type, .order-display th:first-of-type {
   float: left;
 }
-
 .order-display tr {
   background-color: #bbbbbb8c;
 }
-
 .order-display table {
   padding: 10px;
   width: 100%;
   border-collapse: initial;
 }
-
 .order-display .payment-buttons {
   margin-top: 8px;
 }
-
 .order-display .payment-buttons button:first-of-type {
   margin-right: 38px;
 }
-
 .order-display .overview {
   margin-bottom: 6px;
   margin-top: 6px;
