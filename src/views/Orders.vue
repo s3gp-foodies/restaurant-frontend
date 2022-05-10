@@ -26,6 +26,7 @@
     <div class="totalprice">
       <h4>Totaal: &euro;&thinsp;{{ parseFloat(totalPrice).toFixed(2) }}</h4>
     </div>
+
   </div>
 </template>
 
