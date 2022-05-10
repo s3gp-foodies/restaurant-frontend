@@ -1,30 +1,17 @@
 <template>
   <div class="order-display" v-if="isLoading">
     <h3>Loading..</h3>
-  </div>
-  
+  </div> 
   <div class="order-display" v-if="!isLoading">
-    <hr size="3" width="85%"/>
+    <h3>Loaded..</h3>
 
+    <hr size="3" width="85%"/>
     <div class="overview">
-      <table v-for="order in listedOrders" :key="order">
-        <tr v-for="product in order.products" :key="product">
-          <td>{{ product.name }}</td>
-          <td>{{ product.count }} x &euro;&thinsp;{{ parseFloat(product.price).toFixed(2) }}</td>
-          <td>&euro;&thinsp;{{ parseFloat(product.totalPrice).toFixed(2) }}</td>
-        </tr>
-        <tr>
-          <th>{{ order.time }}</th>
-          <th></th>
-          <th>&euro;&thinsp;{{ parseFloat(order.totalprice).toFixed(2) }}</th>
-        </tr>
-      </table>
+      <OrderList></OrderList>
     </div>
-
     <hr size="3" width="85%"/>
-
     <div class="totalprice">
-      <h4>Totaal: &euro;&thinsp;{{ parseFloat(totalPrice).toFixed(2) }}</h4>
+      <OrderPrice></OrderPrice>
     </div>
 
   </div>
@@ -33,57 +20,33 @@
 <script>
 import MenuService from "@/services/menu.service";
 import OrderService from "@/services/order.service";
-import OrderOverviewProduct from "@/models/order-overview-product.ts";
-import OrderOverview from "@/models/order-overview.ts";
+import OrderList from "../components/OrderList.vue";
+import OrderPrice from "../components/OrderPrice.vue";
 
 export default {
   name: "OrdersPage",
+  components: {
+    OrderList,
+    OrderPrice
+  },
   data: () => {
     return {
-      listedOrders: [],
-      totalPrice: Number,
       isLoading: true,
     };
   },
   created() {
     MenuService.Load().then(() => {
       OrderService.LoadOrders().then(() => {
-        this.loadData();
         this.isLoading = false;
       })
+      .catch(error => {
+        console.log(error);
+      })
     })
-  },
-  methods: {
-    async loadData() {
-      this.totalPrice = 0;
-
-      OrderService.GetOrders().orders.forEach((order) => {
-        const product_listings = [];
-        let totalPriceOrder = 0;
-
-        order.products.forEach((orderedProduct) => {
-          let product = MenuService.GetProductById(orderedProduct.productId);
-
-          product_listings.push(
-              new OrderOverviewProduct(
-                  product.name,
-                  product.price,
-                  orderedProduct.count,
-                  product.price * orderedProduct.count
-              )
-          );
-
-          totalPriceOrder += product.price * orderedProduct.count;
-        });
-
-        this.listedOrders.push(
-            new OrderOverview(order.time, totalPriceOrder, product_listings)
-        );
-
-        this.totalPrice += totalPriceOrder;
-      });
-    },
-  },
+    .catch(error => {
+      console.log(error);
+    })
+  }
 };
 </script>
 
