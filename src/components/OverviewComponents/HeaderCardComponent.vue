@@ -18,7 +18,7 @@ export default {
       required: true
     },
     orderAmount: {
-      type: Int16Array,
+      type: Number,
       required: true
     }
   }

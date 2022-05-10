@@ -1,30 +1,21 @@
 <template>
-  <td v-for="item in orders" :key="item.name">
-    <p v-for="order in item" :key="order.name">
-      {{order.name}}
-    </p>
-  </td>
-  <td v-for="item in orders" :key="item.name">
-    <p v-for="order in item" :key="order.name">
-      {{order.time}}
-    </p>
-  </td>
-  <td v-for="item in orders" :key="item.name">
-    <draggable class="dragClass row align-items-start" v-for="dish in item" :key="dish.name"
-               :list="dish['product']" :item-key="dish['name']" group="all-dishes"
+  <td style="width: 100%border-box">
+    <draggable class="dragClass" style="box-sizing: border-box"
+               :list="products" :item-key="orderName" group="{{groupName}}"
+               :empty-insert-threshold="30"
                @start="dragging=true" @end="dragging=false">
-        <template #item="{ element }">
-            <div class="col card text-white bg-dark mb-3">
-              <HeaderCardComponent :order-name=element.name :order-category=element.category :order-amount=element.amount></HeaderCardComponent>
-            </div>
-        </template>
+      <template #item="{ element }" >
+        <div class="col card text-white bg-dark mb-3">
+          <HeaderCardComponent :order-name=element.name :order-category=element.category
+                               :order-amount=element.amount></HeaderCardComponent>
+        </div>
+      </template>
     </draggable>
   </td>
 </template>
 
 <script>
 import draggable from "vuedraggable";
-import orders from "@/temp/orders.json";
 import HeaderCardComponent from "@/components/OverviewComponents/HeaderCardComponent";
 
 export default {
@@ -33,10 +24,12 @@ export default {
     draggable,
     HeaderCardComponent,
   },
-  data: () => {
-    return {
-      orders
-    }
+  props: {
+    products: {
+      type: Array
+    },
+    groupName: String,
+    orderName: String
   }
 }
 </script>
@@ -58,19 +51,21 @@ export default {
 }
 
 @media only screen and (min-width: 1000px) {
-  .dragClass{
+  .dragClass {
     margin-right: max(-320px, -120px);
   }
 }
 
 @media only screen and (max-width: 999px) and (min-width: 481px) {
-  .dragClass{
+  .dragClass {
     margin-right: max(-120px, -25px);
   }
 }
 
 .dragClass {
-  width: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: left;
 }
 
 </style>

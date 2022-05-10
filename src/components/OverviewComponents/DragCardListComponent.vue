@@ -1,6 +1,7 @@
 <template>
   <td>
-  <draggable :list=ListName class="dragClass row align-items-start" group="all-dishes"
+  <draggable class="dragClass row align-items-start"
+             :list=ListName group="all-dishes"
              item-key=null @start="dragging=true" @end="dragging=false">
       <template #item="{ element }" >
         <div class="col card text-white bg-dark mb-3">
@@ -22,7 +23,9 @@ export default {
     HeaderCardComponent
   },
   props: {
-    ListName: []
+    ListName: {
+      type: Array
+    }
   },
 }
 </script>
