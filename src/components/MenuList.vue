@@ -1,6 +1,4 @@
 <template v-if="!isLoading">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
   <div v-for="category in categories" :key="category">
     <MenuCategory :category="category" :categoryProducts="menuPerCategory[category.id]" :show-not-ordered="showNotOrdered"></MenuCategory>
   </div>

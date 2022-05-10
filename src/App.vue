@@ -1,4 +1,8 @@
 <template>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title></title>
+  </head>
   <nav class="navbar nav-tabs" id="nav">
     <router-link to="/" class="nav-link">Login</router-link>&nbsp;
     <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;
@@ -23,7 +27,9 @@ import HelloWorld from './components/HelloWorld.vue';
 })
 export default class App extends Vue {
 }
+
 </script>
+<!--<script src="https://kit.fontawesome.com/9080e6437b.js" crossorigin="anonymous"></script>-->
 
 <style>
 #app {

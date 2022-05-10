@@ -1,98 +1,62 @@
 <template>
   <h2>Ordres that came in</h2>
   <p> Interact with the the element by dragging them across the screen </p>
+  <div class="wrapper">
+    <p>Types of orders that you can encounter</p>
+    <ul>
+      <li class="menuIcons"><font-awesome-icon class="fa-lg fa-2x" icon="bowl-food" /> Appetisers</li> <br>
+      <li class="menuIcons"><font-awesome-icon class="fa-lg fa-2x" icon="drumstick-bite" /> Main dish</li> <br>
+      <li class="menuIcons"><font-awesome-icon class="fa-lg fa-2x" icon="ice-cream" /> Dessert</li> <br>
+      <li class="menuIcons"><font-awesome-icon class="fa-lg fa-2x" icon="bottle-droplet" /> Drinks</li>
+    </ul>
+  </div>
   <table class="table table-bordered table-info">
     <thead class="thead-dark">
     <tr>
-      <th scope="col">Table</th>
-      <th scope="col">Time</th>
-      <th scope="col">New</th>
-      <th scope="col">In Progress</th>
-      <th scope="col">Done</th>
+      <th>Table</th>
+      <th aria-sort="descending">Time</th>
+      <th>New</th>
+      <th>In Progress</th>
+      <th>Done</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-      <td>
-        <p>Tafel 1</p>
-      </td>
-      <td>
-        <p>17:53</p>
-      </td>
-      <td>
-      <dish-overview-component class="list-group-item">
+      <dish-overview-component class="list-group-item" style="width: fit-content">
 
       </dish-overview-component>
-      </td>
-      <td >
-        <draggable :list="inProgressList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false" >
-            <template #item="{ element }" >
-                <div class="card text-white bg-danger mb-3">
-                  <div class="card-header">{{element.name}} X{{element.amount}}</div>
-                </div>
-            </template>
-        </draggable>
-      </td>
-      <td>
-        <draggable :list="doneList" group="all-dishes" item-key=null @start="dragging=true" @end="dragging=false">
-        <template #item="{ element }">
-            <div class="card text-white bg-success mb-3">
-              <div class="card-header">{{element.name}} X{{element.amount}}</div>
-            </div>
-        </template>
-      </draggable>
-      </td>
+      <drag-card-list-component  :ListName="inProgressList">
+      </drag-card-list-component>
+      <drag-card-list-component  :ListName="doneList">
+      </drag-card-list-component>
     </tr>
     </tbody>
   </table>
 </template>
 
 <script>
-import dishOverviewComponent from "@/components/DishOverviewComponent";
-import draggable from "vuedraggable";
-let acceptedList = [];
+import dishOverviewComponent from "@/components/OverviewComponents/DishOverviewComponent";
+import dragCardListComponent from "@/components/OverviewComponents/DragCardListComponent";
+
 let inProgressList = [];
 let doneList = [];
-let servingList = [];
 
 /*
-Kijken naar wanneer order helemaal in done staat om dan te verwerken naar servering
-Coloumen weg halen: Accepted --> Bening serverd
-De andere 2 TD verwerken naar Componenten en dan kijken of het in een component kan of niet
-
-Kleuren blind kijken welke kleuren werken met de cards
 Table herbouwen
 ToDO list hierboven
-
  */
-window.setInterval(() => {
-  emptyServingList()
-}, 60000)
-
-function emptyServingList() {
-  let removeArray = []
-  let counter = 0
-
-  removeArray = document.getElementsByClassName("remove");
-  for(counter; counter < removeArray.length; counter++) {
-    removeArray[counter].style.display = "none"
-  }
-  servingList.splice(0, servingList.length)
-}
 
 export default {
   name: "DishOverview",
-  components: {
-    dishOverviewComponent,
-    draggable
-  },
   data: () => {
     return {
-      acceptedList,
       inProgressList,
       doneList,
-      servingList,
     }
+  },
+  components: {
+    dishOverviewComponent,
+    dragCardListComponent
   },
 }
 
@@ -106,5 +70,25 @@ export default {
 
 draggable {
   position: fixed!important;
+}
+
+.menuIcons {
+  width: fit-content
+}
+
+.wrapper {
+  text-align: center;
+}
+.wrapper ul {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  /* For IE, the outcast */
+  zoom:1;
+  *display: inline;
+}
+.wrapper li {
+  float: left;
+  padding: 2px 5px;
 }
 </style>
