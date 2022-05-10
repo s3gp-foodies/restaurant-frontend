@@ -21,8 +21,8 @@
 <script>
 import MenuService from "@/services/menu.service";
 import OrderService from "@/services/order.service";
-import OrderList from "../components/OrderList.vue";
-import OrderPrice from "../components/OrderPrice.vue";
+import OrderList from "../components/CurrentOrder/OrderList.vue";
+import OrderPrice from "../components/CurrentOrder/OrderPrice.vue";
 
 export default {
   name: "OrdersPage",

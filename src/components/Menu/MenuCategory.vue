@@ -15,7 +15,7 @@
 
 <script>
 import Category from "@/models/category";
-import MenuCard from "@/components/MenuCard";
+import MenuCard from "@/components/Menu/MenuCard";
 
 export default {
   name: "MenuCategory",

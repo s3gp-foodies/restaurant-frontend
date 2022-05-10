@@ -11,7 +11,7 @@
 // import axios from "axios";
 // import authHeader from "@/helpers/auth-header";
 import menuService from "@/services/menu.service";
-import MenuCategory from "@/components/MenuCategory";
+import MenuCategory from "@/components/Menu/MenuCategory";
 
 export default {
   name: "MenuList",

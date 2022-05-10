@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MenuList from "../components/MenuList";
+import MenuList from "../components/Menu/MenuList";
 
 export default {
   name: "MenuItem",
