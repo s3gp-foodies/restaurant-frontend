@@ -2,13 +2,15 @@
   <div class="divider" v-on:click="toggle()">
     <p class="dividerBarTxt">{{ category.name }}</p>
   </div>
-  <template v-for="product in categoryProducts" :key="product" >
-    <MenuCard
-        v-if="showSection"
-        :product ="product"
-        :show-not-ordered = "showNotOrdered"
-    ></MenuCard>
-  </template>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center">
+    <template v-for="product in categoryProducts" :key="product">
+      <MenuCard style="flex-basis: 45%; min-width: 750px; max-width: 750px"
+                v-if="showSection"
+                :product="product"
+                :show-not-ordered="showNotOrdered"
+      ></MenuCard>
+    </template>
+  </div>
 </template>
 
 <script>
