@@ -1,7 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import Menu from '../views/Menu.vue'
 import Orders from '../views/Orders.vue'
-import Order from '../views/Order.vue'
 import Login from '../views/Login.vue'
 import dishOverview from "@/views/DishOverview.vue";
 import testDraggble from "@/views/testDraggble.vue";
@@ -18,11 +17,6 @@ const routes = [
         path: '/orders',
         name: 'Orders',
         component: Orders
-    },
-    {
-        path: '/order',
-        name: 'Order',
-        component: Order
     },
     {
         path: '/current',

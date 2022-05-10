@@ -15,6 +15,8 @@
         <strong v-if="count <0 ">Cannot be less then 0</strong>
         <button type="button" class="btn btn-outline-secondary" @click="add()"><i class="fa fa-plus"></i>
         </button>
+        <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
+        <button v-if="delButton == true" type="button" class="btn btn-outline-danger" @click="del()"><i class="fa fa-trash" aria-hidden="true"></i></button>
         &euro; {{ product.price }} Per stuk
       </p>
     </div>
@@ -30,7 +32,9 @@ export default {
   name: "MenuCard",
   props: {
     product: Product,
-    showNotOrdered: Boolean
+    showNotOrdered: Boolean,
+    orderPage: Boolean,
+    delButton: Boolean
   },
   data: () => {
     return {
@@ -58,6 +62,13 @@ export default {
         this.count = 15
       }
       OrderService.UpdateCurrentOrder(this.product, this.count)
+    },
+    del(){
+      console.log("ha")
+      OrderService.DeleteFromCurrentOrder(this.product)
+    },
+    addToOrder(){
+      OrderService.Save()
     }
   }
 }
