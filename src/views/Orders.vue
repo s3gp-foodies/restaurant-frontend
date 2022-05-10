@@ -5,11 +5,11 @@
   <div class="order-display" v-if="!isLoading">
     <hr size="3" width="85%"/>
     <div class="overview">
-      <OrderList></OrderList>
+      <OrderList @totalPrice="getTotalPrice"></OrderList>
     </div>
     <hr size="3" width="85%"/>
     <div class="totalprice">
-      <OrderPrice></OrderPrice>
+      <OrderPrice :totalPrice="totalPrice"></OrderPrice>
     </div>
     <div class="payment-buttons">
       <button class="btn btn-primary">Kassa betalen</button>
@@ -33,6 +33,7 @@ export default {
   data: () => {
     return {
       isLoading: true,
+      totalPrice: Number
     };
   },
   created() {
@@ -47,6 +48,11 @@ export default {
     .catch(error => {
       console.log(error);
     })
+  },
+  methods: {
+    getTotalPrice(value) {
+      this.totalPrice = value;
+    }
   }
 };
 </script>

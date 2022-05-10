@@ -18,12 +18,14 @@ import MenuService from "@/services/menu.service";
 
 export default {
   name: "OrderList",
+  emits: ["totalPrice"],
   components: {
     OrderProduct
   },
   data: () => {
     return {
       listedOrders: [],
+      totalPrice: 0
     };
   },
   created() {
@@ -45,6 +47,9 @@ export default {
 
         totalPriceOrder += product.price * orderedProduct.count;
       });
+
+      this.totalPrice += totalPriceOrder; 
+      this.$emit("totalPrice", this.totalPrice);
 
       this.listedOrders.push(
         new OrderOverview(order.time, totalPriceOrder, product_listings)
