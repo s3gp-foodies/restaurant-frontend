@@ -5,10 +5,8 @@
 <script>
 export default {
   name: "OrderPrice",
-  data: () => {
-    return {
-      
-    }
+  props: {
+    totalPrice: Number
   }
 }
 </script>
