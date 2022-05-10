@@ -1,16 +1,16 @@
 <template>
-  <h2>Ordres that came in</h2>
+  <h2>Orders that came in</h2>
   <p> Interact with the the element by dragging them across the screen </p>
   <div class="wrapper">
-    <p>Types of orders that you can encounter</p>
-    <ul>
-      <li class="menuIcons"><font-awesome-icon class="fa-lg fa-2x" icon="bowl-food" /> Appetisers</li> <br>
-      <li class="menuIcons"><font-awesome-icon class="fa-lg fa-2x" icon="drumstick-bite" /> Main dish</li> <br>
-      <li class="menuIcons"><font-awesome-icon class="fa-lg fa-2x" icon="ice-cream" /> Dessert</li> <br>
-      <li class="menuIcons"><font-awesome-icon class="fa-lg fa-2x" icon="bottle-droplet" /> Drinks</li>
-    </ul>
+    <div style="display: flex; justify-content: center">
+      <div class="menuIcons card text-white bg-dark"><font-awesome-icon class="fa-lg fa-2x" icon="bowl-food" /> Appetisers</div> <br>
+      <div class="menuIcons card text-white bg-dark"><font-awesome-icon class="fa-lg fa-2x" icon="drumstick-bite" /> Main dish</div> <br>
+      <div class="menuIcons card text-white bg-dark"><font-awesome-icon class="fa-lg fa-2x" icon="ice-cream" /> Dessert</div> <br>
+      <div class="menuIcons card text-white bg-dark"><font-awesome-icon class="fa-lg fa-2x" icon="bottle-droplet" /> Drinks</div>
+    </div>
+    <i>Types of orders that you can encounter</i>
   </div>
-  <table class="table table-bordered table-info">
+  <table style="margin-top: 10px;" class="table table-bordered table-info">
     <thead class="thead-dark">
     <tr>
       <th>Table</th>
@@ -73,7 +73,9 @@ draggable {
 }
 
 .menuIcons {
-  width: fit-content
+  min-width: 100px;
+  max-width: 200px;
+  margin: 5px
 }
 
 .wrapper {
