@@ -7,13 +7,31 @@
 </template>
 
 <script>
+import Order from '@/models/order';
+
 export default {
   name: "OrderProduct",
   props: {
-    
-  },
-  created() {
-    
+    order: Order
   }
 }
 </script>
+
+<style scoped>
+td {
+  padding: 1px 8px;
+}
+td:first-of-type {
+  padding-right: 162px;
+  padding-top: 3px;
+}
+td:last-of-type {
+  padding-left: 52px;
+}
+td:first-of-type {
+  float: left;
+}
+tr {
+  background-color: #bbbbbb8c;
+}
+</style>
