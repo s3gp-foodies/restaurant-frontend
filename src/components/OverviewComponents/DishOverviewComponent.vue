@@ -1,7 +1,7 @@
 <template>
   <td style="width: 100%border-box">
     <draggable class="dragClass" style="box-sizing: border-box"
-               :list="products" :item-key="orderName" group="{{groupName}}"
+               :list="products" :item-key="orderName" :group="groupName"
                :empty-insert-threshold="30"
                @start="dragging=true" @end="dragging=false">
       <template #item="{ element }" >
