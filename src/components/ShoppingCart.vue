@@ -16,7 +16,7 @@
         <button type="button" class="btn btn-outline-secondary" @click="add()"><i class="fa fa-plus"></i>
         </button>
         <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
-<!--        <button type="button" class="btn btn-outline-danger" @click="del()"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
+        <!--        <button type="button" class="btn btn-outline-danger" @click="del()"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
         &euro; {{ product.price }} Per stuk
       </p>
     </div>
@@ -29,7 +29,7 @@ import Product from "@/models/product";
 import OrderService from "@/services/order.service";
 
 export default {
-  name: "MenuCard",
+  name: "ShoppingCart",
   props: {
     product: Product,
     showNotOrdered: Boolean,
