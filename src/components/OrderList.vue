@@ -1,20 +1,14 @@
 <template>
   <span v-for="category in categories" :key="category">
-    <p>{{ category.name }} - {{ category.id }}</p>
+    <p>{{ category.name }}</p>
+    <table v-for="order in listedOrders" :key="order">
+      <CategoryProduct :order="order" :category_id="category.id"></CategoryProduct>
+    </table>
   </span>
-
-  <table v-for="order in listedOrders" :key="order">
-    <OrderProduct :order="order"></OrderProduct>
-    <tr>
-      <th>{{ order.time }}</th>
-      <th></th>
-      <th>&euro;&thinsp;{{ parseFloat(order.totalprice).toFixed(2) }}</th>
-    </tr>
-  </table>
 </template>
 
 <script>
-import OrderProduct from './OrderProduct.vue';
+import CategoryProduct from './CategoryProduct.vue';
 import OrderService from "@/services/order.service";
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
 import OrderOverview from "@/models/order-overview.ts";
@@ -24,7 +18,7 @@ export default {
   name: "OrderList",
   emits: ["totalPrice"],
   components: {
-    OrderProduct
+    CategoryProduct
   },
   data: () => {
     return {
@@ -35,7 +29,6 @@ export default {
   },
   created() {
     this.categories = MenuService.GetCategories();
-    console.log(this.listedOrders);
 
     OrderService.GetOrders().orders.forEach((order) => {
       let totalPriceOrder = 0;
@@ -43,8 +36,6 @@ export default {
 
       order.products.forEach((orderedProduct) => {
         let product = MenuService.GetProductById(orderedProduct.productId);
-
-        console.log(orderedProduct.productId);
 
         product_listings.push(
           new OrderOverviewProduct(
