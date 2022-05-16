@@ -1,8 +1,8 @@
 <template>
   <div class="card-header" v-if="orderCategory === 'Appetiser'"><font-awesome-icon class="fa-xl fa-2x" icon="bowl-food" /> {{orderName}} x{{orderAmount}}</div>
-  <div class="card-header" v-if="orderCategory === 'Main dish'"><font-awesome-icon class="fa-xl fa-2x" icon="drumstick-bite" /> {{orderName}} x{{orderAmount}}</div>
-  <div class="card-header" v-if="orderCategory === 'Dessert'"><font-awesome-icon class="fa-xl fa-2x" icon="ice-cream" /> {{orderName}} x{{orderAmount}}</div>
-  <div class="card-header" v-if="orderCategory === 'Drinks'"><font-awesome-icon class="fa-xl fa-2x" icon="bottle-droplet" /> {{orderName}} x{{orderAmount}}</div>
+  <div class="card-header" v-else-if="orderCategory === 'Main dish'"><font-awesome-icon class="fa-xl fa-2x" icon="drumstick-bite" /> {{orderName}} x{{orderAmount}}</div>
+  <div class="card-header" v-else-if="orderCategory === 'Dessert'"><font-awesome-icon class="fa-xl fa-2x" icon="ice-cream" /> {{orderName}} x{{orderAmount}}</div>
+  <div class="card-header" v-else ><font-awesome-icon class="fa-xl fa-2x" icon="bottle-droplet" /> {{orderName}} x{{orderAmount}}</div>
 </template>
 
 <script>

@@ -69,10 +69,6 @@ export default {
   min-height: 10px;
 }
 
-draggable {
-  position: fixed !important;
-}
-
 .menuIcons {
   min-width: 100px;
   max-width: 200px;
