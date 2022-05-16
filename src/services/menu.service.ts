@@ -27,8 +27,6 @@ class MenuService {
     }
 
     async Load() {
-        console.log(categories)
-        console.log(menu)
         if (categories.length === 0) {
             await this.LoadCategories()
         }
@@ -37,10 +35,8 @@ class MenuService {
         }
     }
 
-
     private async LoadMenu() {
         await axios.get(API_URL, {headers: authHeader()}).then(response => {
-            console.log(response)
             response.data.forEach((prod: any) => {
                 menu.products.push(<Product>({
                     name: prod.title,

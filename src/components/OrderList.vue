@@ -1,4 +1,8 @@
 <template>
+  <span v-for="category in categories" :key="category">
+    <p>{{ category.name }}</p>
+  </span>
+
   <table v-for="order in listedOrders" :key="order">
     <OrderProduct :order="order"></OrderProduct>
     <tr>
@@ -25,10 +29,13 @@ export default {
   data: () => {
     return {
       listedOrders: [],
-      totalPrice: 0
+      totalPrice: 0,
+      categories: []
     };
   },
   created() {
+    this.categories = MenuService.GetCategories();
+
     OrderService.GetOrders().orders.forEach((order) => {
       let totalPriceOrder = 0;
       const product_listings = [];
