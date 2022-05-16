@@ -4,6 +4,7 @@ import SessionOrders from "@/models/session-orders";
 import Order from "@/models/order";
 import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
+import current from "@/views/Current.vue";
 
 const API_URL = 'https://localhost:7209/api/order/';
 const sessionOrders: SessionOrders = new SessionOrders([]);
@@ -28,9 +29,16 @@ class OrderService {
             order = new OrderProduct(product.id, count);
             currentOrder.push(order);
         }
-        this.SaveCurrentToStore();
+        // this.SaveCurrentToStore()
     }
-
+    DeleteFromCurrentOrder(product: Product){
+        const order = currentOrder.find(o => o.productId == product.id)
+        console.log(order)
+        console.log(currentOrder)
+    }
+    Save(){
+        this.SaveCurrentToStore()
+    }
     private SaveCurrentToStore() {
         localStorage.setItem("AllOrdersOverview", JSON.stringify(currentOrder));
     }
@@ -41,6 +49,7 @@ class OrderService {
         if (!currentOrderString) return false;
         const co = JSON.parse(currentOrderString);
         co.forEach((op: any) => currentOrder.push(op))
+        console.log(co)
     }
 
 
