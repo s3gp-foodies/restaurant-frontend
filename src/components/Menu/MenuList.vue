@@ -29,7 +29,6 @@ export default {
   },
 
   created() {
-    console.log("Loading menu...")
     menuService.Load().then(() => {
       this.categories = menuService.GetCategories();
       this.categories.forEach(cat => {

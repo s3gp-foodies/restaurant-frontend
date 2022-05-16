@@ -32,13 +32,12 @@
 
 <script>
 
-import Product from "@/models/product";
 import OrderService from "@/services/order.service";
 
 export default {
   name: "MenuCard",
   props: {
-    product: Product,
+    product: {},
     showNotOrdered: Boolean
   },
   data: () => {
