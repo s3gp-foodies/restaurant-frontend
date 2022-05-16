@@ -12,7 +12,7 @@
         <div>
           <button type="button" class="btn btn-outline-secondary" @click="subtract()"><i
               class="fa fa-minus"></i></button>
-          <input style="height: 30px;" type="number" class="numberInput" v-model="count"
+          <input style="height: 30px; width:15%" type="number" class="numberInput" v-model="count"
                  @input="onInput(count)"/>
           <button type="button" class="btn btn-outline-secondary" @click="add()"><i class="fa fa-plus"></i>
           </button>
