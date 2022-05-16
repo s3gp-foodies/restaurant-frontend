@@ -17,6 +17,9 @@
           <button type="button" class="btn btn-outline-secondary" @click="add()"><i class="fa fa-plus"></i>
           </button>
         </div>
+        <div class="test">
+        <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
+        </div>
         <div>
           <strong v-if="count >14">Cannot be more then 15</strong>
           <strong v-if="count <0 ">Cannot be less then 0</strong>
@@ -64,6 +67,9 @@ export default {
         this.count = 15
       }
       OrderService.UpdateCurrentOrder(this.product, this.count)
+    },
+    addToOrder(){
+      OrderService.Save()
     }
   }
 }
@@ -89,5 +95,9 @@ export default {
 .foodTxt {
   margin: 5px;
   padding: 5px;
+}
+.test {
+  width:100%;
+  text-align: center;
 }
 </style>

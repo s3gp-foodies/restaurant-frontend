@@ -1,5 +1,6 @@
 <template>
   <div v-if="showNotOrdered || isInOrder" class="card text-black bg-light mb-3 menuItem">
+    THIS IS THE CART
     <h3 class="display-6 card-header">{{ product.name }}</h3>
     <div class="card-body text-black">
       <img v-if="product.photoUrl == null" class="foodImage"

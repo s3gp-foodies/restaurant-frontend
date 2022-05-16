@@ -49,6 +49,7 @@ class OrderService {
         if (!currentOrderString) return false;
         const co = JSON.parse(currentOrderString);
         co.forEach((op: any) => currentOrder.push(op))
+        console.log(co)
     }
 
 
