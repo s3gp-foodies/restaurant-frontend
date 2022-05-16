@@ -5,7 +5,10 @@ import Order from "@/models/order";
 import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
 import current from "@/views/Current.vue";
+import { useToast } from "vue-toastification";
 
+
+const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
 const sessionOrders: SessionOrders = new SessionOrders([]);
 const currentOrder: OrderProduct[] = [];
@@ -41,6 +44,7 @@ class OrderService {
     }
     private SaveCurrentToStore() {
         localStorage.setItem("AllOrdersOverview", JSON.stringify(currentOrder));
+        toast.success("Product toegevoegd aan order");
     }
 
     private LoadCurrentFromStore() {
