@@ -39,7 +39,7 @@
     </thead>
     <tbody>
     <tr v-for="order in orders_import.orders" :key="order.name">
-      <dish-overview-row-component :order="order"></dish-overview-row-component>
+      <order-tracker-row :order="order"></order-tracker-row>
     </tr>
     </tbody>
   </table>
@@ -47,17 +47,17 @@
 
 <script>
 import orders_import from "@/temp/orders.json";
-import DishOverviewRowComponent from "@/components/OrderTracker/DishOverviewRowComponent";
+import OrderTrackerRow from "@/components/OrderTracker/OrderTrackerRow";
 
 export default {
-  name: "DishOverview",
+  name: "OrderTracker",
   data: () => {
     return {
       orders_import
     }
   },
   components: {
-    DishOverviewRowComponent
+    OrderTrackerRow
   }
 }
 

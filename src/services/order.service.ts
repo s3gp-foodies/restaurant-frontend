@@ -1,11 +1,8 @@
-import axios from 'axios';
-import authHeader from '../helpers/auth-header';
 import SessionOrders from "@/models/session-orders";
 import Order from "@/models/order";
 import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
-import current from "@/views/Current.vue";
-import { useToast } from "vue-toastification";
+import {useToast} from "vue-toastification";
 
 
 const toast = useToast();
@@ -34,14 +31,17 @@ class OrderService {
         }
         // this.SaveCurrentToStore()
     }
-    DeleteFromCurrentOrder(product: Product){
+
+    DeleteFromCurrentOrder(product: Product) {
         const order = currentOrder.find(o => o.productId == product.id)
         console.log(order)
         console.log(currentOrder)
     }
-    Save(){
+
+    Save() {
         this.SaveCurrentToStore()
     }
+
     private SaveCurrentToStore() {
         localStorage.setItem("AllOrdersOverview", JSON.stringify(currentOrder));
         toast.success("Product toegevoegd aan order");
@@ -53,7 +53,6 @@ class OrderService {
         if (!currentOrderString) return false;
         const co = JSON.parse(currentOrderString);
         co.forEach((op: any) => currentOrder.push(op))
-        console.log(co)
     }
 
 
