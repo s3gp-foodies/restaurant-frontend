@@ -1,6 +1,6 @@
 <template>
   <span v-for="category in categories" :key="category">
-    <p>{{ category.name }}</p>
+    <p>{{ category.name }} - {{ category.id }}</p>
   </span>
 
   <table v-for="order in listedOrders" :key="order">
@@ -35,6 +35,7 @@ export default {
   },
   created() {
     this.categories = MenuService.GetCategories();
+    console.log(this.listedOrders);
 
     OrderService.GetOrders().orders.forEach((order) => {
       let totalPriceOrder = 0;
@@ -43,8 +44,11 @@ export default {
       order.products.forEach((orderedProduct) => {
         let product = MenuService.GetProductById(orderedProduct.productId);
 
+        console.log(orderedProduct.productId);
+
         product_listings.push(
           new OrderOverviewProduct(
+            orderedProduct.productId,
             product.name,
             product.price,
             orderedProduct.count,
