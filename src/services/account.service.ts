@@ -11,9 +11,11 @@ class AccountService {
                 localStorage.userId = response.data.id;
                 localStorage.userName = response.data.userName;
                 localStorage.token = response.data.token;
+                return true
             })
             .catch((error) => {
                 console.log(error);
+                return false
             });
     }
 }

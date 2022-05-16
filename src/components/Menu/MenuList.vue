@@ -1,6 +1,4 @@
 <template v-if="!isLoading">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
   <div v-for="category in categories" :key="category">
     <MenuCategory :category="category" :categoryProducts="menuPerCategory[category.id]" :show-not-ordered="showNotOrdered"></MenuCategory>
   </div>
@@ -13,7 +11,7 @@
 // import axios from "axios";
 // import authHeader from "@/helpers/auth-header";
 import menuService from "@/services/menu.service";
-import MenuCategory from "@/components/MenuCategory";
+import MenuCategory from "@/components/Menu/MenuCategory";
 
 export default {
   name: "MenuList",
@@ -31,6 +29,7 @@ export default {
   },
 
   created() {
+    console.log("Loading menu...")
     menuService.Load().then(() => {
       this.categories = menuService.GetCategories();
       this.categories.forEach(cat => {

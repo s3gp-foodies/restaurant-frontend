@@ -45,9 +45,10 @@ export default {
   },
   methods: {
     handleLogin() {
-      AccountService.Login(this.user);
+      AccountService.Login(this.user).then(res => {
+        if (res) this.$router.push({path: 'menu'})
+      });
       TableSocketService.Connect();
-      this.$router.push({path: 'menu'})
     },
   },
 };
