@@ -5,7 +5,7 @@
              item-key=null @start="dragging=true" @end="dragging=false">
       <template #item="{ element }" >
         <div class="col card text-white bg-dark mb-3">
-          <HeaderCardComponent :order-name=element.name :order-category=element.category :order-amount=element.amount></HeaderCardComponent>
+          <OrderTrackerCardContent :order-name=element.name :order-category=element.category :order-amount=element.amount></OrderTrackerCardContent>
         </div>
       </template>
   </draggable>
@@ -14,13 +14,13 @@
 
 <script>
 import draggable from "vuedraggable";
-import HeaderCardComponent from "@/components/OrderTracker/HeaderCardComponent";
+import OrderTrackerCardContent from "@/components/OrderTracker/OrderTrackerCardContent";
 
 export default {
-  name: "DragCardListComponent",
+  name: "OrderTrackerCard",
   components: {
     draggable,
-    HeaderCardComponent
+    OrderTrackerCardContent
   },
   props: {
     ListName: {

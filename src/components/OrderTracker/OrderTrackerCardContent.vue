@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "HeaderCardComponent",
+  name: "OrderTrackerCardContent",
   props: {
     orderName: {
       type: String,
