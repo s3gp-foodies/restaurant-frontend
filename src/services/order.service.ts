@@ -32,12 +32,12 @@ class OrderService {
     }
 
     private SaveCurrentToStore() {
-        localStorage.setItem("CurrentOrder", JSON.stringify(currentOrder));
+        localStorage.setItem("AllOrdersOverview", JSON.stringify(currentOrder));
     }
 
     private LoadCurrentFromStore() {
         currentOrder.length = 0;
-        const currentOrderString = localStorage.getItem("CurrentOrder");
+        const currentOrderString = localStorage.getItem("AllOrdersOverview");
         if (!currentOrderString) return false;
         const co = JSON.parse(currentOrderString);
         co.forEach((op: any) => currentOrder.push(op))

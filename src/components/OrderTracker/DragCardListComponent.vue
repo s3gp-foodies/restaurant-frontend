@@ -14,7 +14,7 @@
 
 <script>
 import draggable from "vuedraggable";
-import HeaderCardComponent from "@/components/OverviewComponents/HeaderCardComponent";
+import HeaderCardComponent from "@/components/OrderTracker/HeaderCardComponent";
 
 export default {
   name: "DragCardListComponent",

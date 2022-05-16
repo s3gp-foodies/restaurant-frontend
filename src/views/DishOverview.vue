@@ -47,7 +47,7 @@
 
 <script>
 import orders_import from "@/temp/orders.json";
-import DishOverviewRowComponent from "@/components/OverviewComponents/DishOverviewRowComponent";
+import DishOverviewRowComponent from "@/components/OrderTracker/DishOverviewRowComponent";
 
 export default {
   name: "DishOverview",

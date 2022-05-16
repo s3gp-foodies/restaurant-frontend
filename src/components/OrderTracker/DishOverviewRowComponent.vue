@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import dishOverviewComponent from "@/components/OverviewComponents/DishOverviewComponent";
+import dishOverviewComponent from "@/components/OrderTracker/DishOverviewComponent";
 
 export default {
   name: "DishOverviewRowComponent",
