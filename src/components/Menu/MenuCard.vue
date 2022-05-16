@@ -17,7 +17,7 @@
           <button type="button" class="btn btn-outline-secondary" @click="add()"><i class="fa fa-plus"></i>
           </button>
         </div>
-        <div class="test">
+        <div class="addbutton">
         <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
         </div>
         <div>
@@ -95,8 +95,9 @@ export default {
   margin: 5px;
   padding: 5px;
 }
-.test {
+.addbutton {
   width:100%;
   text-align: center;
+  padding: 1%
 }
 </style>
