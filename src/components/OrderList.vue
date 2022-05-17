@@ -24,18 +24,33 @@ export default {
     return {
       listedOrders: [],
       totalPrice: 0,
-      categories: []
+      categories: [],
+      productIds: []
     };
   },
   created() {
     this.categories = MenuService.GetCategories();
+
+    //console.log(OrderService.GetOrders().orders);
 
     OrderService.GetOrders().orders.forEach((order) => {
       let totalPriceOrder = 0;
       const product_listings = [];
 
       order.products.forEach((orderedProduct) => {
+        this.productIds.push(orderedProduct.productId);
+      });
+
+      //console.log(order.products);
+
+      /*this.checkDuplicateProductIds(this.productIds).forEach(duplicateProductId => {
+        console.log(duplicateProductId);
+      });*/
+
+      order.products.forEach((orderedProduct) => {
         let product = MenuService.GetProductById(orderedProduct.productId);
+
+        //console.log(product);
 
         product_listings.push(
           new OrderOverviewProduct(
@@ -57,6 +72,21 @@ export default {
         new OrderOverview(order.time, totalPriceOrder, product_listings)
       );
     });
+  },
+  methods: {
+    checkDuplicateProductIds(numbers) {
+      const set = new Set(numbers);
+
+      const duplicates = numbers.filter(item => {
+          if (set.has(item)) {
+              set.delete(item);
+          } else {
+              return item;
+          }
+      });
+
+      return duplicates;
+    }
   } 
 };
 </script>
