@@ -69,4 +69,4 @@ class MenuService {
     }
 }
 
-export default new MenuService();
+export default MenuService;
