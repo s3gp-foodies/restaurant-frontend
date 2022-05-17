@@ -27,8 +27,10 @@ class TableSocketService {
         })
     }
 
-    Invoke(func: Function) {
-        this.connectionStatus.then(func)
+    Invoke(methodName: string,args:any[]) {
+        this.connectionStatus.then(async () =>{
+            await this.connection.invoke(methodName, args)
+        })
     }
 }
 
