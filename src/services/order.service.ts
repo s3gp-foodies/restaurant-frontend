@@ -3,6 +3,7 @@ import Order from "@/models/order";
 import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
 import {useToast} from "vue-toastification";
+import {SocketConsumer} from "@/services/socket-consumer";
 
 
 const toast = useToast();
@@ -10,7 +11,8 @@ const API_URL = 'https://localhost:7209/api/order/';
 const sessionOrders: SessionOrders = new SessionOrders([]);
 const currentOrder: OrderProduct[] = [];
 
-class OrderService {
+class OrderService extends SocketConsumer {
+
     GetOrders() {
         return sessionOrders
     }
