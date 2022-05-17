@@ -22,6 +22,10 @@ class TableSocketService {
             await this.connection.invoke("test")
         })
     }
+
+    Invoke(func: Function) {
+        this.connectionStatus.then(func)
+    }
 }
 
 export default TableSocketService;
