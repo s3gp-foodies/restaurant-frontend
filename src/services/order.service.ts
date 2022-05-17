@@ -6,6 +6,7 @@ import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
 import current from "@/views/Current.vue";
 import { useToast } from "vue-toastification";
+import tablesocketService from "@/services/tablesocket.service";
 
 
 const toast = useToast();
@@ -54,6 +55,12 @@ class OrderService {
         const co = JSON.parse(currentOrderString);
         co.forEach((op: any) => currentOrder.push(op))
         console.log(co)
+    }
+    MakeOrder(){
+        tablesocketService.Connect()
+        tablesocketService.connection.invoke("SubmitOrder", currentOrder).then(()=>{console.log("done")})
+        //tablesocketService.test(currentOrder)
+        // console.log(currentOrder)
     }
 
 
