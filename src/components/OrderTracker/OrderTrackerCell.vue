@@ -6,8 +6,8 @@
                @start="dragging=true" @end="dragging=false">
       <template #item="{ element }" >
         <div class="col card text-white bg-dark mb-3">
-          <HeaderCardComponent :order-name=element.name :order-category=element.category
-                               :order-amount=element.amount></HeaderCardComponent>
+          <OrderTrackerCardContent :order-name=element.name :order-category=element.category
+                               :order-amount=element.amount></OrderTrackerCardContent>
         </div>
       </template>
     </draggable>
@@ -16,13 +16,13 @@
 
 <script>
 import draggable from "vuedraggable";
-import HeaderCardComponent from "@/components/OrderTracker/HeaderCardComponent";
+import OrderTrackerCardContent from "@/components/OrderTracker/OrderTrackerCardContent";
 
 export default {
-  name: "DishOverviewComponent",
+  name: "OrderTrackerCell",
   components: {
     draggable,
-    HeaderCardComponent,
+    OrderTrackerCardContent,
   },
   props: {
     products: {
@@ -66,6 +66,12 @@ export default {
   width: 100%;
   display: flex;
   justify-content: left;
+  flex-wrap: wrap;
+}
+
+.card{
+  min-width: fit-content;
+  max-width: fit-content;
 }
 
 </style>

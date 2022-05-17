@@ -7,12 +7,11 @@
 </template>
 
 <script>
-import Order from '@/models/order';
 
 export default {
   name: "OrderProduct",
   props: {
-    order: Order
+    order: {}
   }
 }
 </script>

@@ -1,28 +1,27 @@
 import {HubConnectionBuilder} from "@microsoft/signalr";
-import OrderProduct from "@/models/order-product";
-
 
 
 class TableSocketService {
     connection = new HubConnectionBuilder()
-    .withUrl("https://localhost:7209/hubs/table", {
-        accessTokenFactory: () => localStorage.token,
-    })
-    .build();
+        .withUrl("https://localhost:7209/hubs/table", {
+            accessTokenFactory: () => localStorage.token,
+        })
+        .build();
+    private connectionStatus: any;
+
     Connect() {
-
-
         this.connection.on("Connected", function (message) {
             console.log(message);
         });
 
-        this.connection.start().catch(e => console.log(e));
+        this.connectionStatus = this.connection.start().catch(e => console.log(e));
     }
 
-    test(currentorder: OrderProduct[]){
-        // console.log(currentorder)
-        this.connection.invoke("SubmitOrder", currentorder).then(()=>{console.log("done")})
+    Test() {
+        this.connectionStatus.then(async () => {
+            await this.connection.invoke("test")
+        })
     }
 }
 
-export default new TableSocketService();
+export default TableSocketService;

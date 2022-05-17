@@ -17,7 +17,7 @@
           <button type="button" class="btn btn-outline-secondary" @click="add()"><i class="fa fa-plus"></i>
           </button>
         </div>
-        <div class="test">
+        <div class="addbutton">
         <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
         </div>
         <div>
@@ -32,13 +32,10 @@
 
 <script>
 
-import Product from "@/models/product";
-import OrderService from "@/services/order.service";
-
 export default {
   name: "MenuCard",
   props: {
-    product: Product,
+    product: {},
     showNotOrdered: Boolean
   },
   data: () => {
@@ -47,8 +44,9 @@ export default {
       count: Number
     }
   },
+  inject:['orderService'],
   created() {
-    this.count = OrderService.GetCurrentOrderCount(this.product);
+    this.count = this.orderService.GetCurrentOrderCount(this.product);
     this.isInOrder = this.count > 0;
   },
   methods: {
@@ -66,10 +64,10 @@ export default {
       } else if (this.count >= 15) {
         this.count = 15
       }
-      OrderService.UpdateCurrentOrder(this.product, this.count)
+      this.orderService.UpdateCurrentOrder(this.product, this.count)
     },
     addToOrder(){
-      OrderService.Save()
+      this.orderService.Save()
     }
   }
 }
@@ -96,8 +94,9 @@ export default {
   margin: 5px;
   padding: 5px;
 }
-.test {
+.addbutton {
   width:100%;
   text-align: center;
+  padding: 1%
 }
 </style>

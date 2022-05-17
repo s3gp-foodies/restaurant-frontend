@@ -8,9 +8,6 @@
           <img v-else class="foodImage" :src="dish.imgLink" alt=""> -->
 
 <script>
-// import axios from "axios";
-// import authHeader from "@/helpers/auth-header";
-import menuService from "@/services/menu.service";
 import MenuCategory from "@/components/Menu/MenuCategory";
 
 export default {
@@ -27,13 +24,13 @@ export default {
       menuPerCategory: {}
     }
   },
+  inject:['menuService'],
 
   created() {
-    console.log("Loading menu...")
-    menuService.Load().then(() => {
-      this.categories = menuService.GetCategories();
+    this.menuService.Load().then(() => {
+      this.categories = this.menuService.GetCategories();
       this.categories.forEach(cat => {
-        this.menuPerCategory[cat.id] = (menuService.GetItemsInCategory(cat))
+        this.menuPerCategory[cat.id] = (this.menuService.GetItemsInCategory(cat))
       })
       this.isLoading = false;
     })

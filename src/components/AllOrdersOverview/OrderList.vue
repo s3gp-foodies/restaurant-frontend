@@ -11,10 +11,8 @@
 
 <script>
 import OrderProduct from './OrderProduct.vue';
-import OrderService from "@/services/order.service";
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
 import OrderOverview from "@/models/order-overview.ts";
-import MenuService from "@/services/menu.service";
 
 export default {
   name: "OrderList",
@@ -28,13 +26,14 @@ export default {
       totalPrice: 0
     };
   },
+  inject: ['orderService', 'menuService'],
   created() {
-    OrderService.GetOrders().orders.forEach((order) => {
+    this.orderService.GetOrders().orders.forEach((order) => {
       let totalPriceOrder = 0;
       const product_listings = [];
 
       order.products.forEach((orderedProduct) => {
-        let product = MenuService.GetProductById(orderedProduct.productId);
+        let product = this.menuService.GetProductById(orderedProduct.productId);
 
         product_listings.push(
           new OrderOverviewProduct(

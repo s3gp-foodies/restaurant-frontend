@@ -18,13 +18,21 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
+import AccountService from "@/services/account.service";
+import MenuService from "@/services/menu.service";
+import OrderService from "@/services/order.service";
+import TablesocketService from "@/services/tablesocket.service";
 
 @Options({
-  components: {
-    HelloWorld,
-  },
+  components: {},
+  provide:{
+    accountService: new AccountService(),
+    menuService: new MenuService(),
+    orderService: new OrderService(),
+    socketService: new TablesocketService()
+  }
 })
+
 export default class App extends Vue {
 }
 
