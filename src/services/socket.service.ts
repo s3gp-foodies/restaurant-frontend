@@ -23,8 +23,8 @@ class SocketService {
         })
     }
 
-    Invoke(methodName: string, args: any[] | undefined = undefined) {
-        this.connectionStatus.then(async () => {
+    Invoke(methodName: string, args: any[] | undefined = undefined): Promise<any> {
+        return this.connectionStatus.then(async () => {
             if (args) await this.connection.invoke(methodName, args)
             else await this.connection.invoke(methodName)
         })
