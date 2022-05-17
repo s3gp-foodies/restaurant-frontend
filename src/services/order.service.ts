@@ -84,4 +84,4 @@ class OrderService {
     }
 }
 
-export default new OrderService();
+export default OrderService;

@@ -33,8 +33,6 @@
 
 <script>
 import User from "../models/user";
-import AccountService from '../services/account.service';
-import TableSocketService from '../services/tablesocket.service';
 
 export default {
   name: "LoginPage",
@@ -43,12 +41,14 @@ export default {
       user: new User("", ""),
     };
   },
+  inject:
+      ['accountService', 'socketService'],
   methods: {
     handleLogin() {
-      AccountService.Login(this.user).then(res => {
+      this.accountService.Login(this.user).then(res => {
         if (res) this.$router.push({path: 'menu'})
       });
-      TableSocketService.Connect();
+      this.socketService.Connect();
     },
   },
 };

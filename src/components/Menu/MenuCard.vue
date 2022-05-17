@@ -32,8 +32,6 @@
 
 <script>
 
-import OrderService from "@/services/order.service";
-
 export default {
   name: "MenuCard",
   props: {
@@ -46,8 +44,9 @@ export default {
       count: Number
     }
   },
+  inject:['orderService'],
   created() {
-    this.count = OrderService.GetCurrentOrderCount(this.product);
+    this.count = this.orderService.GetCurrentOrderCount(this.product);
     this.isInOrder = this.count > 0;
   },
   methods: {
@@ -65,10 +64,10 @@ export default {
       } else if (this.count >= 15) {
         this.count = 15
       }
-      OrderService.UpdateCurrentOrder(this.product, this.count)
+      this.orderService.UpdateCurrentOrder(this.product, this.count)
     },
     addToOrder(){
-      OrderService.Save()
+      this.orderService.Save()
     }
   }
 }
