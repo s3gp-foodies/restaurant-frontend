@@ -66,12 +66,10 @@ export default {
       );
     });
 
-    //console.log(this.orderedProducts); 
-    //console.log(this.checkDuplicateProductIds(this.productIds));
-
     var duplicate_products = [];
-
-    this.checkDuplicateProductIds(this.productIds).forEach((duplicateProductId) => {
+    var duplicate_product_ids = this.checkDuplicateProductIds(this.productIds);
+    
+    duplicate_product_ids.forEach((duplicateProductId) => {
       var duplicateProductCount = 0;
       
       this.orderedProducts.forEach((orderedProductTest) => {
@@ -88,13 +86,14 @@ export default {
       );
     })
 
-    console.log(duplicate_products);
+    //var unique_products = [];
+    //var unique_product_ids = this.checkUniqueProductIds(duplicate_product_ids);
   },
   methods: {
-    checkDuplicateProductIds(numbers) {
-      const set = new Set(numbers);
+    checkDuplicateProductIds(productIds) {
+      const set = new Set(productIds);
 
-      const duplicates = numbers.filter(item => {
+      const duplicates = productIds.filter(item => {
           if (set.has(item)) {
               set.delete(item);
           } else {
@@ -103,6 +102,9 @@ export default {
       });
 
       return duplicates;
+    },
+    checkUniqueProductIds(duplicate_product_ids) {
+      return this.productIds.filter((x) => !duplicate_product_ids.includes(x));
     }
   } 
 };

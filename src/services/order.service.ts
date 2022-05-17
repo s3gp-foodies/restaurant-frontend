@@ -63,9 +63,10 @@ class OrderService {
             const product_order_3 = new OrderProduct(3, 2);
             const product_order_4 = new OrderProduct(4, 5);
             const product_order_5 = new OrderProduct(4, 3);
+            const product_order_6 = new OrderProduct(1, 1);
 
             const order_1 = new Order(0, "01:16", [product_order_1, product_order_3, product_order_4]);
-            const order_2 = new Order(1, "02:10", [product_order_2, product_order_5]);
+            const order_2 = new Order(1, "02:10", [product_order_2, product_order_5, product_order_6]);
 
             sessionOrders.orders.push(order_1);
             sessionOrders.orders.push(order_2);
