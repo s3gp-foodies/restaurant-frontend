@@ -26,7 +26,6 @@
     </div>
     <i>Types of orders that you can encounter</i>
   </div>
-
   <table style="margin-top: 10px; table-layout: fixed" class="table table-bordered table-info">
     <thead class="thead-dark">
     <tr>
@@ -38,7 +37,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="order in orders_import.orders" :key="order.name">
+    <tr v-for="order in orders_import" :key="order.name">
       <order-tracker-row :order="order"></order-tracker-row>
     </tr>
     </tbody>
@@ -46,7 +45,7 @@
 </template>
 
 <script>
-import orders_import from "@/temp/orders.json";
+let orders_import = [];
 import OrderTrackerRow from "@/components/OrderTracker/OrderTrackerRow";
 
 export default {
@@ -58,6 +57,51 @@ export default {
   },
   components: {
     OrderTrackerRow
+  },
+  methods: {
+    getOrderData() {
+      let JSONOrder;
+      let JSONOrder2;
+
+      /*
+      Connect to the BE
+      Get the data from the function
+       */
+
+        JSONOrder = {
+          "name": "Tafel1",
+          "time": "18:34",
+          "product": [
+            {
+              "name": "Cesear Salade", "amount": 3, "category": "Appetiser"
+            }
+          ]
+        }
+        JSONOrder2 = {
+          "name": "Tafel2",
+          "time": "18:36",
+          "product": [
+            {
+              "name": "Cesear Salade", "amount": 3, "category": "Appetiser"
+            },
+            {
+              "name": "Spa blue", "amount": 5, "category": "Drinks"
+            },
+            {
+              "name": "Baguette basket", "amount": 2, "category": "Appetiser"
+            }
+          ]
+        }
+
+        orders_import.push(JSONOrder);
+        orders_import.push(JSONOrder2);
+    }
+  },
+  created() {
+    this.getOrderData()
+  },
+  beforeRouteLeave() {
+   orders_import = []
   }
 }
 
