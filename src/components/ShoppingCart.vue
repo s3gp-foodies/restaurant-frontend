@@ -1,5 +1,6 @@
 <template>
   <div v-if="showNotOrdered || isInOrder" class="card text-black bg-light mb-3 menuItem">
+    THIS IS THE CART
     <h3 class="display-6 card-header">{{ product.name }}</h3>
     <div class="card-body text-black">
       <img v-if="product.photoUrl == null" class="foodImage"
@@ -15,6 +16,8 @@
         <strong v-if="count <0 ">Cannot be less then 0</strong>
         <button type="button" class="btn btn-outline-secondary" @click="add()"><i class="fa fa-plus"></i>
         </button>
+        <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
+        <!--        <button type="button" class="btn btn-outline-danger" @click="del()"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
         &euro; {{ product.price }} Per stuk
       </p>
     </div>
@@ -27,10 +30,11 @@ import Product from "@/models/product";
 import OrderService from "@/services/order.service";
 
 export default {
-  name: "MenuCard",
+  name: "ShoppingCart",
   props: {
     product: Product,
-    showNotOrdered: Boolean
+    showNotOrdered: Boolean,
+    orderPage: Boolean
   },
   data: () => {
     return {
@@ -58,6 +62,13 @@ export default {
         this.count = 15
       }
       OrderService.UpdateCurrentOrder(this.product, this.count)
+    },
+    del(){
+      console.log("ha")
+      OrderService.DeleteFromCurrentOrder(this.product)
+    },
+    addToOrder(){
+      OrderService.Save()
     }
   }
 }

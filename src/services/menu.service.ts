@@ -23,6 +23,7 @@ class MenuService {
     }
 
     GetItemsInCategory(category: Category){
+        if (!menu.products) this.Load()
         return menu.products.filter(item => item.category.id===category.id)
     }
 
@@ -45,6 +46,7 @@ class MenuService {
                     description: prod.description,
                     price: prod.price,
                     allergies: prod.allergy,
+                    photoUrl: prod.imageUrl,
                     category: categories.find(cat => cat.id === prod.category.id)
                 }));
             });
@@ -67,4 +69,4 @@ class MenuService {
     }
 }
 
-export default new MenuService();
+export default MenuService;

@@ -1,23 +1,15 @@
 <template>
-  <div class="order-display">
+  <div class="order-display" v-if="isLoading">
+    <h3>Loading..</h3>
+  </div> 
+  <div class="order-display" v-if="!isLoading">
     <hr size="3" width="85%"/>
-    <div class="overview" v-if="!isFetching">
-      <table v-for="order in listedOrders" :key="order">
-        <tr v-for="product in order.products" :key="product">
-          <td>{{ product.name }}</td>
-          <td>{{ product.count }} x &euro;&thinsp;{{ parseFloat(product.price).toFixed(2) }}</td>
-          <td>&euro;&thinsp;{{ parseFloat(product.totalPrice).toFixed(2) }}</td>
-        </tr>
-        <tr>
-          <th>{{ order.time }}</th>
-          <th></th>
-          <th>&euro;&thinsp;{{ parseFloat(order.totalprice).toFixed(2) }}</th>
-        </tr>
-      </table>
+    <div class="overview">
+      <OrderList @totalPrice="getTotalPrice"></OrderList>
     </div>
     <hr size="3" width="85%"/>
     <div class="totalprice">
-      <h4>Totaal: &euro;&thinsp;{{ parseFloat(totalPrice).toFixed(2) }}</h4>
+      <OrderPrice :totalPrice="totalPrice"></OrderPrice>
     </div>
     <div class="payment-buttons">
       <button class="btn btn-primary">Kassa betalen</button>
@@ -27,57 +19,40 @@
 </template>
 
 <script>
-import MenuService from "@/services/menu.service";
-import OrderService from "@/services/order.service";
-import OrderOverviewProduct from "@/models/order-overview-product.ts";
-import OrderOverview from "@/models/order-overview.ts";
+import OrderList from "../components/AllOrdersOverview/OrderList.vue";
+import OrderPrice from "../components/AllOrdersOverview/OrderPrice.vue";
 
 export default {
   name: "OrdersPage",
+  components: {
+    OrderList,
+    OrderPrice
+  },
   data: () => {
     return {
-      listedOrders: [],
-      totalPrice: Number,
-      isFetching: Boolean,
+      isLoading: true,
+      totalPrice: Number
     };
   },
+  inject: ['orderService', 'menuService'],
   created() {
-    this.isFetching = true;
-    MenuService.Load().then(() => {
-      OrderService.LoadOrders().then(() => {
-        this.loadData();
-        this.isFetching = false;
+    this.menuService.Load().then(() => {
+      this.orderService.LoadOrders().then(() => {
+        this.isLoading = false;
       })
+      .catch(error => {
+        console.log(error);
+      })
+    })
+    .catch(error => {
+      console.log(error);
     })
   },
   methods: {
-    async loadData() {
-
-      this.totalPrice = 0;
-
-      OrderService.GetOrders().orders.forEach((order) => {
-        const product_listings = [];
-        let totalPriceOrder = 0;
-        order.products.forEach((orderedProduct) => {
-          let product = MenuService.GetProductById(orderedProduct.productId);
-          product_listings.push(
-              new OrderOverviewProduct(
-                  product.name,
-                  product.price,
-                  orderedProduct.count,
-                  product.price * orderedProduct.count
-              )
-          );
-          totalPriceOrder += product.price * orderedProduct.count;
-        });
-
-        this.listedOrders.push(
-            new OrderOverview(order.time, totalPriceOrder, product_listings)
-        );
-        this.totalPrice += totalPriceOrder;
-      });
-    },
-  },
+    getTotalPrice(value) {
+      this.totalPrice = value;
+    }
+  }
 };
 </script>
 
@@ -88,45 +63,12 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
-
-.order-display td,
-.order-display th {
-  padding: 1px 8px;
-}
-
-.order-display td:first-of-type,
-.order-display th:first-of-type {
-  padding-right: 162px;
-  padding-top: 3px;
-}
-
-.order-display td:last-of-type,
-.order-display th:last-of-type {
-  padding-left: 52px;
-}
-
-.order-display td:first-of-type, .order-display th:first-of-type {
-  float: left;
-}
-
-.order-display tr {
-  background-color: #bbbbbb8c;
-}
-
-.order-display table {
-  padding: 10px;
-  width: 100%;
-  border-collapse: initial;
-}
-
 .order-display .payment-buttons {
   margin-top: 8px;
 }
-
 .order-display .payment-buttons button:first-of-type {
   margin-right: 38px;
 }
-
 .order-display .overview {
   margin-bottom: 6px;
   margin-top: 6px;

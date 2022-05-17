@@ -1,10 +1,11 @@
-import axios from 'axios';
-import authHeader from '../helpers/auth-header';
 import SessionOrders from "@/models/session-orders";
 import Order from "@/models/order";
 import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
+import {useToast} from "vue-toastification";
 
+
+const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
 const sessionOrders: SessionOrders = new SessionOrders([]);
 const currentOrder: OrderProduct[] = [];
@@ -28,16 +29,27 @@ class OrderService {
             order = new OrderProduct(product.id, count);
             currentOrder.push(order);
         }
-        this.SaveCurrentToStore();
+        // this.SaveCurrentToStore()
+    }
+
+    DeleteFromCurrentOrder(product: Product) {
+        const order = currentOrder.find(o => o.productId == product.id)
+        console.log(order)
+        console.log(currentOrder)
+    }
+
+    Save() {
+        this.SaveCurrentToStore()
     }
 
     private SaveCurrentToStore() {
-        localStorage.setItem("CurrentOrder", JSON.stringify(currentOrder));
+        localStorage.setItem("AllOrdersOverview", JSON.stringify(currentOrder));
+        toast.success("Product toegevoegd aan order");
     }
 
     private LoadCurrentFromStore() {
         currentOrder.length = 0;
-        const currentOrderString = localStorage.getItem("CurrentOrder");
+        const currentOrderString = localStorage.getItem("AllOrdersOverview");
         if (!currentOrderString) return false;
         const co = JSON.parse(currentOrderString);
         co.forEach((op: any) => currentOrder.push(op))
@@ -72,4 +84,4 @@ class OrderService {
     }
 }
 
-export default new OrderService();
+export default OrderService;

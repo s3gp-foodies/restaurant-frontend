@@ -1,19 +1,27 @@
-import { HubConnectionBuilder } from "@microsoft/signalr";
+import {HubConnectionBuilder} from "@microsoft/signalr";
+
 
 class TableSocketService {
-    Connect() {
-        const connection = new HubConnectionBuilder()
+    connection = new HubConnectionBuilder()
         .withUrl("https://localhost:7209/hubs/table", {
-          accessTokenFactory: () => localStorage.token,
+            accessTokenFactory: () => localStorage.token,
         })
         .build();
-        
-      connection.on("Connected", function (message) {
-        console.log(message);
-      });
+    private connectionStatus: any;
 
-      connection.start();
+    Connect() {
+        this.connection.on("Connected", function (message) {
+            console.log(message);
+        });
+
+        this.connectionStatus = this.connection.start().catch(e => console.log(e));
+    }
+
+    Test() {
+        this.connectionStatus.then(async () => {
+            await this.connection.invoke("test")
+        })
     }
 }
 
-export default new TableSocketService();
+export default TableSocketService;

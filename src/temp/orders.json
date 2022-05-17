@@ -1,17 +1,30 @@
 {
 	"orders": [
-		{"name": "bestelling1",
+		{	"name": "Tafel1",
+			"time": "18:34",
 			"product": [
-				{"name": "gerecht1", "amount": 3, "price": "9.50"},
-				{"name": "gerecht2", "amount": 2, "price": "5.25"},
-				{"name": "gerecht3", "amount": 1, "price": "7.50"}
+				{"name": "Cesear Salade", "amount": 3, "price": "9.50", "category": "Appetiser"
+				},
+				{"name": "Steak", "amount": 2, "price": "5.25", "category": "Main dish"},
+				{"name": "Sorbet", "amount": 1, "price": "7.50", "category": "Dessert"}
 			]
 		},
-		{"name": "bestelling2",
+		{
+			"name": "Tafel1",
+			"time": "18:36",
 			"product": [
-				{"name": "gerecht4", "amount": 2, "price": "6.25"},
-				{"name": "gerecht5", "amount": 4, "price": "3.50"},
-				{"name": "gerecht6", "amount": 2, "price": "4.75"}
+				{"name": "Spa", "amount": 2, "price": "1.50", "category": "Drinks"},
+				{"name": "Cola", "amount": 2, "price": "2.25", "category": "Drinks"},
+				{"name": "Fanta", "amount": 2, "price": "2.25", "category": "Drinks"}
+			]
+		},
+		{
+			"name": "Tafel2",
+			"time": "18:33",
+			"product": [
+				{"name": "Baguette basket", "amount": 2, "price": "4.50", "category": "Appetiser"},
+				{"name": "Cola", "amount": 2, "price": "2.25", "category": "Drinks"},
+				{"name": "Hamburger", "amount": 1, "price": "62.25", "category": "Main dish"}
 			]
 		}
 	]
