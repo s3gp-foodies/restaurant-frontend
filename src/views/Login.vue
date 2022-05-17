@@ -42,13 +42,12 @@ export default {
     };
   },
   inject:
-      ['accountService', 'socketService'],
+      ['accountService'],
   methods: {
     handleLogin() {
       this.accountService.Login(this.user).then(res => {
         if (res) this.$router.push({path: 'menu'})
       });
-      this.socketService.Connect();
     },
   },
 };
