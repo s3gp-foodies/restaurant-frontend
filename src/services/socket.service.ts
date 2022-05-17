@@ -1,7 +1,7 @@
 import {HubConnectionBuilder} from "@microsoft/signalr";
 
 
-class TableSocketService {
+class SocketService {
     connection = new HubConnectionBuilder()
         .withUrl("https://localhost:7209/hubs/table", {
             accessTokenFactory: () => localStorage.token,
@@ -27,11 +27,12 @@ class TableSocketService {
         })
     }
 
-    Invoke(methodName: string,args:any[]) {
-        this.connectionStatus.then(async () =>{
-            await this.connection.invoke(methodName, args)
+    Invoke(methodName: string, args: any[] | undefined = undefined): Promise<any> {
+        return this.connectionStatus.then(async () => {
+            if (args) await this.connection.invoke(methodName, args)
+            else await this.connection.invoke(methodName)
         })
     }
 }
 
-export default TableSocketService;
+export default SocketService;

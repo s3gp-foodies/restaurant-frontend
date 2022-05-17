@@ -3,12 +3,13 @@ import Menu from '@/models/menu';
 import Product from '@/models/product';
 import axios from 'axios';
 import authHeader from '../helpers/auth-header';
+import {SocketConsumer} from "@/services/socket-consumer";
 
 const API_URL = 'https://localhost:7209/api/menu/';
 const menu: Menu = new Menu([]);
 const categories: Category[] = [];
 
-class MenuService {
+class MenuService extends SocketConsumer {
 
     GetProductById(id: number) {
         return menu.products.find(p => p.id == id);
@@ -22,9 +23,9 @@ class MenuService {
         return categories
     }
 
-    GetItemsInCategory(category: Category){
+    GetItemsInCategory(category: Category) {
         if (!menu.products) this.Load()
-        return menu.products.filter(item => item.category.id===category.id)
+        return menu.products.filter(item => item.category.id === category.id)
     }
 
     async Load() {

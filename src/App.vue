@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title></title>
   </head>
+  <SocketContainer></SocketContainer>
   <nav class="navbar nav-tabs" id="nav">
     <router-link to="/" class="nav-link">Login</router-link>&nbsp;
     <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;
@@ -21,15 +22,14 @@ import {Options, Vue} from 'vue-class-component';
 import AccountService from "@/services/account.service";
 import MenuService from "@/services/menu.service";
 import OrderService from "@/services/order.service";
-import TablesocketService from "@/services/tablesocket.service";
+import SocketContainer from "@/components/SocketContainer.vue";
 
 @Options({
-  components: {},
-  provide:{
+  components: {SocketContainer},
+  provide: {
     accountService: new AccountService(),
     menuService: new MenuService(),
     orderService: new OrderService(),
-    socketService: new TablesocketService()
   }
 })
 
