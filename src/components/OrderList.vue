@@ -65,13 +65,22 @@ export default {
       );
     });
 
-    console.log(this.orderedProducts);
-    
+    console.log(this.orderedProducts); 
     console.log(this.checkDuplicateProductIds(this.productIds));
 
-    this.orderedProducts.forEach((orderedProductTest) => {
-      console.log(orderedProductTest);
-    });
+    this.checkDuplicateProductIds(this.productIds).forEach((duplicateProductId) => {
+      var duplicateProductCount = 0;
+      
+      this.orderedProducts.forEach((orderedProductTest) => {
+        if(duplicateProductId == orderedProductTest.productId) {
+          duplicateProductCount += orderedProductTest.count;
+        }
+      })
+
+      console.log(duplicateProductCount);
+    })
+
+
   },
   methods: {
     checkDuplicateProductIds(numbers) {
