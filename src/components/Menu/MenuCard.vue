@@ -12,12 +12,12 @@
         <div>
           <button type="button" class="btn btn-outline-secondary" @click="subtract()"><i
               class="fa fa-minus"></i></button>
-          <input style="height: 30px;" type="number" class="numberInput" v-model="count"
+          <input style="height: 30px; width:15%" type="number" class="numberInput" v-model="count"
                  @input="onInput(count)"/>
           <button type="button" class="btn btn-outline-secondary" @click="add()"><i class="fa fa-plus"></i>
           </button>
         </div>
-        <div class="test">
+        <div class="addbutton">
         <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
         </div>
         <div>
@@ -94,8 +94,9 @@ export default {
   margin: 5px;
   padding: 5px;
 }
-.test {
+.addbutton {
   width:100%;
   text-align: center;
+  padding: 1%
 }
 </style>
