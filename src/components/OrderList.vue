@@ -13,6 +13,7 @@ import OrderService from "@/services/order.service";
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
 import OrderOverview from "@/models/order-overview.ts";
 import MenuService from "@/services/menu.service";
+import OrderProduct from "@/models/order-product.ts";
 
 export default {
   name: "OrderList",
@@ -65,8 +66,10 @@ export default {
       );
     });
 
-    console.log(this.orderedProducts); 
-    console.log(this.checkDuplicateProductIds(this.productIds));
+    //console.log(this.orderedProducts); 
+    //console.log(this.checkDuplicateProductIds(this.productIds));
+
+    var duplicate_products = [];
 
     this.checkDuplicateProductIds(this.productIds).forEach((duplicateProductId) => {
       var duplicateProductCount = 0;
@@ -77,10 +80,15 @@ export default {
         }
       })
 
-      console.log(duplicateProductCount);
+      duplicate_products.push(
+        new OrderProduct (
+          duplicateProductId,
+          duplicateProductCount
+        )
+      );
     })
 
-
+    console.log(duplicate_products);
   },
   methods: {
     checkDuplicateProductIds(numbers) {
