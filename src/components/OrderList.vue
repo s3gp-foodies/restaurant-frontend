@@ -41,22 +41,6 @@ export default {
         this.orderedProducts.push(orderedProduct);
       });
 
-      this.orderedProducts.forEach((orderedProduct1) => {
-        this.checkDuplicateProductIds(this.productIds).forEach(duplicateProductId => {
-          let product = MenuService.GetProductById(orderedProduct1.productId);
-
-          if(duplicateProductId == orderedProduct1.productId) {
-            console.log("duplicate");
-            console.log(product);
-            console.log(orderedProduct1.count);
-          } else {
-            console.log("unique");
-            console.log(product);
-            console.log(orderedProduct1.count);
-          }
-        });
-      });  
-
       order.products.forEach((orderedProduct) => {
         let product = MenuService.GetProductById(orderedProduct.productId);
 
@@ -79,6 +63,14 @@ export default {
       this.listedOrders.push(
         new OrderOverview(order.time, totalPriceOrder, product_listings)
       );
+    });
+
+    console.log(this.orderedProducts);
+    
+    console.log(this.checkDuplicateProductIds(this.productIds));
+
+    this.orderedProducts.forEach((orderedProductTest) => {
+      console.log(orderedProductTest);
     });
   },
   methods: {
