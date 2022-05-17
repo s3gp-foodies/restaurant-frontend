@@ -86,8 +86,21 @@ export default {
       );
     })
 
-    //var unique_products = [];
-    //var unique_product_ids = this.checkUniqueProductIds(duplicate_product_ids);
+    var unique_products = [];
+    var unique_product_ids = this.checkUniqueProductIds(duplicate_product_ids);
+
+    unique_product_ids.forEach((uniqueProductId) => {
+      unique_products.push(
+        new OrderProduct (
+          uniqueProductId,
+          //count?
+        )
+      ); 
+    })
+
+    console.log(duplicate_products);
+    console.log(unique_products);
+    //console.log(this.listedOrders);
   },
   methods: {
     checkDuplicateProductIds(productIds) {
