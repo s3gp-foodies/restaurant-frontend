@@ -1,19 +1,20 @@
 <template>
-  <tr v-for="product in order.products" :key="product">
-    <td v-if="product.id === category_id">{{ product.name }}</td>
-    <td v-if="product.id === category_id">{{ product.count }} x &euro;&thinsp;{{ parseFloat(product.price).toFixed(2) }}</td>
-    <td v-if="product.id === category_id">&euro;&thinsp;{{ parseFloat(product.totalPrice).toFixed(2) }}</td> 
+  <tr>
+    <td>{{ overview_product.name }}</td>
+    <td>{{ overview_product.count }} x &euro;&thinsp;{{ parseFloat(overview_product.price).toFixed(2) }}</td>
+    <td>&euro;&thinsp;{{ parseFloat(overview_product.totalPrice).toFixed(2) }}</td> 
   </tr>
 </template>
 
 <script>
-import Order from '@/models/order';
-
 export default {
   name: "CategoryProduct",
   props: {
-    order: Order,
+    overview_product: [],
     category_id: Number
+  },
+  created() { 
+    console.log();
   } 
 };
 </script>

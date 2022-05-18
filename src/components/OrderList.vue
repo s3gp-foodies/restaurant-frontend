@@ -1,19 +1,17 @@
 <template>
-  <span v-for="category in categories" :key="category">
+  <div v-for="category in categories" :key="category">
     <p>{{ category.name }}</p>
-    <table v-for="order in listedOrders" :key="order">
-      <CategoryProduct :order="order" :category_id="category.id"></CategoryProduct>
+    <table v-for="overview_product in overview_products" :key="overview_product.id">
+      <CategoryProduct v-if="overview_product.id === category.id" :overview_product="overview_product"></CategoryProduct>
     </table>
-  </span>
+  </div>
 </template>
 
 <script>
 import CategoryProduct from './CategoryProduct.vue';
 import OrderService from "@/services/order.service";
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
-import OrderOverview from "@/models/order-overview.ts";
 import MenuService from "@/services/menu.service";
-import OrderProduct from "@/models/order-product.ts";
 
 export default {
   name: "OrderList",
@@ -25,82 +23,78 @@ export default {
     return {
       listedOrders: [],
       totalPrice: 0,
-      categories: [],
       productIds: [],
-      orderedProducts: []
+      orderedProducts: [],
+      overview_products: []
     };
   },
   created() {
     this.categories = MenuService.GetCategories();
 
+    //push productid's and orderedproducts in seperate array's
     OrderService.GetOrders().orders.forEach((order) => {
-      let totalPriceOrder = 0;
-      const product_listings = [];
-
       order.products.forEach((orderedProduct) => {
         this.productIds.push(orderedProduct.productId);
         this.orderedProducts.push(orderedProduct);
       });
-
-      order.products.forEach((orderedProduct) => {
-        let product = MenuService.GetProductById(orderedProduct.productId);
-
-        product_listings.push(
-          new OrderOverviewProduct(
-            orderedProduct.productId,
-            product.name,
-            product.price,
-            orderedProduct.count,
-            product.price * orderedProduct.count
-          )
-        );
-
-        totalPriceOrder += product.price * orderedProduct.count;
-      });
-
-      this.totalPrice += totalPriceOrder; 
-      this.$emit("totalPrice", this.totalPrice);
-
-      this.listedOrders.push(
-        new OrderOverview(order.time, totalPriceOrder, product_listings)
-      );
     });
 
-    var duplicate_products = [];
+    //duplicate overview products
+    var duplicate_overview_products = [];
     var duplicate_product_ids = this.checkDuplicateProductIds(this.productIds);
     
     duplicate_product_ids.forEach((duplicateProductId) => {
       var duplicateProductCount = 0;
+      let product = MenuService.GetProductById(duplicateProductId);
       
-      this.orderedProducts.forEach((orderedProductTest) => {
-        if(duplicateProductId == orderedProductTest.productId) {
-          duplicateProductCount += orderedProductTest.count;
+      this.orderedProducts.forEach((orderedProduct) => {
+        if(duplicateProductId == orderedProduct.productId) {
+          duplicateProductCount += orderedProduct.count;
+
+          this.totalPrice += product.price * orderedProduct.count;
         }
       })
 
-      duplicate_products.push(
-        new OrderProduct (
+      duplicate_overview_products.push(
+        new OrderOverviewProduct(
           duplicateProductId,
-          duplicateProductCount
+          product.name,
+          product.price,
+          duplicateProductCount,
+          product.price * duplicateProductCount
         )
       );
     })
 
-    var unique_products = [];
+    //unique overview products
+    var unique_overview_products = [];
     var unique_product_ids = this.checkUniqueProductIds(duplicate_product_ids);
 
     unique_product_ids.forEach((uniqueProductId) => {
-      unique_products.push(
-        new OrderProduct (
-          uniqueProductId,
-          //count?
-        )
-      ); 
+      let product = MenuService.GetProductById(uniqueProductId);
+
+      this.orderedProducts.forEach((orderedProduct) => {
+        if(uniqueProductId == orderedProduct.productId) {
+          unique_overview_products.push(
+            new OrderOverviewProduct(
+              uniqueProductId,
+              product.name,
+              product.price,
+              orderedProduct.count,
+              product.price * orderedProduct.count 
+            )
+          );
+
+          this.totalPrice += product.price * orderedProduct.count;
+        }   
+      })
     })
 
-    console.log(duplicate_products);
-    console.log(unique_products);
-    //console.log(this.listedOrders);
+    //combine unique overiew products and duplicate overview products
+    this.overview_products = duplicate_overview_products.concat(unique_overview_products);
+
+    //return totalprice
+    this.$emit("totalPrice", this.totalPrice);
   },
   methods: {
     checkDuplicateProductIds(productIds) {
