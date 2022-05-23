@@ -59,6 +59,7 @@ class OrderService extends SocketConsumer {
     }
 
     public MakeOrder(){
+
         // socketService.Invoke("SubmitOrder", currentOrder).then(() => console.log("done"))
         this._socketService?.Invoke("SubmitOrder", currentOrder).then(() => toast.success("testing"))
         //toast.success("haha")
