@@ -6,9 +6,8 @@ export default class OrderOverview {
     products: OrderOverviewProduct[];
 
     constructor(time: string, totalprice: number, products: OrderOverviewProduct[]){
-        this.time=time;
-        this.totalprice=totalprice;
-        this.products=products;
+        this.time = time;
+        this.totalprice = totalprice;
+        this.products = products;
     }
-
 }

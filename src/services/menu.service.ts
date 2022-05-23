@@ -37,7 +37,6 @@ class MenuService extends SocketConsumer {
         }
     }
 
-
     private async LoadMenu() {
         await axios.get(API_URL, {headers: authHeader()}).then(response => {
             response.data.forEach((prod: any) => {
