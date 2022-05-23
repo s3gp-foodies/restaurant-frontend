@@ -104,10 +104,10 @@ class OrderService extends SocketConsumer {
                 "time": dateTime.getHours() + ":" + dateTime.getMinutes() ,
                 "product": [
                     {
-                        "name": "Cesear Salade", "amount": 3, "category": "Appetiser"
+                        "name": "Cesear Salade", "amount": 3, "category": "Appetiser", "status": "Submitted"
                     },
                     {
-                        "name": "Spa blue", "amount": 2, "category": "Drinks"
+                        "name": "Spa blue", "amount": 2, "category": "Drinks", "status": "Submitted"
                     },
                 ]
             }

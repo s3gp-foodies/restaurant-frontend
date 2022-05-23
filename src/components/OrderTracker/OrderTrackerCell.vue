@@ -6,6 +6,7 @@
                @start="dragging=true" @end="dragging=false">
       <template #item="{ element }" >
         <div class="col card text-white bg-dark mb-3">
+          {{element.status}}
           <OrderTrackerCardContent :order-name=element.name :order-category=element.category
                                :order-amount=element.amount></OrderTrackerCardContent>
           <input type="text" placeholder="Employee name">
@@ -18,6 +19,7 @@
 <script>
 import draggable from "vuedraggable";
 import OrderTrackerCardContent from "@/components/OrderTracker/OrderTrackerCardContent";
+import orderStatusEnum from "@/components/OrderTracker/orderStatusEnum";
 
 export default {
   name: "OrderTrackerCell",
@@ -31,6 +33,24 @@ export default {
     },
     groupName: String,
     orderName: String
+  },
+  watch: {
+    products: {
+      deep: true,
+
+      handler() {
+        console.log("A list has changed " + this.groupName);
+      }
+    }
+  },
+  methods: {
+    updateOrderStatus(status, order) {
+      if(orderStatusEnum.includes(status.value())) {
+        console.log(status);
+      } else {
+        console.log(order);
+      }
+    }
   }
 }
 </script>
