@@ -1,10 +1,10 @@
 <template>
-  <div v-for="category in categories" :key="category">
-    <p>{{ category.name }}</p>
-    <table v-for="overview_product in overview_products" :key="overview_product.id">
+  <table v-for="category in categories" :key="category">
+    <tr>{{ category.name }}</tr>
+    <tr v-for="overview_product in overview_products" :key="overview_product.id">
       <CategoryProduct v-if="overview_product.id === category.id" :overview_product="overview_product"></CategoryProduct>
-    </table>
-  </div>
+    </tr>
+  </table>
 </template>
 
 <script>

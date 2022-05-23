@@ -1,9 +1,9 @@
 <template>
-  <tr>
+
     <td>{{ overview_product.name }}</td>
     <td>{{ overview_product.count }} x &euro;&thinsp;{{ parseFloat(overview_product.price).toFixed(2) }}</td>
     <td>&euro;&thinsp;{{ parseFloat(overview_product.totalPrice).toFixed(2) }}</td> 
-  </tr>
+ 
 </template>
 
 <script>
