@@ -47,15 +47,16 @@
 <script>
 let orders_import = [];
 import OrderTrackerRow from "@/components/OrderTracker/OrderTrackerRow";
+import orderStatusEnum from "@/components/OrderTracker/orderStatusEnum"
 
 export default {
   name: "OrderTracker",
+  inject: ['orderService'],
   data: () => {
     return {
-      orders_import
+      orders_import: orders_import
     }
   },
-  inject: ['orderService'],
   components: {
     OrderTrackerRow
   },
@@ -65,6 +66,14 @@ export default {
         orders_import.push(... result);
         console.log(orders_import);
       });
+    },
+
+    updateOrderStatus(status, order) {
+      if(orderStatusEnum.includes(status.value())) {
+        console.log(status);
+      } else {
+        console.log(order);
+      }
     }
   },
   created() {

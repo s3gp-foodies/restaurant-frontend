@@ -87,11 +87,12 @@ class OrderService extends SocketConsumer {
 
      async LoadEmployeeOrders() {
         const JSONOrders = [];
+        const dateTime = new Date()
 
         for(let i = 1; i < 5; i++) {
             const JSONOrder = {
                 "name": "Tafel" + i,
-                "time": new Date().toUTCString(),
+                "time": dateTime.getHours() + ":" + dateTime.getMinutes() ,
                 "product": [
                     {
                         "name": "Cesear Salade", "amount": 3, "category": "Appetiser"
