@@ -8,6 +8,7 @@
         <div class="col card text-white bg-dark mb-3">
           <OrderTrackerCardContent :order-name=element.name :order-category=element.category
                                :order-amount=element.amount></OrderTrackerCardContent>
+          <input type="text" placeholder="Employee name">
         </div>
       </template>
     </draggable>

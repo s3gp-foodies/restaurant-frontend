@@ -15,10 +15,6 @@ class SocketService {
         });
 
         this.connectionStatus = this.connection.start().catch(e => console.log(e));
-
-        this.connection.on("UpdateOrder", function (order) {
-            console.log(order)
-        })
     }
 
     Test() {
@@ -31,6 +27,12 @@ class SocketService {
         return this.connectionStatus.then(async () => {
             if (args) await this.connection.invoke(methodName, args)
             else await this.connection.invoke(methodName)
+        })
+    }
+
+    ListingOrderData() {
+        this.connection.on("UpdateOrder", function (order) {
+            console.log(order)
         })
     }
 }

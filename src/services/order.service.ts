@@ -84,6 +84,29 @@ class OrderService extends SocketConsumer {
             sessionOrders.orders.push(order_2);
         }
     }
+
+     async LoadEmployeeOrders() {
+        const JSONOrders = [];
+
+        for(let i = 1; i < 5; i++) {
+            const JSONOrder = {
+                "name": "Tafel" + i,
+                "time": new Date().toUTCString(),
+                "product": [
+                    {
+                        "name": "Cesear Salade", "amount": 3, "category": "Appetiser"
+                    },
+                    {
+                        "name": "Spa blue", "amount": 2, "category": "Drinks"
+                    },
+                ]
+            }
+
+            JSONOrders.push(JSONOrder);
+        }
+
+        return JSONOrders;
+    }
 }
 
 export default OrderService;

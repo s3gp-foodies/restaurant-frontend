@@ -55,53 +55,23 @@ export default {
       orders_import
     }
   },
+  inject: ['orderService'],
   components: {
     OrderTrackerRow
   },
   methods: {
     getOrderData() {
-      let JSONOrder;
-      let JSONOrder2;
-
-      /*
-      Connect to the BE
-      Get the data from the function
-       */
-
-        JSONOrder = {
-          "name": "Tafel1",
-          "time": "18:34",
-          "product": [
-            {
-              "name": "Cesear Salade", "amount": 3, "category": "Appetiser"
-            }
-          ]
-        }
-        JSONOrder2 = {
-          "name": "Tafel2",
-          "time": "18:36",
-          "product": [
-            {
-              "name": "Cesear Salade", "amount": 3, "category": "Appetiser"
-            },
-            {
-              "name": "Spa blue", "amount": 5, "category": "Drinks"
-            },
-            {
-              "name": "Baguette basket", "amount": 2, "category": "Appetiser"
-            }
-          ]
-        }
-
-        orders_import.push(JSONOrder);
-        orders_import.push(JSONOrder2);
+      this.orderService.LoadEmployeeOrders().then(result => {
+        orders_import.push(... result);
+        console.log(orders_import);
+      });
     }
   },
   created() {
     this.getOrderData()
   },
   beforeRouteLeave() {
-   orders_import = []
+    //orders_import = [];
   }
 }
 
