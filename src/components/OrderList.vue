@@ -1,7 +1,7 @@
 <template>
   <table v-for="category in categories" :key="category">
     <tr>
-      <th>{{ category.name }}</th>
+      <th colspan="6">{{ category.name }}</th>
     </tr>
     <tr v-for="overview_product in overview_products" :key="overview_product.id">
       <CategoryProduct v-if="overview_product.id === category.id" :overview_product="overview_product"></CategoryProduct>
@@ -120,13 +120,14 @@ export default {
 </script>
 
 <style scoped>
-table {
-  width: 100%;
+table:not(:last-of-type) {
+  margin-bottom: 16px;
 }
 th {
-  padding-top: 9px;
-  float: left;
-  width: 100%;
+  padding: 4px 0;
+}
+tr:first-of-type {
+  border: 1px solid black;
 }
 tr {
   background-color: #bbbbbb8c;

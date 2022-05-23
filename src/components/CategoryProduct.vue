@@ -1,7 +1,7 @@
 <template>
-  <td>{{ overview_product.name }}</td>
-  <td>{{ overview_product.count }} x &euro;&thinsp;{{ parseFloat(overview_product.price).toFixed(2) }}</td>
-  <td>&euro;&thinsp;{{ parseFloat(overview_product.totalPrice).toFixed(2) }}</td> 
+  <td colspan="2">{{ overview_product.name }}</td>
+  <td colspan="2">{{ overview_product.count }} x &euro;&thinsp;{{ parseFloat(overview_product.price).toFixed(2) }}</td>
+  <td colspan="2">&euro;&thinsp;{{ parseFloat(overview_product.totalPrice).toFixed(2) }}</td> 
 </template>
 
 <script>
@@ -19,14 +19,8 @@ export default {
 
 <style scoped>
 td {
-  padding: 1px 8px;
-}
-td:first-of-type {
-  width: 270px;
-  padding-top: 9px;
-}
-td:last-of-type {
-  padding-left: 52px;
+  padding: 6px 25px;
+  width: 180px;
 }
 tr {
   background-color: #bbbbbb8c;
