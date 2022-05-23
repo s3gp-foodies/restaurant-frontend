@@ -1,6 +1,8 @@
 <template>
   <table v-for="category in categories" :key="category">
-    <tr>{{ category.name }}</tr>
+    <tr>
+      <th>{{ category.name }}</th>
+    </tr>
     <tr v-for="overview_product in overview_products" :key="overview_product.id">
       <CategoryProduct v-if="overview_product.id === category.id" :overview_product="overview_product"></CategoryProduct>
     </tr>
@@ -119,22 +121,12 @@ export default {
 
 <style scoped>
 table {
-  padding: 10px;
   width: 100%;
-  border-collapse: initial;
 }
 th {
-  padding: 1px 8px;
-}
-th:first-of-type {
-  padding-right: 162px;
-  padding-top: 3px;
-}
-th:last-of-type {
-  padding-left: 52px;
-}
-th:first-of-type {
+  padding-top: 9px;
   float: left;
+  width: 100%;
 }
 tr {
   background-color: #bbbbbb8c;
