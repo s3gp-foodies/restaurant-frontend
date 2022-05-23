@@ -10,9 +10,6 @@ export default {
   props: {
     overview_product: [],
     category_id: Number
-  },
-  created() { 
-    console.log();
   } 
 };
 </script>
