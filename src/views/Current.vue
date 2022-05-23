@@ -8,16 +8,17 @@
 <script>
 
 import MenuList from "../components/Menu/MenuList";
-import orderService from "@/services/order.service";
+
 
 export default {
   name: "CurrentOrderPage",
   components: {
     MenuList,
   },
+  inject:['orderService'],
   methods: {
     AddOrder(){
-      orderService.MakeOrder()
+      this.orderService.MakeOrder()
     }
   }
 };
