@@ -60,8 +60,9 @@ class OrderService extends SocketConsumer {
 
     public MakeOrder(){
         // socketService.Invoke("SubmitOrder", currentOrder).then(() => console.log("done"))
-        this._socketService?.Invoke("SubmitOrder", currentOrder).then(() => toast.success("Order placed"))
-        localStorage.removeItem("AllOrdersOverview")
+        this._socketService?.Invoke("SubmitOrder", currentOrder).then(() => toast.success("testing"))
+        //toast.success("haha")
+        //localStorage.removeItem("AllOrdersOverview")
         router.push({ path: '/menu'})
 
     }
