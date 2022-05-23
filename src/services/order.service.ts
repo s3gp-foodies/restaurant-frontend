@@ -4,8 +4,7 @@ import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
 import {useToast} from "vue-toastification";
 import {SocketConsumer} from "@/services/socket-consumer";
-import socketService from "@/services/socket.service";
-import SocketService from "@/services/socket.service";
+import router from "@/router";
 
 
 const toast = useToast();
@@ -61,9 +60,12 @@ class OrderService extends SocketConsumer {
 
     public MakeOrder(){
         // socketService.Invoke("SubmitOrder", currentOrder).then(() => console.log("done"))
-        this._socketService?.Invoke("SubmitOrder", currentOrder)
-    }
+        this._socketService?.Invoke("SubmitOrder", currentOrder).then(() => toast.success("Order placed"))
+        currentOrder.length = 0
+        localStorage.removeItem("AllOrdersOverview")
+        router.push({ path: '/menu'})
 
+    }
 
     async LoadOrders() {
         // await axios.get(API_URL+"orders", {headers: authHeader()}).then(response => {
