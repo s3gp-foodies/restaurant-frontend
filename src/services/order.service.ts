@@ -59,11 +59,12 @@ class OrderService extends SocketConsumer {
     }
 
     public MakeOrder(){
-        // socketService.Invoke("SubmitOrder", currentOrder).then(() => console.log("done"))
-        this._socketService?.Invoke("SubmitOrder", currentOrder).then(() => toast.success("Order placed"))
-        currentOrder.length = 0
-        localStorage.removeItem("AllOrdersOverview")
-        router.push({ path: '/menu'})
+         //socketService.Invoke("SubmitOrder", currentOrder).then(() => console.log("done"))
+         this._socketService?.Invoke("SubmitOrder", currentOrder).then(() => toast.success("Order placed"))
+         //TODO both are wrong here pls fix
+         // currentOrder.length = 0
+         // localStorage.removeItem("AllOrdersOverview")
+         router.push({ path: '/menu'})
 
     }
 
