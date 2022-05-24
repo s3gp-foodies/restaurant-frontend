@@ -5,10 +5,12 @@
 </template>
 
 <script>
+import OrderOverviewProduct from "@/models/order-overview-product.ts";
+
 export default {
   name: "CategoryProduct",
   props: {
-    overview_product: [],
+    overview_product: OrderOverviewProduct,
     category_id: Number
   } 
 };
