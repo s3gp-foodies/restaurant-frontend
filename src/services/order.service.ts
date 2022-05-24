@@ -6,6 +6,8 @@ import {useToast} from "vue-toastification";
 import {SocketConsumer} from "@/services/socket-consumer";
 import axios from 'axios';
 import authHeader from "@/helpers/auth-header";
+import router from "@/router";
+
 
 const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
@@ -58,6 +60,12 @@ class OrderService extends SocketConsumer {
         co.forEach((op: any) => currentOrder.push(op))
     }
 
+    public MakeOrder(){
+        this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
+            .then(() => toast.success("Order added"))
+        router.push({ path: '/menu'})
+
+    }
 
     async LoadOrders() {
         /*await axios
@@ -86,6 +94,7 @@ class OrderService extends SocketConsumer {
             sessionOrders.orders.push(order_2);
         }
     }
+
 }
 
 export default OrderService;
