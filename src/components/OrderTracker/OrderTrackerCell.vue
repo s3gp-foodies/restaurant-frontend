@@ -34,15 +34,6 @@ export default {
     groupName: String,
     orderName: String
   },
-  watch: {
-    products: {
-      deep: true,
-
-      handler() {
-        console.log("A list has changed " + this.groupName);
-      }
-    }
-  },
   methods: {
     updateOrderStatus(status, order) {
       if(orderStatusEnum.includes(status.value())) {
