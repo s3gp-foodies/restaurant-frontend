@@ -45,8 +45,6 @@
 </template>
 
 <script>
-import {useToast} from "vue-toastification";
-const toast = useToast();
 
 let orders_import = [];
 import OrderTrackerRow from "@/components/OrderTracker/OrderTrackerRow";
@@ -68,7 +66,6 @@ export default {
         orders_import.push(... result);
         console.log(orders_import);
       });
-      toast.success("Done loading orders from the server")
     }
   },
   created() {

@@ -1,5 +1,5 @@
 enum orderStatus {
-    "Submitted",
-    "In Progress",
-    "Complete"
+    Submitted = "Submitted",
+    InProgress = "InProgress",
+    Complete = "Complete"
 }
