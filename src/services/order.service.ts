@@ -68,15 +68,7 @@ class OrderService extends SocketConsumer {
     }
 
     async LoadOrders() {
-        await axios
-            .get(API_URL + "orders", { headers: authHeader() })
-            .then(response => {
-                console.log("response orders");
-                console.log(response); 
-            })
-            .catch(error => {
-                console.log(error)
-            }) 
+        //Via socketservice uit de backend de orders ophalen..
 
         //TODO: This is a mock
         if (sessionOrders.orders.length === 0) {
