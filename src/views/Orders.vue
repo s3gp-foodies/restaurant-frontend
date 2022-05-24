@@ -31,7 +31,7 @@ export default {
   data: () => {
     return {
       isLoading: true,
-      totalPrice: Number
+      totalPrice: 0
     };
   },
   inject: ['orderService', 'menuService'],
