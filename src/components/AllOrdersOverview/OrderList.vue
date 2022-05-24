@@ -12,7 +12,6 @@
 <script>
 import CategoryProduct from './CategoryProduct.vue';
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
-import OrderOverview from "@/models/order-overview.ts";
 import {store} from "@/store/store";
 
 export default {
@@ -32,7 +31,7 @@ export default {
   },
   inject: ['orderService'],
   created() {
-    this.categories = this.menuService.GetCategories();
+    this.categories = store.state.categories;
 
     //push productid's and orderedproducts in seperate array's
     this.orderService.GetOrders().orders.forEach((order) => {
@@ -48,10 +47,10 @@ export default {
 
     duplicate_product_ids.forEach((duplicateProductId) => {
       var duplicateProductCount = 0;
-      let product = this.menuService.GetProductById(duplicateProductId);
+      let product = store.getters.GetProductById(duplicateProductId);
 
       this.orderedProducts.forEach((orderedProduct) => {
-        if(duplicateProductId == orderedProduct.productId) {
+        if(duplicateProductId === orderedProduct.productId) {
           duplicateProductCount += orderedProduct.count;
 
           this.totalPrice += product.price * orderedProduct.count;
@@ -74,7 +73,7 @@ export default {
     var unique_product_ids = this.checkUniqueProductIds(duplicate_product_ids);
 
     unique_product_ids.forEach((uniqueProductId) => {
-      let product = this.menuService.GetProductById(uniqueProductId);
+      let product = store.getters.GetProductById(uniqueProductId);
 
       this.orderedProducts.forEach((orderedProduct) => {
         if(uniqueProductId == orderedProduct.productId) {
