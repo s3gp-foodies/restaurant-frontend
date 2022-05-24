@@ -1,54 +1,34 @@
-import Category from '@/models/category';
-import Menu from '@/models/menu';
 import Product from '@/models/product';
 import axios from 'axios';
 import authHeader from '../helpers/auth-header';
 import {SocketConsumer} from "@/services/socket-consumer";
+import {store} from "@/store/store";
 
 const API_URL = 'https://localhost:7209/api/menu/';
-const menu: Menu = new Menu([]);
-const categories: Category[] = [];
 
 class MenuService extends SocketConsumer {
 
-    GetProductById(id: number) {
-        return menu.products.find(p => p.id == id);
-    }
-
-    GetMenu() {
-        return menu;
-    }
-
-    GetCategories() {
-        return categories
-    }
-
-    GetItemsInCategory(category: Category) {
-        if (!menu.products) this.Load()
-        return menu.products.filter(item => item.category.id === category.id)
-    }
 
     async Load() {
-        if (categories.length === 0) {
+        if (store.state.categories.length === 0) {
             await this.LoadCategories()
         }
-        if (menu.products.length === 0) {
+        if (store.state.menu.products.length === 0) {
             await this.LoadMenu();
         }
     }
 
-
     private async LoadMenu() {
         await axios.get(API_URL, {headers: authHeader()}).then(response => {
             response.data.forEach((prod: any) => {
-                menu.products.push(<Product>({
+                store.commit("AddToMenu", <Product>({
                     name: prod.title,
                     id: prod.id,
                     description: prod.description,
                     price: prod.price,
                     allergies: prod.allergy,
                     photoUrl: prod.imageUrl,
-                    category: categories.find(cat => cat.id === prod.category.id)
+                    category: store.getters.GetCategory(prod.category.id)
                 }));
             });
         }).catch(error => {
@@ -59,10 +39,7 @@ class MenuService extends SocketConsumer {
     private async LoadCategories() {
         axios.get(API_URL + "categories", {headers: authHeader()}).then(response => {
             response.data.forEach((category: any) => {
-                categories.push(<Category>({
-                    name: category.name,
-                    id: category.id
-                }));
+                store.commit("AddToCategories", {id: category.id, name: category.name})
             });
         }).catch(error => {
             console.log(error)

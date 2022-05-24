@@ -1,6 +1,7 @@
 <template v-if="!isLoading">
   <div v-for="category in categories" :key="category">
-    <MenuCategory :category="category" :categoryProducts="menuPerCategory[category.id]" :show-not-ordered="showNotOrdered"></MenuCategory>
+    <MenuCategory :category="category" :categoryProducts="menuPerCategory[category.id]"
+                  :show-not-ordered="showNotOrdered"></MenuCategory>
   </div>
 </template>
 
@@ -9,29 +10,32 @@
 
 <script>
 import MenuCategory from "@/components/Menu/MenuCategory";
+import {store} from "@/store/store";
 
 export default {
   name: "MenuList",
   components: {MenuCategory},
-  props:{
+  props: {
     showNotOrdered: Boolean
   },
   data: () => {
     return {
       isLoading: true,
       isHidden: false,
-      categories: [],
-      menuPerCategory: {}
     }
   },
-  inject:['menuService'],
+  computed: {
+    categories() {
+      return store.state.categories
+    },
+    menuPerCategory() {
+      return store.getters.GetCategorizedMenu
+    }
+  },
+  inject: ['menuService'],
 
   created() {
     this.menuService.Load().then(() => {
-      this.categories = this.menuService.GetCategories();
-      this.categories.forEach(cat => {
-        this.menuPerCategory[cat.id] = (this.menuService.GetItemsInCategory(cat))
-      })
       this.isLoading = false;
     })
   }

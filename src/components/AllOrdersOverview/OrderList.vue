@@ -13,6 +13,7 @@
 import OrderProduct from './OrderProduct.vue';
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
 import OrderOverview from "@/models/order-overview.ts";
+import {store} from "@/store/store";
 
 export default {
   name: "OrderList",
@@ -26,14 +27,14 @@ export default {
       totalPrice: 0
     };
   },
-  inject: ['orderService', 'menuService'],
+  inject: ['orderService'],
   created() {
     this.orderService.GetOrders().orders.forEach((order) => {
       let totalPriceOrder = 0;
       const product_listings = [];
 
       order.products.forEach((orderedProduct) => {
-        let product = this.menuService.GetProductById(orderedProduct.productId);
+        let product = store.getters.GetProductById(orderedProduct.productId);
 
         product_listings.push(
           new OrderOverviewProduct(
