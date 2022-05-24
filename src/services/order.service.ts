@@ -68,7 +68,7 @@ class OrderService extends SocketConsumer {
     }
 
     async LoadOrders() {
-        /*await axios
+        await axios
             .get(API_URL + "orders", { headers: authHeader() })
             .then(response => {
                 console.log("response orders");
@@ -76,7 +76,7 @@ class OrderService extends SocketConsumer {
             })
             .catch(error => {
                 console.log(error)
-            })*/ 
+            }) 
 
         //TODO: This is a mock
         if (sessionOrders.orders.length === 0) {
@@ -94,7 +94,6 @@ class OrderService extends SocketConsumer {
             sessionOrders.orders.push(order_2);
         }
     }
-
 }
 
 export default OrderService;
