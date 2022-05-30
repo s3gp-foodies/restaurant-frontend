@@ -11,6 +11,7 @@ const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
 const sessionOrders: SessionOrders = new SessionOrders([]);
 const currentOrder: OrderProduct[] = [];
+import { orderTrackerStore } from "@/store/store"
 
 class OrderService extends SocketConsumer {
 
@@ -96,7 +97,6 @@ class OrderService extends SocketConsumer {
     }
 
      async LoadEmployeeOrders() {
-        const JSONOrders = [];
         const dateTime = new Date()
 
         for(let i = 1; i < 5; i++) {
@@ -105,18 +105,16 @@ class OrderService extends SocketConsumer {
                 "time": dateTime.getHours() + ":" + dateTime.getMinutes() ,
                 "product": [
                     {
-                        "name": "Cesear Salade", "amount": 3, "category": "Appetiser", "status": "Submitted"
+                        "name": "Cesear Salade", "amount": 1, "category": "Appetiser", "status": "Submitted"
                     },
                     {
-                        "name": "Spa blue", "amount": 2, "category": "Drinks", "status": "Submitted"
+                        "name": "Cola", "amount": 2, "category": "Drinks", "status": "Submitted"
                     },
                 ]
             }
 
-            JSONOrders.push(JSONOrder);
+            orderTrackerStore.commit("AddOrderData", JSONOrder)
         }
-
-        return JSONOrders;
     }
 }
 

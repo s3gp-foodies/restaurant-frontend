@@ -46,26 +46,29 @@
 
 <script>
 
-let orders_import = [];
+//let orders_import = [];
 import OrderTrackerRow from "@/components/OrderTracker/OrderTrackerRow";
+import { orderTrackerStore } from "@/store/store";
 
 export default {
   name: "OrderTracker",
   inject: ['orderService'],
   data: () => {
     return {
-      orders_import: orders_import
+      //orders_import: orders_import
     }
   },
   components: {
     OrderTrackerRow
   },
+  computed:  {
+    orders_import() {
+      return orderTrackerStore.getters.GetAllOrders
+    }
+  },
   methods: {
     getOrderData() {
-      this.orderService.LoadEmployeeOrders().then(result => {
-        orders_import.push(... result);
-        console.log(orders_import);
-      });
+      this.orderService.LoadEmployeeOrders();
     }
   },
   created() {

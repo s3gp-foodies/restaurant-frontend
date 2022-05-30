@@ -1,6 +1,6 @@
 import OrderProductTracker from "@/models/orderTrackerModels/orderProductTracker";
 
-export default class orderTracker {
+export default class OrderTrackerModel {
     tableId: string;
     time: string;
     products: OrderProductTracker[];

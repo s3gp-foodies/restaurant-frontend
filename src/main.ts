@@ -10,7 +10,7 @@ import {fas} from '@fortawesome/free-solid-svg-icons';
 import axiosRequestInterceptors from "@/interceptors/axios-request-interceptors";
 import Toast, {POSITION} from "vue-toastification";
 import "vue-toastification/dist/index.css";
-import {store} from "@/store/store";
+import {orderTrackerStore, store} from "@/store/store";
 
 library.add(fas);
 
@@ -25,5 +25,6 @@ app.use(Toast, {
 });
 
 app.use(store)
+app.use(orderTrackerStore)
 
 app.mount('#app');

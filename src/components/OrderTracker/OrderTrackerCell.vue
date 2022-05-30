@@ -19,7 +19,6 @@
 <script>
 import draggable from "vuedraggable";
 import OrderTrackerCardContent from "@/components/OrderTracker/OrderTrackerCardContent";
-import orderStatusEnum from "@/components/OrderTracker/orderStatusEnum";
 
 export default {
   name: "OrderTrackerCell",
@@ -34,14 +33,8 @@ export default {
     groupName: String,
     orderName: String
   },
-  methods: {
-    updateOrderStatus(status, order) {
-      if(orderStatusEnum.includes(status.value())) {
-        console.log(status);
-      } else {
-        console.log(order);
-      }
-    }
+  watch: {
+
   }
 }
 </script>

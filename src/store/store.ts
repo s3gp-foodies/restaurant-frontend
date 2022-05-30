@@ -3,6 +3,7 @@ import {createStore} from "vuex";
 import Menu from "@/models/menu";
 import Product from "@/models/product";
 import Category from "@/models/category";
+import OrderTracker from "@/models/orderTrackerModels/orderTracker";
 
 /**
  * Zie https://vuex.vuejs.org/guide/ voor details maar hier de basics:
@@ -54,6 +55,38 @@ export const store = createStore({
                 result[category.id] = state.menu.products.filter(item => item.category.id === category.id)
             })
             return result
+        }
+    }
+})
+
+export const orderTrackerStore = createStore({
+    //Saving data
+    state: {
+        orderTrackerData: <OrderTracker>[]
+    },
+    //Editing data
+    mutations: {
+        AddOrderDataByProperty(state, tableId, time, productList) {
+            state.orderTrackerData.push(tableId, time, productList)
+        },
+        AddOrderData(state, order) {
+            state.orderTrackerData.push(order)
+        }
+    },
+    //Getting data from somewhere else
+    getters: {
+        GetOrderByTableId: (state) => (tableId: string) => {
+            return state.orderTrackerData.find(order => order.id == tableId)
+        },
+        GetAllProductsFromAOrder: (state) => (tableId: string) => {
+            return state.orderTrackerData.filter(order => order.id == tableId)
+        },
+        GetAllOrders(state) {
+            const result = []
+            state.orderTrackerData.forEach(x => {
+                result.push(x)
+            })
+            return result;
         }
     }
 })
