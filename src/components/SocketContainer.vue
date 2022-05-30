@@ -12,8 +12,11 @@ export default {
   inject: ['accountService', 'menuService', 'orderService'],
   created() {
     this.accountService.SetSocketService(socketService)
+    this.accountService.Init();
     this.menuService.SetSocketService(socketService)
+    this.menuService.Init();
     this.orderService.SetSocketService(socketService)
+    this.orderService.Init();
   }
 }
 </script>

@@ -13,6 +13,10 @@ const sessionOrders: SessionOrders = new SessionOrders([]);
 const currentOrder: OrderProduct[] = [];
 
 class OrderService extends SocketConsumer {
+    // Add websocket functions in this constructor
+    Init(){
+
+    }
 
     GetOrders() {
         return sessionOrders
