@@ -34,8 +34,8 @@ class OrderService extends SocketConsumer {
     }
 
     DeleteFromCurrentOrder(product: Product) {
-        const order = currentOrder.find(o => o.productId == product.id)
-        console.log(order)
+        const test = currentOrder.find(p => console.log(p.productId))
+        console.log(test)
         console.log(currentOrder)
     }
 
@@ -56,6 +56,17 @@ class OrderService extends SocketConsumer {
         co.forEach((op: any) => currentOrder.push(op))
     }
 
+    public MakeOrder(){
+        console.log(currentOrder)
+        if(currentOrder.length == 0){
+            toast.error("Please add items to order")
+        }else {
+            this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
+                .then(() => toast.success("Order added"))
+            router.push({path: '/menu'}).then(() => window.location.reload())
+        }
+
+    }
 
     async LoadOrders() {
         //Invoke getMessage
@@ -71,16 +82,15 @@ class OrderService extends SocketConsumer {
             const product_order_2 = new OrderProduct(2, 4);
             const product_order_3 = new OrderProduct(3, 2);
             const product_order_4 = new OrderProduct(4, 5);
-            const product_order_5 = new OrderProduct(4, 3);
-            const product_order_6 = new OrderProduct(1, 1);
 
             const order_1 = new Order(0, "01:16", [product_order_1, product_order_3, product_order_4]);
-            const order_2 = new Order(1, "02:10", [product_order_2, product_order_5, product_order_6]);
+            const order_2 = new Order(1, "02:10", [product_order_2]);
 
             sessionOrders.orders.push(order_1);
             sessionOrders.orders.push(order_2);
         }
     }
+
 }
 
 export default OrderService;
