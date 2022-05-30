@@ -4,6 +4,7 @@ import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
 import {useToast} from "vue-toastification";
 import {SocketConsumer} from "@/services/socket-consumer";
+import router from "@/router/index";
 
 const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
