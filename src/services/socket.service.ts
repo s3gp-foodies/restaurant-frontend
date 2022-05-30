@@ -8,6 +8,7 @@ class SocketService {
         })
         .build();
     private connectionStatus: any;
+    public order: any;
 
     Connect() {
         this.connection.on("Connected", function (message) {
@@ -34,8 +35,8 @@ class SocketService {
     }
 
     ListingOrderData() {
-        this.connection.on("UpdateOrder", function (order) {
-            console.log(order)
+        this.connection.on("UpdateOrder", (order) => {
+            this.order = order;
         })
     }
 }

@@ -68,31 +68,22 @@ class OrderService extends SocketConsumer {
         }else {
             this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
                 .then(() => toast.success("Order added"))
-            router.push({path: '/menu'}).then(() => window.location.reload())
+            //router.push({path: '/menu'}).then(() => window.location.reload())
         }
 
     }
 
     async LoadOrders() {
-        //Invoke getMessage
-        this._socketService?.connection.on("receiveMessage", function(message: string) {
-            console.log(message);      
-        })
-
-        this._socketService?.Invoke("getMessage");
+        console.log(this._socketService?.order);
 
         //TODO: This is a mock
         if (sessionOrders.orders.length === 0) {
-            const product_order_1 = new OrderProduct(2, 1);
-            const product_order_2 = new OrderProduct(2, 4);
-            const product_order_3 = new OrderProduct(3, 2);
-            const product_order_4 = new OrderProduct(4, 5);
+            const product_order_1 = new OrderProduct(2, 2);
+            const product_order_2 = new OrderProduct(4, 4);
 
-            const order_1 = new Order(0, "01:16", [product_order_1, product_order_3, product_order_4]);
-            const order_2 = new Order(1, "02:10", [product_order_2]);
+            const order = new Order(0, "01:16", [product_order_1, product_order_2]);
 
-            sessionOrders.orders.push(order_1);
-            sessionOrders.orders.push(order_2);
+            sessionOrders.orders.push(order);
         }
     }
 
