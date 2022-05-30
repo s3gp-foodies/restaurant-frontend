@@ -103,7 +103,7 @@ class OrderService extends SocketConsumer {
         }
     }
 
-     static async LoadEmployeeOrders(order: orderTrackerModel) {
+    async LoadEmployeeOrders(order: orderTrackerModel) {
         /*
         const dateTime = new Date()
 

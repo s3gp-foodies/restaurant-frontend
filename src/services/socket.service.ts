@@ -19,9 +19,7 @@ class SocketService {
 
         this.connection.on("UpdateOrder", function (order) {
             console.log(order)
-            orderService.LoadEmployeeOrders(order).then().catch(ex => {
-                return ex
-            })
+            //this.orderService.LoadEmployeeOrders(order)
         })
     }
 
