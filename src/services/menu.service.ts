@@ -7,7 +7,10 @@ import {store} from "@/store/store";
 const API_URL = 'https://localhost:7209/api/menu/';
 
 class MenuService extends SocketConsumer {
+    // Add websocket functions in this constructor
+    Init() {
 
+    }
 
     async Load() {
         if (store.state.categories.length === 0) {
