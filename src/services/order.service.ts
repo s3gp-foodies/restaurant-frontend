@@ -74,7 +74,11 @@ class OrderService extends SocketConsumer {
     }
 
     async LoadOrders() {
-        console.log(this._socketService?.order);
+        console.log(this._socketService?.order['tableId']);
+        console.log(this._socketService?.order['time']);
+        console.log(this._socketService?.order['products']);
+
+        this._socketService?.order['products'].forEach((element: any) => console.log(element));
 
         //TODO: This is a mock
         if (sessionOrders.orders.length === 0) {
