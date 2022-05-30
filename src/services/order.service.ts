@@ -59,7 +59,11 @@ class OrderService extends SocketConsumer {
 
     async LoadOrders() {
         //Invoke getMessage
-        //this._socketService?.Invoke("getMessage");
+        this._socketService?.connection.on("receiveMessage", function(message: string) {
+            console.log(message);      
+        })
+
+        this._socketService?.Invoke("getMessage");
 
         //TODO: This is a mock
         if (sessionOrders.orders.length === 0) {
