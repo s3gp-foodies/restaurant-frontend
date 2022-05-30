@@ -47,8 +47,13 @@ export default {
   padding: 10px;
   color: #f2f2f2;
   margin: auto;
+  margin-top: 10px;
   width: 65%;
   border: #01192d 1px solid;
   background-color: #02315a;
+}
+
+.divider:hover {
+  cursor: pointer; 
 }
 </style>

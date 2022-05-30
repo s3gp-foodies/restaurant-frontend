@@ -25,5 +25,7 @@ export default {
 </script>
 
 <style scoped>
-
+button {
+  margin-top: 12px;
+}
 </style>
