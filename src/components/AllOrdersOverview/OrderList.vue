@@ -1,5 +1,5 @@
 <template>
-  <table v-for="category in categories" :key="category">
+  <table v-for="category in listedCategories" :key="category">
     <tr>
       <th colspan="6">{{ category.name }}</th>
     </tr>
@@ -26,7 +26,8 @@ export default {
       totalPrice: 0,
       productIds: [],
       orderedProducts: [],
-      overview_products: []
+      overview_products: [],
+      listedCategories: []
     };
   },
   inject: ['orderService'],
@@ -66,6 +67,8 @@ export default {
           product.price * duplicateProductCount
         )
       );
+
+      this.listedCategories.push(product.category);
     })
 
     //unique overview products
@@ -90,6 +93,8 @@ export default {
           this.totalPrice += product.price * orderedProduct.count;
         }
       })
+
+      this.listedCategories.push(product.category);
     })
 
     //combine unique overiew products and duplicate overview products
