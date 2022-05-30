@@ -15,6 +15,8 @@ class SocketService {
         });
 
         this.connectionStatus = this.connection.start().catch(e => console.log(e));
+
+        this.ListingOrderData()
     }
 
     Test() {
