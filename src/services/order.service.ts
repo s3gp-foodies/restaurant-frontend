@@ -36,8 +36,8 @@ class OrderService extends SocketConsumer {
     }
 
     DeleteFromCurrentOrder(product: Product) {
-        const order = currentOrder.find(o => o.productId == product.id)
-        console.log(order)
+        const test = currentOrder.find(p => console.log(p.productId))
+        console.log(test)
         console.log(currentOrder)
     }
 
@@ -59,13 +59,14 @@ class OrderService extends SocketConsumer {
     }
 
     public MakeOrder(){
+        console.log(currentOrder)
         if(currentOrder.length == 0){
-            console.log("testing")
+            toast.error("Please add items to order")
+        }else {
+            this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
+                .then(() => toast.success("Order added"))
+            router.push({path: '/menu'}).then(() => window.location.reload())
         }
-        this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
-            .then(() => toast.success("Order added"))
-        router.push({ path: '/menu'}).then(() =>window.location.reload())
-
 
     }
 
