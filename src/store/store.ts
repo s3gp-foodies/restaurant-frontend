@@ -4,6 +4,7 @@ import Menu from "@/models/menu";
 import Product from "@/models/product";
 import Category from "@/models/category";
 import OrderTracker from "@/models/orderTrackerModels/orderTracker";
+import orderTracker from "@/views/OrderTracker.vue";
 
 /**
  * Zie https://vuex.vuejs.org/guide/ voor details maar hier de basics:
@@ -26,7 +27,8 @@ import OrderTracker from "@/models/orderTrackerModels/orderTracker";
 export const store = createStore({
     state: {
         menu: new Menu([]),
-        categories: []
+        categories: [],
+        orderTrackerData: <OrderTracker>[]
     },
     mutations: {
         AddToMenu(state, product: Product) {
@@ -35,6 +37,13 @@ export const store = createStore({
         AddToCategories(state, {id, name}) {
             const cat = new Category(id, name)
             state.categories.push(cat)
+        },
+        AddOrderDataByProperty(state, tableId, time, productList) {
+            state.orderTrackerData.push(tableId, time, productList)
+
+        },
+        AddOrderData(state, order) {
+            state.orderTrackerData.push(order)
         }
     },
     getters: {
@@ -55,26 +64,7 @@ export const store = createStore({
                 result[category.id] = state.menu.products.filter(item => item.category.id === category.id)
             })
             return result
-        }
-    }
-})
-
-export const orderTrackerStore = createStore({
-    //Saving data
-    state: {
-        orderTrackerData: <OrderTracker>[]
-    },
-    //Editing data
-    mutations: {
-        AddOrderDataByProperty(state, tableId, time, productList) {
-            state.orderTrackerData.push(tableId, time, productList)
         },
-        AddOrderData(state, order) {
-            state.orderTrackerData.push(order)
-        }
-    },
-    //Getting data from somewhere else
-    getters: {
         GetOrderByTableId: (state) => (tableId: string) => {
             return state.orderTrackerData.find(order => order.id == tableId)
         },

@@ -48,7 +48,7 @@
 
 //let orders_import = [];
 import OrderTrackerRow from "@/components/OrderTracker/OrderTrackerRow";
-import { orderTrackerStore } from "@/store/store";
+import { store } from "@/store/store";
 
 export default {
   name: "OrderTracker",
@@ -63,8 +63,23 @@ export default {
   },
   computed:  {
     orders_import() {
-      return orderTrackerStore.getters.GetAllOrders
+      return store.getters.GetAllOrders
     }
+  },
+  mounted() {
+    const Order = {
+      "name": "Tafel1",
+      "time": "10:35",
+      "product": [
+        {
+          "name": "Salade", "amount": 1, "category": "Appetiser", "status": "Submitted"
+        },
+        {
+          "name": "Spa blauw", "amount": 2, "category": "Drinks", "status": "Submitted"
+        },
+      ]
+    }
+    store.commit("AddOrderData", Order)
   },
   methods: {
     getOrderData() {

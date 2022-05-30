@@ -11,7 +11,7 @@ const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
 const sessionOrders: SessionOrders = new SessionOrders([]);
 const currentOrder: OrderProduct[] = [];
-import { orderTrackerStore } from "@/store/store"
+import { store } from "@/store/store"
 
 class OrderService extends SocketConsumer {
 
@@ -113,7 +113,7 @@ class OrderService extends SocketConsumer {
                 ]
             }
 
-            orderTrackerStore.commit("AddOrderData", JSONOrder)
+            store.commit("AddOrderData", JSONOrder)
         }
     }
 }
