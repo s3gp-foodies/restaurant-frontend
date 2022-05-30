@@ -19,6 +19,8 @@
         </div>
         <div class="addbutton">
         <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
+          <slot><button type="button" class="btn btn-outline-danger" @click="del()"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </slot>
         </div>
         <div>
           <strong v-if="count >14">Cannot be more then 15</strong>
@@ -68,6 +70,9 @@ export default {
     },
     addToOrder(){
       this.orderService.Save()
+    },
+    del(){
+      this.orderService.DeleteFromCurrentOrder()
     }
   }
 }
