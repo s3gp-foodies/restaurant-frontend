@@ -12,6 +12,7 @@ const API_URL = 'https://localhost:7209/api/order/';
 const sessionOrders: SessionOrders = new SessionOrders([]);
 const currentOrder: OrderProduct[] = [];
 import { store } from "@/store/store"
+import orderTrackerModel from "@/models/orderTrackerModels/orderTracker"
 
 class OrderService extends SocketConsumer {
 
@@ -99,7 +100,8 @@ class OrderService extends SocketConsumer {
         }
     }
 
-     async LoadEmployeeOrders() {
+     static async LoadEmployeeOrders(order: orderTrackerModel) {
+        /*
         const dateTime = new Date()
 
         for(let i = 1; i < 5; i++) {
@@ -115,10 +117,10 @@ class OrderService extends SocketConsumer {
                     },
                 ]
             }
-
-            store.commit("AddOrderData", JSONOrder)
+            */
+            console.log(order)
+            store.commit("AddOrderData", order)
         }
-    }
 }
 
 export default OrderService;

@@ -1,4 +1,5 @@
 import {HubConnectionBuilder} from "@microsoft/signalr";
+import orderService from "@/services/order.service";
 
 
 class SocketService {
@@ -16,7 +17,12 @@ class SocketService {
 
         this.connectionStatus = this.connection.start().catch(e => console.log(e));
 
-        this.ListingOrderData()
+        this.connection.on("UpdateOrder", function (order) {
+            console.log(order)
+            orderService.LoadEmployeeOrders(order).then().catch(ex => {
+                return ex
+            })
+        })
     }
 
     Test() {
@@ -30,12 +36,6 @@ class SocketService {
         return this.connectionStatus.then(async () => {
             if (args) await this.connection.invoke(methodName, args)
             else await this.connection.invoke(methodName)
-        })
-    }
-
-    ListingOrderData() {
-        this.connection.on("UpdateOrder", function (order) {
-            console.log(order)
         })
     }
 }
