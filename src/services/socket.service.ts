@@ -16,11 +16,6 @@ class SocketService {
         });
 
         this.connectionStatus = this.connection.start().catch(e => console.log(e));
-
-        this.connection.on("UpdateOrder", function (order) {
-            console.log(order)
-            //this.orderService.LoadEmployeeOrders(order)
-        })
     }
 
     Test() {

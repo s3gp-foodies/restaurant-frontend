@@ -7,17 +7,18 @@ import {SocketConsumer} from "@/services/socket-consumer";
 import router from "@/router";
 import axios from 'axios';
 import authHeader from "@/helpers/auth-header";
+import {store} from "@/store/store"
+import orderTrackerModel from "@/models/orderTrackerModels/orderTracker"
+
 const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
 const sessionOrders: SessionOrders = new SessionOrders([]);
 const currentOrder: OrderProduct[] = [];
-import { store } from "@/store/store"
-import orderTrackerModel from "@/models/orderTrackerModels/orderTracker"
 
 class OrderService extends SocketConsumer {
     // Add websocket functions in this constructor
-    Init(){
-
+    Init() {
+        this._socketService?.connection.on("UpdateOrder", order => this.LoadEmployeeOrders(order))
     }
 
     GetOrders() {
@@ -64,11 +65,11 @@ class OrderService extends SocketConsumer {
         co.forEach((op: any) => currentOrder.push(op))
     }
 
-    public MakeOrder(){
+    public MakeOrder() {
         console.log(currentOrder)
-        if(currentOrder.length == 0){
+        if (currentOrder.length == 0) {
             toast.error("Please add items to order")
-        }else {
+        } else {
             this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
                 .then(() => toast.success("Order added"))
             router.push({path: '/menu'}).then(() => window.location.reload())
@@ -103,27 +104,19 @@ class OrderService extends SocketConsumer {
         }
     }
 
-    async LoadEmployeeOrders(order: orderTrackerModel) {
-        /*
-        const dateTime = new Date()
+    async getPanelOrders() {
+        console.log(API_URL)
+        await axios.get(API_URL + "orders", {headers: authHeader()}).then(res => {
+            if (!res) {toast.warning("No orders found")}
+            toast.success(res);
+        }).catch(ex => {
+            toast.error(ex.response)
+        })
+    }
 
-        for(let i = 1; i < 5; i++) {
-            const JSONOrder = {
-                "name": "Tafel" + i,
-                "time": dateTime.getHours() + ":" + dateTime.getMinutes() ,
-                "product": [
-                    {
-                        "name": "Cesear Salade", "amount": 1, "category": "Appetiser", "status": "Submitted"
-                    },
-                    {
-                        "name": "Cola", "amount": 2, "category": "Drinks", "status": "Submitted"
-                    },
-                ]
-            }
-            */
-            console.log(order)
-            store.commit("AddOrderData", order)
-        }
+    async LoadEmployeeOrders(order: orderTrackerModel) {
+        store.commit("AddOrderData", order)
+    }
 }
 
 export default OrderService;

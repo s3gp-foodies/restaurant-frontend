@@ -82,12 +82,12 @@ export default {
     store.commit("AddOrderData", Order)
   },
   methods: {
-    getOrderData() {
-      this.orderService.LoadEmployeeOrders();
+    async getOrderData() {
+
     }
   },
   created() {
-    this.getOrderData()
+    this.orderService.getPanelOrders();
   },
   beforeRouteLeave() {
     //orders_import = [];
