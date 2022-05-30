@@ -15,6 +15,10 @@ import { store } from "@/store/store"
 import orderTrackerModel from "@/models/orderTrackerModels/orderTracker"
 
 class OrderService extends SocketConsumer {
+    // Add websocket functions in this constructor
+    Init(){
+
+    }
 
     GetOrders() {
         return sessionOrders
@@ -73,27 +77,26 @@ class OrderService extends SocketConsumer {
     }
 
     async LoadOrders() {
-        /*await axios
-            .get(API_URL + "orders", { headers: authHeader() })
-            .then(response => {
-                console.log("response orders");
-                console.log(response); 
-            })
-            .catch(error => {
-                console.log(error)
-            })*/ 
-
+        // await axios.get(API_URL+"orders", {headers: authHeader()}).then(response => {
+        //     response.data.forEach((response: any) => {
+        //         sessionOrders.orders.push(<Order>({
+        //             id: response.Id,
+        //             time: response.OrderTime,
+        //             products:
+        //         }));
+        //     });
+        //     }).catch(error => {
+        //     console.log(error)
+        // });
         //TODO: This is a mock
         if (sessionOrders.orders.length === 0) {
             const product_order_1 = new OrderProduct(2, 1);
             const product_order_2 = new OrderProduct(2, 4);
             const product_order_3 = new OrderProduct(3, 2);
             const product_order_4 = new OrderProduct(4, 5);
-            const product_order_5 = new OrderProduct(4, 3);
-            const product_order_6 = new OrderProduct(1, 1);
 
             const order_1 = new Order(0, "01:16", [product_order_1, product_order_3, product_order_4]);
-            const order_2 = new Order(1, "02:10", [product_order_2, product_order_5, product_order_6]);
+            const order_2 = new Order(1, "02:10", [product_order_2]);
 
             sessionOrders.orders.push(order_1);
             sessionOrders.orders.push(order_2);

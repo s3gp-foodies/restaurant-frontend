@@ -5,6 +5,10 @@ import {SocketConsumer} from "@/services/socket-consumer";
 const API_URL = 'https://localhost:7209/api/account/';
 
 class AccountService extends SocketConsumer {
+    // Add websocket functions in this constructor
+    Init(){
+    }
+
     Login(user: User) {
         return axios
             .post(API_URL + "login", user)
