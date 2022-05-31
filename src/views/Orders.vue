@@ -5,7 +5,7 @@
   <div class="order-display" v-if="!isLoading">
     <hr size="3" width="85%"/>
     <div class="overview">
-      <OrderList @totalPrice="getTotalPrice"></OrderList>
+      <OrderList ref="orderlist" @totalPrice="getTotalPrice"></OrderList>
     </div>
     <hr size="3" width="85%"/>
     <div class="totalprice">
@@ -35,6 +35,23 @@ export default {
     };
   },
   inject: ['orderService', 'menuService'],
+  created() {
+    this.menuService
+      .Load()
+      .then(() => {
+        this.orderService
+          .LoadOrders()
+          .then(() => {
+            this.$refs.orderlist.LoadProductList();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   methods: {
     getTotalPrice(value) {
       this.totalPrice = value;

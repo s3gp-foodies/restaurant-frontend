@@ -19,7 +19,6 @@
 import CategoryProduct from "./CategoryProduct.vue";
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
 import { store } from "@/store/store";
-//import OrderProduct from '@/models/order-product';
 
 export default {
   name: "OrderList",
@@ -36,23 +35,6 @@ export default {
     };
   },
   inject: ["orderService", "menuService"],
-  created() {
-    this.menuService
-      .Load()
-      .then(() => {
-        this.orderService
-          .LoadOrders()
-          .then(() => {
-            this.LoadProductList();
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },
   methods: {
     LoadProductList() {
       this.categories = store.state.categories;
