@@ -3,147 +3,194 @@
     <tr>
       <th colspan="6">{{ category.name }}</th>
     </tr>
-    <tr v-for="overview_product in overview_products" :key="overview_product.id">
-      <CategoryProduct v-if="overview_product.id === category.id" :overview_product="overview_product"></CategoryProduct>
+    <tr
+      v-for="overview_product in overview_products"
+      :key="overview_product.id"
+    >
+      <CategoryProduct
+        v-if="overview_product.id === category.id"
+        :overview_product="overview_product"
+      ></CategoryProduct>
     </tr>
   </table>
 </template>
 
 <script>
-import CategoryProduct from './CategoryProduct.vue';
+import CategoryProduct from "./CategoryProduct.vue";
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
-import {store} from "@/store/store";
+import { store } from "@/store/store";
+//import OrderProduct from '@/models/order-product';
 
 export default {
   name: "OrderList",
   emits: ["totalPrice"],
   components: {
-    CategoryProduct
+    CategoryProduct,
   },
   data: () => {
     return {
       listedOrders: [],
       totalPrice: 0,
-      productIds: [],
       orderedProducts: [],
       overview_products: [],
-      listedCategories: []
+      listedCategories: [],
     };
   },
-  inject: ['orderService','menuService'],
+  inject: ["orderService", "menuService"],
   created() {
-    this.menuService.Load().then(() => {
-      this.orderService.LoadOrders().then(() => {
-        this.LoadProductList()
+    this.menuService
+      .Load()
+      .then(() => {
+        this.orderService
+          .LoadOrders()
+          .then(() => {
+            this.LoadProductList();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
-      })
-    })
-    .catch(error => {
-      console.log(error);
-    })
+      });
   },
   methods: {
     LoadProductList() {
       this.categories = store.state.categories;
       const orders = this.orderService.GetOrders();
 
-      console.log(orders);
+      //console.log(orders);
 
-    //push productid's and orderedproducts in seperate array's
-    orders.forEach((order) => {
-      //console.log(order) 
+      //push productid's and orderedproducts in seperate array's
+      orders.forEach((order) => {
+        //console.log(order)
 
-      order.products.forEach((orderedProduct) => {
-        this.productIds.push(orderedProduct.productId);
-        this.orderedProducts.push(orderedProduct);
+        order.products.forEach((orderedProduct) => {
+          this.orderedProducts.push(orderedProduct);
+        });
       });
-    });
 
-    //console.log(this.orderedProducts);
+      let groupedProducts = [];
 
-    //duplicate overview products
-    var duplicate_overview_products = [];
-    var duplicate_product_ids = this.checkDuplicateProductIds(this.productIds);
+      this.orderedProducts.forEach((prod) => {
+        let set = false;
+        groupedProducts.forEach((gp) => {
+          if (gp.productId === prod.productId) {
+            gp.count += prod.count;
+            set = true;
+          }
+        });
+        if (!set) groupedProducts.push(prod);
+      });
+      
+      groupedProducts.forEach((prod) => {
+        const menuProduct = store.getters.GetProductById(prod.productId);
+        if (!this.listedCategories.includes(menuProduct.category))
+          this.listedCategories.push(menuProduct.category);
+        this.overview_products.push(
+          new OrderOverviewProduct(
+            prod.productId,
+            menuProduct.name,
+            menuProduct.price,
+            prod.count,
+            prod.count * menuProduct.price
+          )
+        );
+        this.totalPrice +=
+          this.overview_products[this.overview_products.length - 1].totalPrice;
+      });
+      this.$emit("totalPrice", this.totalPrice);
+      /*
+      this.overview_products = groupedProducts;
+      //console.log(this.orderedProducts);
 
-    duplicate_product_ids.forEach((duplicateProductId) => {
-      var duplicateProductCount = 0;
-      let product = store.getters.GetProductById(duplicateProductId);
-
-      console.log(product);
-
-      this.orderedProducts.forEach((orderedProduct) => {
-        if(duplicateProductId === orderedProduct.productId) {
-          duplicateProductCount += orderedProduct.count;
-
-          this.totalPrice += product.price * orderedProduct.count;
-        }
-      })
-
-      duplicate_overview_products.push(
-        new OrderOverviewProduct(
-          duplicateProductId,
-          product.name,
-          product.price,
-          duplicateProductCount,
-          product.price * duplicateProductCount
-        )
+      //duplicate overview products
+      var duplicate_overview_products = [];
+      var duplicate_product_ids = this.checkDuplicateProductIds(
+        this.productIds
       );
 
-      if (!this.listedCategories.includes(product.category)) this.listedCategories.push(product.category);
-    })
+      duplicate_product_ids.forEach((duplicateProductId) => {
+        var duplicateProductCount = 0;
+        let product = store.getters.GetProductById(duplicateProductId);
 
-    //unique overview products
-    var unique_overview_products = [];
-    var unique_product_ids = this.checkUniqueProductIds(duplicate_product_ids);
+        this.orderedProducts.forEach((orderedProduct) => {
+          if (duplicateProductId === orderedProduct.productId) {
+            duplicateProductCount += orderedProduct.count;
 
-    unique_product_ids.forEach((uniqueProductId) => {
-      let product = store.getters.GetProductById(uniqueProductId);
+            this.totalPrice += product.price * orderedProduct.count;
+          }
+        });
 
-      this.orderedProducts.forEach((orderedProduct) => {
-        if(uniqueProductId == orderedProduct.productId) {
-          console.log(product)
-          unique_overview_products.push(
-            new OrderOverviewProduct(
-              uniqueProductId,
-              product.name,
-              product.price,
-              orderedProduct.count,
-              product.price * orderedProduct.count
-            )
-          );
+        duplicate_overview_products.push(
+          new OrderOverviewProduct(
+            duplicateProductId,
+            product.name,
+            product.price,
+            duplicateProductCount,
+            product.price * duplicateProductCount
+          )
+        );
 
-          this.totalPrice += product.price * orderedProduct.count;
-        }
-      })
+        if (!this.listedCategories.includes(product.category))
+          this.listedCategories.push(product.category);
+      });
 
-      if (!this.listedCategories.includes(product.category)) this.listedCategories.push(product.category);
-    })
+      //unique overview products
+      var unique_overview_products = [];
+      var unique_product_ids = this.checkUniqueProductIds(
+        duplicate_product_ids
+      );
 
-    //combine unique overiew products and duplicate overview products
-    this.overview_products = duplicate_overview_products.concat(unique_overview_products);
+      unique_product_ids.forEach((uniqueProductId) => {
+        let product = store.getters.GetProductById(uniqueProductId);
 
-    //return totalprice
-    this.$emit("totalPrice", this.totalPrice);
+        this.orderedProducts.forEach((orderedProduct) => {
+          if (uniqueProductId == orderedProduct.productId) {
+            unique_overview_products.push(
+              new OrderOverviewProduct(
+                uniqueProductId,
+                product.name,
+                product.price,
+                orderedProduct.count,
+                product.price * orderedProduct.count
+              )
+            );
+
+            this.totalPrice += product.price * orderedProduct.count;
+          }
+        });
+
+        if (!this.listedCategories.includes(product.category))
+          this.listedCategories.push(product.category);
+      });
+
+      //combine unique overiew products and duplicate overview products
+      this.overview_products = duplicate_overview_products.concat(
+        unique_overview_products
+      );
+      console.log(this.overview_products);
+
+      //return totalprice
+      this.$emit("totalPrice", this.totalPrice);*/
     },
     checkDuplicateProductIds(productIds) {
       const set = new Set(productIds);
 
-      const duplicates = productIds.filter(item => {
-          if (set.has(item)) {
-              set.delete(item);
-          } else {
-              return item;
-          }
+      const duplicates = productIds.filter((item) => {
+        if (set.has(item)) {
+          set.delete(item);
+        } else {
+          return item;
+        }
       });
 
       return duplicates;
     },
     checkUniqueProductIds(duplicate_product_ids) {
       return this.productIds.filter((x) => !duplicate_product_ids.includes(x));
-    }
-  } 
+    },
+  },
 };
 </script>
 
