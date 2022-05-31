@@ -106,11 +106,13 @@ class OrderService extends SocketConsumer {
 
     async getPanelOrders() {
         console.log(API_URL)
-        await axios.get(API_URL + "orders", {headers: authHeader()}).then(res => {
-            if (!res) {toast.warning("No orders found")}
-            toast.success(res);
+        await axios.get(API_URL + "getAllStaffOrders", {headers: authHeader()}).then(res => {
+            if (!res) {console.log("No orders found")}
+            for(let i =0; i < res.data.length; i++) {
+                store.commit("AddOrderData", res.data[i])
+            }
         }).catch(ex => {
-            toast.error(ex.response)
+            console.log(ex.response)
         })
     }
 

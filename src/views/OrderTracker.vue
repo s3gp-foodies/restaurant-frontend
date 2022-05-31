@@ -66,34 +66,13 @@ export default {
       return store.getters.GetAllOrders
     }
   },
-  mounted() {
-    /*
-    const Order = {
-      "tableId": "4",
-      "time": "May 31 10:35",
-      "products": [
-        {
-          "name": "Salade", "amount": 1, "category": "Appetiser", "status": "Submitted"
-        },
-        {
-          "name": "Spa blauw", "amount": 2, "category": "Drinks", "status": "Submitted"
-        },
-      ]
-    }
-    store.commit("AddOrderData", Order)
-     */
-  },
-  methods: {
-    async getOrderData() {
-
-    }
-  },
   created() {
-    //this.orderService.getPanelOrders();
+    let orderLength = store.getters.GetAllOrders.length
+
+    if(orderLength === 0 || orderLength == null) {
+      this.orderService.getPanelOrders();
+    }
   },
-  beforeRouteLeave() {
-    //orders_import = [];
-  }
 }
 
 

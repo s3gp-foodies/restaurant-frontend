@@ -38,7 +38,6 @@ export default {
       deep: true,
 
       handler(orderList) {
-        console.log(orderList)
         this.changedRow(orderList, "Submitted")
       }
     },
