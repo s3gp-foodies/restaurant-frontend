@@ -4,7 +4,6 @@ import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
 import {useToast} from "vue-toastification";
 import {SocketConsumer} from "@/services/socket-consumer";
-import router from "@/router/index";
 import axios from "axios";
 import authHeader from "@/helpers/auth-header";
 import { store } from "@/store/store";
@@ -67,10 +66,13 @@ class OrderService extends SocketConsumer {
     public MakeOrder() {
         if(currentOrder.length == 0) {
             toast.error("Please add items to order")
-        }else {
-            this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
+        } else {
+            this._socketService?.Invoke("SubmitOrder", currentOrder)
+                .then(async () => localStorage.removeItem("AllOrdersOverview"))
+                .catch(() => toast.warning("wrong"))
                 .then(() => toast.success("Order added"))
-                //router.push({path: '/menu'}).then(() => window.location.reload())
+
+            //router.push({path: '/menu'}).then(() => window.location.reload())
         }
     }
 
@@ -102,16 +104,6 @@ class OrderService extends SocketConsumer {
 
             sessionOrders.push(neworder);
         }
-
-        //TODO: This is a mock
-        /*if (sessionOrders.orders.length === 0) {
-            const product_order_1 = new OrderProduct(2, 2);
-            const product_order_2 = new OrderProduct(4, 4);
-
-            const order = new Order(0, "01:16", [product_order_1, product_order_2]);
-
-            sessionOrders.orders.push(order);
-        }*/
     }
 }
 

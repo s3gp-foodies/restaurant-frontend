@@ -40,9 +40,6 @@ export default {
       this.categories = store.state.categories;
       const orders = this.orderService.GetOrders();
 
-      this.orderedProducts = []
-      this.totalPrice = 0
-
       orders.forEach((order) => {
         order.products.forEach((orderedProduct) => {
           this.orderedProducts.push(orderedProduct);
@@ -53,6 +50,7 @@ export default {
 
       this.orderedProducts.forEach((prod) => {
         let set = false;
+        
         groupedProducts.forEach((gp) => {
           if (gp.productId === prod.productId) {
             gp.count += prod.count;
