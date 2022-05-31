@@ -35,14 +35,6 @@ export default {
     };
   },
   inject: ['orderService', 'menuService'],
-  created() {
-    this.menuService.Load().then(() => {
-      
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  },
   methods: {
     getTotalPrice(value) {
       this.totalPrice = value;
