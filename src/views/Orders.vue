@@ -30,19 +30,13 @@ export default {
   },
   data: () => {
     return {
-      isLoading: true,
+      isLoading: false,
       totalPrice: 0
     };
   },
   inject: ['orderService', 'menuService'],
   created() {
     this.menuService.Load().then(() => {
-      this.orderService.LoadOrders().then(() => {
-        this.isLoading = false;
-      })
-      .catch(error => {
-        console.log(error);
-      })
     })
     .catch(error => {
       console.log(error);

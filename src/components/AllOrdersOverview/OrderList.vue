@@ -30,17 +30,38 @@ export default {
       listedCategories: []
     };
   },
-  inject: ['orderService'],
+  inject: ['orderService','menuService'],
   created() {
-    this.categories = store.state.categories;
+    this.menuService.Load().then(() => {
+      this.orderService.LoadOrders().then(() => {
+        this.LoadProductList()
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  },
+  methods: {
+    LoadProductList() {
+      this.categories = store.state.categories;
+      const orders = this.orderService.GetOrders();
+
+      console.log(orders);
 
     //push productid's and orderedproducts in seperate array's
-    this.orderService.GetOrders().orders.forEach((order) => {
+    orders.forEach((order) => {
+      //console.log(order) 
+
       order.products.forEach((orderedProduct) => {
         this.productIds.push(orderedProduct.productId);
         this.orderedProducts.push(orderedProduct);
       });
     });
+
+    //console.log(this.orderedProducts);
 
     //duplicate overview products
     var duplicate_overview_products = [];
@@ -49,6 +70,8 @@ export default {
     duplicate_product_ids.forEach((duplicateProductId) => {
       var duplicateProductCount = 0;
       let product = store.getters.GetProductById(duplicateProductId);
+
+      console.log(product);
 
       this.orderedProducts.forEach((orderedProduct) => {
         if(duplicateProductId === orderedProduct.productId) {
@@ -68,7 +91,7 @@ export default {
         )
       );
 
-      this.listedCategories.push(product.category);
+      if (!this.listedCategories.includes(product.category)) this.listedCategories.push(product.category);
     })
 
     //unique overview products
@@ -80,6 +103,7 @@ export default {
 
       this.orderedProducts.forEach((orderedProduct) => {
         if(uniqueProductId == orderedProduct.productId) {
+          console.log(product)
           unique_overview_products.push(
             new OrderOverviewProduct(
               uniqueProductId,
@@ -94,7 +118,7 @@ export default {
         }
       })
 
-      this.listedCategories.push(product.category);
+      if (!this.listedCategories.includes(product.category)) this.listedCategories.push(product.category);
     })
 
     //combine unique overiew products and duplicate overview products
@@ -102,8 +126,7 @@ export default {
 
     //return totalprice
     this.$emit("totalPrice", this.totalPrice);
-  },
-  methods: {
+    },
     checkDuplicateProductIds(productIds) {
       const set = new Set(productIds);
 

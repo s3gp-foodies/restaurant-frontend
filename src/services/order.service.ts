@@ -5,19 +5,22 @@ import Product from "@/models/product";
 import {useToast} from "vue-toastification";
 import {SocketConsumer} from "@/services/socket-consumer";
 import router from "@/router/index";
+import axios from "axios";
+import authHeader from "@/helpers/auth-header";
+import { store } from "@/store/store";
 
 const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
-const sessionOrders: SessionOrders = new SessionOrders([]);
+const sessionOrders: Order[] = [];
 const currentOrder: OrderProduct[] = [];
 
 class OrderService extends SocketConsumer {
     // Add websocket functions in this constructor
-    Init(){
-
+    Init() {   
+        this.RegisterUpdateOrder();
     }
 
-    GetOrders() {
+    public GetOrders() : Order[] {
         return sessionOrders
     }
 
@@ -61,36 +64,56 @@ class OrderService extends SocketConsumer {
         co.forEach((op: any) => currentOrder.push(op))
     }
 
-    public MakeOrder(){
-        console.log(currentOrder)
-        if(currentOrder.length == 0){
+    public MakeOrder() {
+        //console.log(currentOrder)
+        if(currentOrder.length == 0) {
             toast.error("Please add items to order")
         }else {
             this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
                 .then(() => toast.success("Order added"))
             //router.push({path: '/menu'}).then(() => window.location.reload())
         }
-
     }
 
-    async LoadOrders() {
-        console.log(this._socketService?.order['tableId']);
-        console.log(this._socketService?.order['time']);
-        console.log(this._socketService?.order['products']);
+    RegisterUpdateOrder() {
+        this._socketService?.connection.on("AddOrder", order => this.AddOrder(order))
+    }
 
-        this._socketService?.order['products'].forEach((element: any) => console.log(element));
+    public async LoadOrders() {
+        if (sessionOrders.length !== 0) return;
+
+        await axios.get(API_URL + "orders", {headers: authHeader()}).then(response => {
+            response.data.forEach((order: any) => {
+                const products: OrderProduct[] = []
+                order.items.forEach((item: any) => {
+                    products.push(new OrderProduct(item.itemId, item.quantity))
+                })
+                sessionOrders.push(new Order(order.id, order.orderTime, products))
+            });
+        }).catch(error => {
+            console.log(error)
+        });
+    }
+
+    async AddOrder(order: Order) {
+        store.commit("AddOrder", order)
+
+        if (order['products'].length > 0) {
+            const neworder = new Order(order['id'], order['time'], order['products']);
+
+            sessionOrders.push(neworder);
+        }
 
         //TODO: This is a mock
-        if (sessionOrders.orders.length === 0) {
+        /*if (sessionOrders.orders.length === 0) {
             const product_order_1 = new OrderProduct(2, 2);
             const product_order_2 = new OrderProduct(4, 4);
 
             const order = new Order(0, "01:16", [product_order_1, product_order_2]);
 
             sessionOrders.orders.push(order);
-        }
+        }*/
     }
-
 }
 
 export default OrderService;

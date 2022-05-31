@@ -8,7 +8,6 @@ class SocketService {
         })
         .build();
     private connectionStatus: any;
-    public order: any;
 
     Connect() {
         this.connection.on("Connected", function (message) {
@@ -16,8 +15,6 @@ class SocketService {
         });
 
         this.connectionStatus = this.connection.start().catch(e => console.log(e));
-
-        this.ListingOrderData()
     }
 
     Test() {
@@ -31,12 +28,6 @@ class SocketService {
         return this.connectionStatus.then(async () => {
             if (args) await this.connection.invoke(methodName, args)
             else await this.connection.invoke(methodName)
-        })
-    }
-
-    ListingOrderData() {
-        this.connection.on("UpdateOrder", (order) => {
-            this.order = order;
         })
     }
 }

@@ -22,6 +22,7 @@ class MenuService extends SocketConsumer {
     }
 
     private async LoadMenu() {
+        console.log("Loading Menu")
         await axios.get(API_URL, {headers: authHeader()}).then(response => {
             response.data.forEach((prod: any) => {
                 store.commit("AddToMenu", <Product>({
