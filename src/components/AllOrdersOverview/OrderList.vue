@@ -4,7 +4,7 @@
       <th colspan="6">{{ category.name }}</th>
     </tr>
     <tr
-      v-for="overview_product in overview_products"
+      v-for="overview_product in overviewProducts"
       :key="overview_product.id"
     >
       <CategoryProduct
@@ -29,10 +29,9 @@ export default {
   },
   data: () => {
     return {
-      listedOrders: [],
       totalPrice: 0,
       orderedProducts: [],
-      overview_products: [],
+      overviewProducts: [],
       listedCategories: [],
     };
   },
@@ -83,9 +82,11 @@ export default {
 
       groupedProducts.forEach((prod) => {
         const menuProduct = store.getters.GetProductById(prod.productId);
+
         if (!this.listedCategories.includes(menuProduct.category))
           this.listedCategories.push(menuProduct.category);
-        this.overview_products.push(
+
+        this.overviewProducts.push(
           new OrderOverviewProduct(
             prod.productId,
             menuProduct.name,
@@ -94,8 +95,8 @@ export default {
             prod.count * menuProduct.price
           )
         );
-        this.totalPrice +=
-          this.overview_products[this.overview_products.length - 1].totalPrice;
+
+        this.totalPrice += this.overviewProducts[this.overviewProducts.length - 1].totalPrice;
       });
 
       this.$emit("totalPrice", this.totalPrice);

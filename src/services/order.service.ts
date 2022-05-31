@@ -65,13 +65,12 @@ class OrderService extends SocketConsumer {
     }
 
     public MakeOrder() {
-        //console.log(currentOrder)
         if(currentOrder.length == 0) {
             toast.error("Please add items to order")
         }else {
             this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
                 .then(() => toast.success("Order added"))
-            //router.push({path: '/menu'}).then(() => window.location.reload())
+                //router.push({path: '/menu'}).then(() => window.location.reload())
         }
     }
 
