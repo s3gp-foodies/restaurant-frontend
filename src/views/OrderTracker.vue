@@ -29,7 +29,7 @@
   <table style="margin-top: 10px; table-layout: fixed" class="table table-bordered table-info">
     <thead class="thead-dark">
     <tr>
-      <th style="width: 80px">Table</th>
+      <th style="width: 80px">Table Number</th>
       <th style="width: 80px" aria-sort="descending">Time</th>
       <th>New</th>
       <th>In Progress</th>
@@ -37,7 +37,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="order in orders_import" :key="order.name">
+    <tr v-for="order in orders_import" :key="order.tableId">
       <order-tracker-row :order="order"></order-tracker-row>
     </tr>
     </tbody>
@@ -67,10 +67,11 @@ export default {
     }
   },
   mounted() {
+    /*
     const Order = {
-      "name": "Tafel1",
-      "time": "10:35",
-      "product": [
+      "tableId": "4",
+      "time": "May 31 10:35",
+      "products": [
         {
           "name": "Salade", "amount": 1, "category": "Appetiser", "status": "Submitted"
         },
@@ -80,6 +81,7 @@ export default {
       ]
     }
     store.commit("AddOrderData", Order)
+     */
   },
   methods: {
     async getOrderData() {
@@ -87,7 +89,7 @@ export default {
     }
   },
   created() {
-    this.orderService.getPanelOrders();
+    //this.orderService.getPanelOrders();
   },
   beforeRouteLeave() {
     //orders_import = [];

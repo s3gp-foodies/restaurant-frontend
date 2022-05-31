@@ -72,7 +72,7 @@ class OrderService extends SocketConsumer {
         } else {
             this._socketService?.Invoke("SubmitOrder", currentOrder).then(async () => localStorage.removeItem("AllOrdersOverview")).catch(() => toast.warning("wrong"))
                 .then(() => toast.success("Order added"))
-            router.push({path: '/menu'}).then(() => window.location.reload())
+            //router.push({path: '/menu'}).then(() => window.location.reload())
         }
 
     }
@@ -115,7 +115,8 @@ class OrderService extends SocketConsumer {
     }
 
     async LoadEmployeeOrders(order: orderTrackerModel) {
-        store.commit("AddOrderData", order)
+        const tableId = order.tableId.toString()
+        store.commit("AddOrderData", new orderTrackerModel(tableId, order.time, order.products))
     }
 }
 

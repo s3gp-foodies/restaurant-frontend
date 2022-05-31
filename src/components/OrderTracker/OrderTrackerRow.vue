@@ -1,20 +1,23 @@
 <template>
   <td>
-    {{ order.name }}
+    {{ order.tableId }}
   </td>
   <td>
-    {{ order.time }}
+    {{
+     moment(order.time)
+    }}
   </td>
-  <order-tracker-cell :products="order['product']" :order-name="order['name']"
-                           :groupName="order['name']+order['time']" ></order-tracker-cell>
-  <order-tracker-cell :products="inProgress" :order-name="order['name']"
-                           :groupName="order['name']+order['time']"></order-tracker-cell>
-  <order-tracker-cell :products="done" :order-name="order['name']"
-                           :groupName="order['name']+order['time']"></order-tracker-cell>
+  <order-tracker-cell :products="order['products']" :order-name="order['tableId']"
+                           :groupName="order['tableId']+order['time']" ></order-tracker-cell>
+  <order-tracker-cell :products="inProgress" :order-name="order['tableId']"
+                           :groupName="order['tableId']+order['time']"></order-tracker-cell>
+  <order-tracker-cell :products="done" :order-name="order['tableId']"
+                           :groupName="order['tableId']+order['time']"></order-tracker-cell>
 </template>
 
 <script>
 import OrderTrackerCell from "@/components/OrderTracker/OrderTrackerCell";
+import moment from 'moment/moment'
 
 export default {
   name: "OrderTrackerRow",
@@ -35,6 +38,7 @@ export default {
       deep: true,
 
       handler(orderList) {
+        console.log(orderList)
         this.changedRow(orderList, "Submitted")
       }
     },
@@ -59,6 +63,11 @@ export default {
         itemList[i].status = updateStatus;
       }
     },
+
+    //uses https://www.npmjs.com/package/vue-moment
+    moment(date) {
+      return moment(date).format('MMMM Do, h:mm:ss a');
+    }
   }
 }
 </script>
