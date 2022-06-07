@@ -72,7 +72,7 @@ export default {
       this.orderService.Save()
     },
     del(){
-      this.orderService.DeleteFromCurrentOrder()
+      this.orderService.DeleteFromCurrentOrder(this.product)
     }
   }
 }
