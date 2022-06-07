@@ -86,7 +86,8 @@ export default {
 .menuIcons {
   min-width: 100px;
   max-width: 200px;
-  margin: 5px
+  margin: 5px;
+  padding: 7px;
 }
 
 .wrapper {
