@@ -44,6 +44,7 @@ export const store = createStore({
         },
         AddOrderData(state, order) {
             state.orderTrackerData.push(order)
+        },
         AddOrder(state, order: Order){
             state.orders.push(order)
         }
