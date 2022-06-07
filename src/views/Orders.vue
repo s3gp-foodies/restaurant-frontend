@@ -12,7 +12,7 @@
       <OrderPrice :totalPrice="totalPrice"></OrderPrice>
     </div>
     <div class="payment-buttons">
-      <button @click="buttonClickOnPayment(totalPrice)" class="btn btn-primary">Betalen</button>
+      <button @click="buttonClickOnPayment(totalPrice)" class="btn btn-primary">Pay</button>
     </div>
   </div>
 </template>
