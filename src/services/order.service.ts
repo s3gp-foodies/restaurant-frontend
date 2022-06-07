@@ -6,7 +6,7 @@ import Toast, {useToast} from "vue-toastification";
 import {SocketConsumer} from "@/services/socket-consumer";
 import axios from "axios";
 import authHeader from "@/helpers/auth-header";
-import { store } from "@/store/store";
+import { store } from "../store/store";
 
 const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
