@@ -2,11 +2,11 @@ import SessionOrders from "@/models/session-orders";
 import Order from "@/models/order";
 import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
-import {useToast} from "vue-toastification";
+import Toast, {useToast} from "vue-toastification";
 import {SocketConsumer} from "@/services/socket-consumer";
 import axios from "axios";
 import authHeader from "@/helpers/auth-header";
-import { store } from "@/store/store";
+import { store } from "../store/store";
 
 const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
@@ -61,17 +61,20 @@ class OrderService extends SocketConsumer {
         co.forEach((op: any) => currentOrder.push(op))
     }
 
-    public MakeOrder() {
-        if(currentOrder.length == 0) {
-            toast.error("Please add items to order")
-        } else {
-            this._socketService?.Invoke("SubmitOrder", currentOrder)
-                .then(async () => localStorage.removeItem("AllOrdersOverview"))
-                .catch(() => toast.warning("wrong"))
-                .then(() => toast.success("Order added"))
-
-            //router.push({path: '/menu'}).then(() => window.location.reload())
+    public MakeOrder(){
+        const newCO = currentOrder.filter(function(obj){
+            return obj.count >0
+        })
+        console.log(newCO)
+        if(currentOrder.length == 0){
+            toast.error("Order cannot be empty")
         }
+        this._socketService?.Invoke("SubmitOrder", newCO)
+            .then(async () => localStorage.removeItem("AllOrdersOverview"))
+            .catch(() => toast.warning("wrong"))
+            .then(() => toast.success("Order added"))
+
+
     }
 
     RegisterUpdateOrder() {
