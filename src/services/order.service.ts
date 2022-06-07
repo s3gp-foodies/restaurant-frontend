@@ -37,8 +37,10 @@ class OrderService extends SocketConsumer {
 
     DeleteFromCurrentOrder(product: Product) {
         const order = currentOrder.find(o => o.productId == product.id)
-        console.log(order)
-        console.log(currentOrder)
+        const PostDel = currentOrder.filter(function(obj){
+            return obj.productId != product.id
+        })
+        console.log(PostDel)
     }
 
     Save() {
@@ -71,6 +73,11 @@ class OrderService extends SocketConsumer {
         router.push({ path: '/menu'}).then(() =>window.location.reload())
 
 
+    }
+    public GetTotal(){
+        currentOrder.forEach(function(arrayitem){
+            const test = arrayitem.productId
+        })
     }
 
     async LoadOrders() {
