@@ -15,13 +15,11 @@ const currentOrder: OrderProduct[] = [];
 
 class OrderService extends SocketConsumer {
     // Add websocket functions in this constructor
-    Init() {   
+    Init() {
         this.RegisterUpdateOrder();
     }
 
     public GetOrders() : Order[] {
-        console.log('7: order.service.getorders()');
-
         return sessionOrders
     }
 
@@ -44,8 +42,6 @@ class OrderService extends SocketConsumer {
 
     DeleteFromCurrentOrder(product: Product) {
         const test = currentOrder.find(p => console.log(p.productId))
-        console.log(test)
-        console.log(currentOrder)
     }
 
     Save() {
@@ -83,13 +79,14 @@ class OrderService extends SocketConsumer {
     }
 
     public async LoadOrders() {
-        if (sessionOrders.length !== 0) return;
+        // if (sessionOrders.length !== 0) return;
+        sessionOrders.length=0;
 
         await axios.get(API_URL + "orders", {headers: authHeader()}).then(response => {
             response.data.forEach((order: any) => {
                 const products: OrderProduct[] = []
                 order.items.forEach((item: any) => {
-                    products.push(new OrderProduct(item.itemId, item.quantity))
+                    products.push(new OrderProduct(item.menuItemId, item.quantity))
                 })
                 sessionOrders.push(new Order(order.id, order.orderTime, products))
             });

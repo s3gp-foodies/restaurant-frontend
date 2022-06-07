@@ -43,7 +43,7 @@ export const store = createStore({
     },
     getters: {
         GetProductById: (state) => (id: number) => {
-            return state.menu.products.find(p => p.id == id);
+            return state.menu.products.find(p => p.id === id);
         },
         GetItemsInCategory: (state) => (category: Category) => {
             return state.menu.products.filter(item => item.category.id === category.id)
