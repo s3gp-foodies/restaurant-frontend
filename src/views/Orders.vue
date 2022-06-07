@@ -12,8 +12,7 @@
       <OrderPrice :totalPrice="totalPrice"></OrderPrice>
     </div>
     <div class="payment-buttons">
-      <button class="btn btn-primary">Kassa betalen</button>
-      <button class="btn btn-primary">Digitaal betalen</button>
+      <button @click="buttonClickOnPayment($event)" class="btn btn-primary">Betalen</button>
     </div>
   </div>
 </template>
@@ -21,17 +20,18 @@
 <script>
 import OrderList from "../components/AllOrdersOverview/OrderList.vue";
 import OrderPrice from "../components/AllOrdersOverview/OrderPrice.vue";
+//import {useToast} from "vue-toastification";
 
 export default {
   name: "OrdersPage",
   components: {
     OrderList,
-    OrderPrice
+    OrderPrice, 
   },
   data: () => {
     return {
       isLoading: false,
-      totalPrice: 0
+      totalPrice: 0,
     };
   },
   inject: ['orderService', 'menuService'],
@@ -55,6 +55,16 @@ export default {
   methods: {
     getTotalPrice(value) {
       this.totalPrice = value;
+    },
+    buttonClickOnPayment(event) {
+      if (event) {
+        console.log("geklikt op betalen"); 
+      } 
+
+      /*this._socketService?.Invoke("SubmitOrder", currentOrder)
+        .then(async () => localStorage.removeItem("AllOrdersOverview"))
+        .catch(() => toast.warning("wrong"))
+        .then(() => toast.success("Order added"))*/
     }
   }
 };
