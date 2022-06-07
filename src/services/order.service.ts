@@ -79,8 +79,8 @@ class OrderService extends SocketConsumer {
     }
 
     public async LoadOrders() {
-        // if (sessionOrders.length !== 0) return;
-        sessionOrders.length=0;
+        //if (sessionOrders.length !== 0) return;
+        sessionOrders.length = 0;
 
         await axios.get(API_URL + "orders", {headers: authHeader()}).then(response => {
             response.data.forEach((order: any) => {

@@ -37,7 +37,6 @@ export default {
   inject: ["orderService", "menuService"],
   methods: {
     LoadProductList() {
-
       this.categories = store.state.categories;
       const orders = JSON.parse(JSON.stringify(this.orderService.GetOrders()));
 
@@ -46,7 +45,6 @@ export default {
           this.orderedProducts.push(orderedProduct);
         });
       });
-
 
       let groupedProducts = [];
       this.orderedProducts.forEach((prod) => {
