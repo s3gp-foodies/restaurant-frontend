@@ -105,11 +105,24 @@ class OrderService extends SocketConsumer {
     }
 
     async getPanelOrders() {
-        console.log(API_URL)
         await axios.get(API_URL + "getAllStaffOrders", {headers: authHeader()}).then(res => {
             if (!res) {console.log("No orders found")}
+            const date = new Date();
+
+            function padTo2Digits(num : any) {
+                return num.toString().padStart(2, '0');
+            }
+
+            const year = date.getFullYear();
+            const month = padTo2Digits(date.getMonth() + 1);
+            const day = padTo2Digits(date.getDate());
+
+            const withHyphens = [year, month, day].join('-');
+
             for(let i =0; i < res.data.length; i++) {
-                store.commit("AddOrderData", res.data[i])
+                if(withHyphens == res.data[i].time.split('T')[0]) {
+                    store.commit("AddOrderData", res.data[i])
+                }
             }
         }).catch(ex => {
             console.log(ex.response)
