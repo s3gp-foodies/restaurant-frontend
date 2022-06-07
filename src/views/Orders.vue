@@ -36,6 +36,8 @@ export default {
   },
   inject: ['orderService', 'menuService'],
   created() {
+    console.log('1: orders created() | created');
+
     this.menuService
       .Load()
       .then(() => {

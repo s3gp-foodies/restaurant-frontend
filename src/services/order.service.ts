@@ -20,6 +20,8 @@ class OrderService extends SocketConsumer {
     }
 
     public GetOrders() : Order[] {
+        console.log('7: order.service.getorders()');
+
         return sessionOrders
     }
 

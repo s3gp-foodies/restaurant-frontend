@@ -37,6 +37,8 @@ export default {
   inject: ["orderService", "menuService"],
   methods: {
     LoadProductList() {
+      console.log('6: orderlist.loadproductlist()');
+
       this.categories = store.state.categories;
       const orders = this.orderService.GetOrders();
 
