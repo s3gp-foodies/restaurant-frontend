@@ -12,8 +12,7 @@
       <OrderPrice :totalPrice="totalPrice"></OrderPrice>
     </div>
     <div class="payment-buttons">
-      <button class="btn btn-primary">Kassa betalen</button>
-      <button class="btn btn-primary">Digitaal betalen</button>
+      <button @click="buttonClickOnPayment(totalPrice)" class="btn btn-primary">Betalen</button>
     </div>
   </div>
 </template>
@@ -26,12 +25,12 @@ export default {
   name: "OrdersPage",
   components: {
     OrderList,
-    OrderPrice
+    OrderPrice, 
   },
   data: () => {
     return {
       isLoading: false,
-      totalPrice: 0
+      totalPrice: 0,
     };
   },
   inject: ['orderService', 'menuService'],
@@ -55,6 +54,13 @@ export default {
   methods: {
     getTotalPrice(value) {
       this.totalPrice = value;
+    },
+    buttonClickOnPayment(totalPrice) {    
+      if(this.$refs.orderlist.orderedProductsCount > 0) {
+        this.orderService.SubmitPayment(totalPrice, true);
+      } else {
+        this.orderService.SubmitPayment(totalPrice, false);
+      }
     }
   }
 };
