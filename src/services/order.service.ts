@@ -104,6 +104,14 @@ class OrderService extends SocketConsumer {
             sessionOrders.push(neworder);
         }
     }
+
+    public SubmitPayment(totalPrice: any, succes: boolean) {
+        if (succes) {
+            toast.success("Payment succesful with total price: €" + parseFloat(totalPrice).toFixed(2) + ".");
+        } else {
+            toast.error("Payment failed, make sure to add an order.");
+        }  
+    }
 }
 
 export default OrderService;

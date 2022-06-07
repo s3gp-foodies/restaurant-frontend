@@ -32,6 +32,7 @@ export default {
       orderedProducts: [],
       overviewProducts: [],
       listedCategories: [],
+      orderedProductsCount: 0
     };
   },
   inject: ["orderService", "menuService"],
@@ -45,6 +46,8 @@ export default {
           this.orderedProducts.push(orderedProduct);
         });
       });
+
+      this.orderedProductsCount = this.orderedProducts.length;
 
       let groupedProducts = [];
       this.orderedProducts.forEach((prod) => {
@@ -78,6 +81,7 @@ export default {
           this.totalPrice += this.overviewProducts[this.overviewProducts.length - 1].totalPrice;
         }
       });
+
       this.$emit("totalPrice", this.totalPrice);
     }
   },
