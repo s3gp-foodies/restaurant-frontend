@@ -4,15 +4,15 @@
   </td>
   <td>
     {{
-     moment(order.time)
+      moment(order.time)
     }}
   </td>
   <order-tracker-cell :products="order['products']" :order-name="order['tableId']"
-                           :groupName="order['tableId']+order['time']" ></order-tracker-cell>
+                      :groupName="order['tableId']+order['time']"></order-tracker-cell>
   <order-tracker-cell :products="inProgress" :order-name="order['tableId']"
-                           :groupName="order['tableId']+order['time']"></order-tracker-cell>
+                      :groupName="order['tableId']+order['time']"></order-tracker-cell>
   <order-tracker-cell :products="done" :order-name="order['tableId']"
-                           :groupName="order['tableId']+order['time']"></order-tracker-cell>
+                      :groupName="order['tableId']+order['time']"></order-tracker-cell>
 </template>
 
 <script>
@@ -21,6 +21,7 @@ import moment from 'moment/moment'
 
 export default {
   name: "OrderTrackerRow",
+  inject: ['orderService'],
   components: {
     OrderTrackerCell
   },
@@ -29,8 +30,8 @@ export default {
   },
   data: () => {
     return {
-      inProgress:[],
-      done:[]
+      inProgress: [],
+      done: []
     }
   },
   watch: {
@@ -38,29 +39,43 @@ export default {
       deep: true,
 
       handler(orderList) {
-        this.changedRow(orderList, "Submitted")
+        this.changedRow(orderList, "submitted")
       }
     },
     inProgress: {
       deep: true,
 
       handler(orderList) {
-        this.changedRow(orderList, "InProgress")
+        this.changedRow(orderList, "inprogress")
       }
     },
     done: {
       deep: true,
 
       handler(orderList) {
-        this.changedRow(orderList, "Complete")
+        this.changedRow(orderList, "complete")
       }
     }
   },
   methods: {
     changedRow(itemList, updateStatus) {
-      for(let i = 0; i < itemList.length; i++) {
-        itemList[i].status = updateStatus;
+      if (itemList.length === undefined) {
+        for (let i = 0; i < itemList['products'].length; i++) {
+          if (itemList['products'][i].status !== updateStatus) {
+            itemList['products'][i].status = updateStatus;
+            this.orderService.updateItemStatus(itemList['products'][i].id, updateStatus)
+          }
+
+        }
+      } else {
+        for (let i = 0; i < itemList.length; i++) {
+          if (itemList[i].status !== updateStatus) {
+            itemList[i].status = updateStatus;
+            this.orderService.updateItemStatus(itemList[i].id, updateStatus)
+          }
+        }
       }
+      this.orderService.updateItemStatus()
     },
 
     //uses https://www.npmjs.com/package/vue-moment

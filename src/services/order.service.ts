@@ -133,6 +133,11 @@ class OrderService extends SocketConsumer {
         const tableId = order.tableId.toString()
         store.commit("AddOrderData", new orderTrackerModel(tableId, order.time, order.products))
     }
+
+    public updateItemStatus(productID: number, status: string) {
+        console.log([productID, status])
+        this._socketService?.Invoke("UpdateOrderItemStatus", [productID, status]).then()
+    }
 }
 
 export default OrderService;
