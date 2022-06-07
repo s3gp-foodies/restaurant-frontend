@@ -43,7 +43,9 @@ export default {
 
       orders.forEach((order) => {
         order.products.forEach((orderedProduct) => {
-          this.orderedProducts.push(orderedProduct);
+          if(orderedProduct.count > 0) {
+            this.orderedProducts.push(orderedProduct);
+          }
         });
       });
 
