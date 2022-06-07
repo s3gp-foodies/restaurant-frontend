@@ -22,7 +22,9 @@ class MenuService extends SocketConsumer {
     }
 
     private async LoadMenu() {
+
         await axios.get(API_URL, {headers: authHeader()}).then(response => {
+
             response.data.forEach((prod: any) => {
                 store.commit("AddToMenu", <Product>({
                     name: prod.title,
@@ -40,6 +42,7 @@ class MenuService extends SocketConsumer {
     }
 
     private async LoadCategories() {
+
         axios.get(API_URL + "categories", {headers: authHeader()}).then(response => {
             response.data.forEach((category: any) => {
                 store.commit("AddToCategories", {id: category.id, name: category.name})

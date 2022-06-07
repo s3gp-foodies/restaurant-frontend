@@ -4,7 +4,7 @@ import Menu from "@/models/menu";
 import Product from "@/models/product";
 import Category from "@/models/category";
 import OrderTracker from "@/models/orderTrackerModels/orderTracker";
-import orderTracker from "@/views/OrderTracker.vue";
+import Order from "@/models/order";
 
 /**
  * Zie https://vuex.vuejs.org/guide/ voor details maar hier de basics:
@@ -44,11 +44,13 @@ export const store = createStore({
         },
         AddOrderData(state, order) {
             state.orderTrackerData.push(order)
+        AddOrder(state, order: Order){
+            state.orders.push(order)
         }
     },
     getters: {
         GetProductById: (state) => (id: number) => {
-            return state.menu.products.find(p => p.id == id);
+            return state.menu.products.find(p => p.id === id);
         },
         GetItemsInCategory: (state) => (category: Category) => {
             return state.menu.products.filter(item => item.category.id === category.id)

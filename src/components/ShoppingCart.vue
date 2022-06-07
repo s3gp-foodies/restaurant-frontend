@@ -64,7 +64,6 @@ export default {
       OrderService.UpdateCurrentOrder(this.product, this.count)
     },
     del(){
-      console.log("ha")
       OrderService.DeleteFromCurrentOrder(this.product)
     },
     addToOrder(){
