@@ -3,6 +3,7 @@ import {createStore} from "vuex";
 import Menu from "@/models/menu";
 import Product from "@/models/product";
 import Category from "@/models/category";
+import Order from "@/models/order";
 
 /**
  * Zie https://vuex.vuejs.org/guide/ voor details maar hier de basics:
@@ -25,7 +26,8 @@ import Category from "@/models/category";
 export const store = createStore({
     state: {
         menu: new Menu([]),
-        categories: []
+        categories: [],
+        orders: []
     },
     mutations: {
         AddToMenu(state, product: Product) {
@@ -34,11 +36,14 @@ export const store = createStore({
         AddToCategories(state, {id, name}) {
             const cat = new Category(id, name)
             state.categories.push(cat)
+        },
+        AddOrder(state, order: Order){
+            state.orders.push(order)
         }
     },
     getters: {
         GetProductById: (state) => (id: number) => {
-            return state.menu.products.find(p => p.id == id);
+            return state.menu.products.find(p => p.id === id);
         },
         GetItemsInCategory: (state) => (category: Category) => {
             return state.menu.products.filter(item => item.category.id === category.id)

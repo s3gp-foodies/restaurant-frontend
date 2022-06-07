@@ -4,17 +4,22 @@ import OrderProduct from "@/models/order-product";
 import Product from "@/models/product";
 import {useToast} from "vue-toastification";
 import {SocketConsumer} from "@/services/socket-consumer";
-import axios from 'axios';
+import axios from "axios";
 import authHeader from "@/helpers/auth-header";
+import { store } from "@/store/store";
 
 const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
-const sessionOrders: SessionOrders = new SessionOrders([]);
+const sessionOrders: Order[] = [];
 const currentOrder: OrderProduct[] = [];
 
 class OrderService extends SocketConsumer {
+    // Add websocket functions in this constructor
+    Init() {
+        this.RegisterUpdateOrder();
+    }
 
-    GetOrders() {
+    public GetOrders() : Order[] {
         return sessionOrders
     }
 
@@ -36,9 +41,7 @@ class OrderService extends SocketConsumer {
     }
 
     DeleteFromCurrentOrder(product: Product) {
-        const order = currentOrder.find(o => o.productId == product.id)
-        console.log(order)
-        console.log(currentOrder)
+        const test = currentOrder.find(p => console.log(p.productId))
     }
 
     Save() {
@@ -58,32 +61,47 @@ class OrderService extends SocketConsumer {
         co.forEach((op: any) => currentOrder.push(op))
     }
 
+    public MakeOrder() {
+        if(currentOrder.length == 0) {
+            toast.error("Please add items to order")
+        } else {
+            this._socketService?.Invoke("SubmitOrder", currentOrder)
+                .then(async () => localStorage.removeItem("AllOrdersOverview"))
+                .catch(() => toast.warning("wrong"))
+                .then(() => toast.success("Order added"))
 
-    async LoadOrders() {
-        /*await axios
-            .get(API_URL + "orders", { headers: authHeader() })
-            .then(response => {
-                console.log("response orders");
-                console.log(response); 
-            })
-            .catch(error => {
-                console.log(error)
-            })*/ 
+            //router.push({path: '/menu'}).then(() => window.location.reload())
+        }
+    }
 
-        //TODO: This is a mock
-        if (sessionOrders.orders.length === 0) {
-            const product_order_1 = new OrderProduct(2, 1);
-            const product_order_2 = new OrderProduct(2, 4);
-            const product_order_3 = new OrderProduct(3, 2);
-            const product_order_4 = new OrderProduct(4, 5);
-            const product_order_5 = new OrderProduct(4, 3);
-            const product_order_6 = new OrderProduct(1, 1);
+    RegisterUpdateOrder() {
+        this._socketService?.connection.on("AddOrder", order => this.AddOrder(order))
+    }
 
-            const order_1 = new Order(0, "01:16", [product_order_1, product_order_3, product_order_4]);
-            const order_2 = new Order(1, "02:10", [product_order_2, product_order_5, product_order_6]);
+    public async LoadOrders() {
+        //if (sessionOrders.length !== 0) return;
+        sessionOrders.length = 0;
 
-            sessionOrders.orders.push(order_1);
-            sessionOrders.orders.push(order_2);
+        await axios.get(API_URL + "orders", {headers: authHeader()}).then(response => {
+            response.data.forEach((order: any) => {
+                const products: OrderProduct[] = []
+                order.items.forEach((item: any) => {
+                    products.push(new OrderProduct(item.menuItemId, item.quantity))
+                })
+                sessionOrders.push(new Order(order.id, order.orderTime, products))
+            });
+        }).catch(error => {
+            console.log(error)
+        });
+    }
+
+    async AddOrder(order: Order) {
+        store.commit("AddOrder", order)
+
+        if (order['products'].length > 0) {
+            const neworder = new Order(order['id'], order['time'], order['products']);
+
+            sessionOrders.push(neworder);
         }
     }
 }

@@ -19,12 +19,14 @@
         </div>
         <div class="addbutton">
         <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
+          <slot><button type="button" class="btn btn-outline-danger" @click="del()"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </slot>
         </div>
         <div>
           <strong v-if="count >14">Cannot be more then 15</strong>
           <strong v-if="count <0 ">Cannot be less then 0</strong>
         </div>
-        <p style="font-weight: bold"> &euro; {{ product.price }} Per stuk</p>
+        <p style="font-weight: bold"> &euro; {{ parseFloat(product.price).toFixed(2) }} Per stuk</p>
       </div>
     </div>
   </div>
@@ -68,6 +70,9 @@ export default {
     },
     addToOrder(){
       this.orderService.Save()
+    },
+    del(){
+      this.orderService.DeleteFromCurrentOrder()
     }
   }
 }
@@ -94,9 +99,21 @@ export default {
   margin: 5px;
   padding: 5px;
 }
+
 .addbutton {
   width:100%;
   text-align: center;
-  padding: 1%
+  padding: 1%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 10px;
+}
+
+.addbutton button {
+  margin-right: 18px;
+}
+
+.numberInput {
+  margin: 0px 12px;
 }
 </style>

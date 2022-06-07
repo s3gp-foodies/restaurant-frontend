@@ -1,16 +1,22 @@
 <template>
-  <table v-for="category in categories" :key="category">
+  <table v-for="category in listedCategories" :key="category">
     <tr>
       <th colspan="6">{{ category.name }}</th>
     </tr>
-    <tr v-for="overview_product in overview_products" :key="overview_product.id">
-      <CategoryProduct v-if="overview_product.id === category.id" :overview_product="overview_product"></CategoryProduct>
+    <tr
+        v-for="overview_product in overviewProducts"
+        :key="overview_product.id"
+    >
+      <CategoryProduct
+          v-if="overview_product.id === category.id"
+          :overview_product="overview_product"
+      ></CategoryProduct>
     </tr>
   </table>
 </template>
 
 <script>
-import CategoryProduct from './CategoryProduct.vue';
+import CategoryProduct from "./CategoryProduct.vue";
 import OrderOverviewProduct from "@/models/order-overview-product.ts";
 import {store} from "@/store/store";
 
@@ -18,104 +24,63 @@ export default {
   name: "OrderList",
   emits: ["totalPrice"],
   components: {
-    CategoryProduct
+    CategoryProduct,
   },
   data: () => {
     return {
-      listedOrders: [],
       totalPrice: 0,
-      productIds: [],
       orderedProducts: [],
-      overview_products: []
+      overviewProducts: [],
+      listedCategories: [],
     };
   },
-  inject: ['orderService'],
-  created() {
-    this.categories = store.state.categories;
+  inject: ["orderService", "menuService"],
+  methods: {
+    LoadProductList() {
+      this.categories = store.state.categories;
+      const orders = JSON.parse(JSON.stringify(this.orderService.GetOrders()));
 
-    //push productid's and orderedproducts in seperate array's
-    this.orderService.GetOrders().orders.forEach((order) => {
-      order.products.forEach((orderedProduct) => {
-        this.productIds.push(orderedProduct.productId);
-        this.orderedProducts.push(orderedProduct);
+      orders.forEach((order) => {
+        order.products.forEach((orderedProduct) => {
+          this.orderedProducts.push(orderedProduct);
+        });
       });
-    });
 
-    //duplicate overview products
-    var duplicate_overview_products = [];
-    var duplicate_product_ids = this.checkDuplicateProductIds(this.productIds);
+      let groupedProducts = [];
+      this.orderedProducts.forEach((prod) => {
+        let set = false;
 
-    duplicate_product_ids.forEach((duplicateProductId) => {
-      var duplicateProductCount = 0;
-      let product = store.getters.GetProductById(duplicateProductId);
+        groupedProducts.forEach((gp) => {
+          if (gp.productId === prod.productId) {
+            gp.count = gp.count + prod.count;
+            set = true;
+          }
+        });
+        if (!set) groupedProducts.push(prod);
+      });
 
-      this.orderedProducts.forEach((orderedProduct) => {
-        if(duplicateProductId === orderedProduct.productId) {
-          duplicateProductCount += orderedProduct.count;
+      groupedProducts.forEach((prod) => {
+        const menuProduct = store.getters.GetProductById(prod.productId);
 
-          this.totalPrice += product.price * orderedProduct.count;
-        }
-      })
-
-      duplicate_overview_products.push(
-        new OrderOverviewProduct(
-          duplicateProductId,
-          product.name,
-          product.price,
-          duplicateProductCount,
-          product.price * duplicateProductCount
-        )
-      );
-    })
-
-    //unique overview products
-    var unique_overview_products = [];
-    var unique_product_ids = this.checkUniqueProductIds(duplicate_product_ids);
-
-    unique_product_ids.forEach((uniqueProductId) => {
-      let product = store.getters.GetProductById(uniqueProductId);
-
-      this.orderedProducts.forEach((orderedProduct) => {
-        if(uniqueProductId == orderedProduct.productId) {
-          unique_overview_products.push(
-            new OrderOverviewProduct(
-              uniqueProductId,
-              product.name,
-              product.price,
-              orderedProduct.count,
-              product.price * orderedProduct.count
-            )
+        if (typeof (menuProduct) !== 'undefined') {
+          if (!this.listedCategories.includes(menuProduct.category))
+            this.listedCategories.push(menuProduct.category);
+          this.overviewProducts.push(
+              new OrderOverviewProduct(
+                  prod.productId,
+                  menuProduct.name,
+                  menuProduct.price,
+                  prod.count,
+                  prod.count * menuProduct.price
+              )
           );
 
-          this.totalPrice += product.price * orderedProduct.count;
+          this.totalPrice += this.overviewProducts[this.overviewProducts.length - 1].totalPrice;
         }
-      })
-    })
-
-    //combine unique overiew products and duplicate overview products
-    this.overview_products = duplicate_overview_products.concat(unique_overview_products);
-
-    //return totalprice
-    this.$emit("totalPrice", this.totalPrice);
-  },
-  methods: {
-    checkDuplicateProductIds(productIds) {
-      const set = new Set(productIds);
-
-      const duplicates = productIds.filter(item => {
-          if (set.has(item)) {
-              set.delete(item);
-          } else {
-              return item;
-          }
       });
-
-      return duplicates;
-    },
-    checkUniqueProductIds(duplicate_product_ids) {
-      return this.productIds.filter((x) => !duplicate_product_ids.includes(x));
+      this.$emit("totalPrice", this.totalPrice);
     }
-  } 
+  },
 };
 </script>
 
@@ -123,12 +88,15 @@ export default {
 table:not(:last-of-type) {
   margin-bottom: 16px;
 }
+
 th {
   padding: 4px 0;
 }
+
 tr:first-of-type {
   border: 1px solid black;
 }
+
 tr {
   background-color: #bbbbbb8c;
 }
