@@ -69,14 +69,15 @@ class OrderService extends SocketConsumer {
                 const newCO = currentOrder.filter(function (obj) {
                     return obj.count > 0
                 })
-                console.log(newCO)
                 if (currentOrder.length == 0) {
                     toast.error("Order cannot be empty")
                 }
-                this._socketService?.Invoke("SubmitOrder", newCO)
+                else{
+                    this._socketService?.Invoke("SubmitOrder", newCO)
                     .then(async () => localStorage.removeItem("AllOrdersOverview"))
                     .catch(() => toast.warning("wrong"))
                     .then(() => toast.success("Order added"))
+                }
             }
 
     RegisterUpdateOrder() {
