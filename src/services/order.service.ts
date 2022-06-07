@@ -77,6 +77,8 @@ class OrderService extends SocketConsumer {
                     .then(async () => localStorage.removeItem("AllOrdersOverview"))
                     .catch(() => toast.warning("wrong"))
                     .then(() => toast.success("Order added"))
+
+                    setTimeout(() => router.push({path: '/menu'}), 4000);
                 }
             }
 
