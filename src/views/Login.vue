@@ -27,6 +27,12 @@
           <button type="login">Login</button>
         </div>
       </form>
+
+      <!-- temporarily login status shown -->
+      <div class="section">
+        &nbsp;
+        <p>Logged in: {{ this.loginStatus }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -46,8 +52,10 @@ export default {
   methods: {
     handleLogin() {
       this.accountService.Login(this.user).then(res => {
-        if (res) localStorage.setItem('loginstatus', true)
-        if (res) this.$router.push({path: 'menu'})     
+        if (res) localStorage.setItem('loginstatus', 'true')
+        if (res) alert("Login successful")
+
+        //if (res) this.$router.push({path: 'menu'})     
       }); 
     },
   },

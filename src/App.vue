@@ -37,6 +37,7 @@ export default class App extends Vue {
     let logOutConfirmation = confirm("Are you sure you want to log out?");
 
     if(logOutConfirmation) {
+      localStorage.setItem('loginstatus', 'false')
       alert("Logout successful");
     } else {
       alert("Logout canceled");
