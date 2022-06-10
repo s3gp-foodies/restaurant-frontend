@@ -45,10 +45,11 @@ export default {
       ['accountService'],
   methods: {
     handleLogin() {
-      this.accountService.Login(this.user).then(res => {
-        if (res) this.$router.push({path: 'menu'})
+      this.accountService.Login(this.user).then(res => {   
+        if (res) this.accountService.EmployeeLoggedIn(true) 
+        if (res) this.$router.push({path: 'menu'}) 
       });
-    },
+    }
   },
 };
 </script>

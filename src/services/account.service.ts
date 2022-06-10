@@ -1,6 +1,7 @@
 import User from '@/models/user';
 import axios from 'axios';
 import {SocketConsumer} from "@/services/socket-consumer";
+import {store} from "@/store/store";
 
 const API_URL = 'https://localhost:7209/api/account/';
 
@@ -23,6 +24,10 @@ class AccountService extends SocketConsumer {
                 console.log(error);
                 return false
             });
+    }
+
+    public EmployeeLoggedIn(loginstatus: boolean) {
+        store.commit("EmployeeLoginStatus", loginstatus);
     }
 }
 
