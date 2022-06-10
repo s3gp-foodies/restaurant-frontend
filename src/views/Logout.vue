@@ -17,6 +17,7 @@ export default {
   methods: {
     handleLogout() {
       localStorage.setItem('loginstatus', false)
+      this.$router.push({path: '/'}) 
     }
   },
 };

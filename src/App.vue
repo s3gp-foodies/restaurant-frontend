@@ -5,8 +5,8 @@
   </head>
   <SocketContainer></SocketContainer>
   <nav class="navbar nav-tabs" id="nav">
-    <router-link to="/" class="nav-link">Login</router-link>&nbsp;
-    <router-link to="/logout" class="nav-link">Logout</router-link>&nbsp; 
+    <router-link v-if="this.loginStatus === 'false'" to="/" class="nav-link">Login</router-link>&nbsp;
+    <router-link v-if="this.loginStatus === 'true'" to="/logout" class="nav-link">Logout</router-link>&nbsp; 
     <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;  
     <router-link to="/current" class="nav-link">Current Order</router-link>
     <router-link to="/orders" class="nav-link">Order Overview</router-link>&nbsp;
@@ -35,9 +35,6 @@ import SocketContainer from "@/components/SocketContainer.vue";
 })
 
 export default class App extends Vue {
-  created() {
-    console.log(localStorage.getItem('loginstatus'))
-  }
 }
 
 </script>
