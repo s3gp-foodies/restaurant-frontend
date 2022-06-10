@@ -14,17 +14,10 @@
 <script>
 export default {
   name: "LogoutPage",
-  data: () => {
-    return {
-      
-    };
-  },
-  inject:
-      ['accountService'],
   methods: {
     handleLogout() {
-      
-    },
+      localStorage.setItem('loginstatus', false)
+    }
   },
 };
 </script>
