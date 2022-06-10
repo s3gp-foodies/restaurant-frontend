@@ -13,6 +13,12 @@
     <router-link to="/dish-overview" class="nav-link">Employee Dishes Overview</router-link>
   </nav>
 
+  <!-- temporarily login status shown -->
+  <div class="section">
+    &nbsp;
+    <p>Logged in: {{ this.loginStatus }}</p>
+  </div>
+
   <router-view/>
 </template>
 
