@@ -5,14 +5,12 @@
   </head>
   <SocketContainer></SocketContainer>
   <nav class="navbar nav-tabs" id="nav">
-    <router-link v-if="this.loginStatus === 'false'" to="/" class="nav-link">Login</router-link>&nbsp;
-    <router-link v-if="this.loginStatus === 'true'" to="/logout" class="nav-link">Logout</router-link>&nbsp; 
-    <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;  
+    <router-link v-if="0 == 0" to="/" class="nav-link">Login</router-link>
+    <button v-if="0 == 0" class="nav-link" @click="buttonClickLogOut()">Logout</button>
+    <router-link to="/menu" class="nav-link">Menu</router-link>
     <router-link to="/current" class="nav-link">Current Order</router-link>
-    <router-link to="/orders" class="nav-link">Order Overview</router-link>&nbsp;
+    <router-link to="/orders" class="nav-link">Order Overview</router-link>
     <router-link to="/dish-overview" class="nav-link">Employee Dishes Overview</router-link>
-    <!-- <router-link to="/testDrag" class="nav-link"> test Drag </router-link> -->
-    <!-- <router-link to="/vueDrag" class="nav-link"> vueDraggable </router-link> -->
   </nav>
 
   <router-view/>
@@ -35,10 +33,17 @@ import SocketContainer from "@/components/SocketContainer.vue";
 })
 
 export default class App extends Vue {
-}
+  buttonClickLogOut() {
+    let logOutConfirmation = confirm("Are you sure you want to log out?");
 
+    if(logOutConfirmation) {
+      alert("Logout successful");
+    } else {
+      alert("Logout canceled");
+    }
+  }
+}
 </script>
-<!--<script src="https://kit.fontawesome.com/9080e6437b.js" crossorigin="anonymous"></script>-->
 
 <style>
 #app {
