@@ -2,7 +2,6 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Menu from '../views/Menu.vue'
 import Orders from '../views/Orders.vue'
 import Login from '../views/Login.vue'
-import Logout from '../views/Logout.vue'
 import OrderTracker from "@/views/OrderTracker.vue";
 import testDraggble from "@/views/testDraggble.vue";
 import vueDraggableTest from "@/views/vueDraggbleTest.vue";
@@ -29,11 +28,6 @@ const routes = [
         path: '/',
         name: 'Login',
         component: Login
-    },
-    {
-        path: '/logout',
-        name: 'Logout',
-        component: Logout
     },
     {
         path: '/dish-overview',

@@ -28,8 +28,7 @@ export const store = createStore({
     state: {
         menu: new Menu([]),
         categories: [],
-        orderTrackerData: <OrderTracker>[],
-        loginStatus: false
+        orderTrackerData: <OrderTracker>[]
     },
     mutations: {
         AddToMenu(state, product: Product) {
@@ -48,9 +47,6 @@ export const store = createStore({
         },
         AddOrder(state, order: Order){
             state.orders.push(order)
-        },
-        EmployeeLoginStatus(state, loginstatus: boolean) {
-            this.state.loginStatus = loginstatus;
         }
     },
     getters: {
@@ -84,9 +80,6 @@ export const store = createStore({
                 result.push(x)
             })
             return result;
-        },
-        GetEmployeeLoginStatus(state) {
-            return state.loginStatus;
-        } 
+        }
     }
 })
