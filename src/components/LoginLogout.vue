@@ -8,7 +8,7 @@
   </router-link>
 
   <button 
-    v-if="this.loginStatus == 'true'"
+    v-if="this.loginStatus == 'false'"
     @click="handleLogOut()"
     class="nav-link" >
     Logout
@@ -33,6 +33,8 @@ export default {
         } else {
             alert("Logout canceled");
         }
+
+        console.log(localStorage.token.toString())
     }
   }
 };
