@@ -1,6 +1,19 @@
 <template>
-  <router-link v-if="this.loginStatus == 'false'" to="/" class="nav-link">Login</router-link>
-  <button v-if="this.loginStatus == 'true'" class="nav-link" @click="handleLogOut()">Logout</button>
+
+  <router-link 
+    v-if="this.loginStatus == 'false'" 
+    to="/" 
+    class="nav-link">
+    Login
+  </router-link>
+
+  <button 
+    v-if="this.loginStatus == 'true'"
+    @click="handleLogOut()"
+    class="nav-link" >
+    Logout
+  </button>
+
 </template>
 
 <script>
