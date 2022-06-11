@@ -5,20 +5,12 @@
   </head>
   <SocketContainer></SocketContainer>
   <nav class="navbar nav-tabs" id="nav">
-    <router-link v-if="0 == 0" to="/" class="nav-link">Login</router-link>
-    <button v-if="0 == 0" class="nav-link" @click="buttonClickLogOut()">Logout</button>
+    <LoginLogout></LoginLogout> 
     <router-link to="/menu" class="nav-link">Menu</router-link>
     <router-link to="/current" class="nav-link">Current Order</router-link>
     <router-link to="/orders" class="nav-link">Order Overview</router-link>
     <router-link to="/dish-overview" class="nav-link">Employee Dishes Overview</router-link>
   </nav>
-
-  <!-- temporarily login status shown -->
-  <div class="section">
-    &nbsp;
-    <p>Logged in: {{ this.loginStatus }}</p>
-  </div>
-
   <router-view/>
 </template>
 
@@ -28,9 +20,10 @@ import AccountService from "@/services/account.service";
 import MenuService from "@/services/menu.service";
 import OrderService from "@/services/order.service";
 import SocketContainer from "@/components/SocketContainer.vue";
+import LoginLogout from "@/components/LoginLogout.vue";
 
 @Options({
-  components: {SocketContainer},
+  components: {SocketContainer, LoginLogout},
   provide: {
     accountService: new AccountService(),
     menuService: new MenuService(),
@@ -38,18 +31,7 @@ import SocketContainer from "@/components/SocketContainer.vue";
   }
 })
 
-export default class App extends Vue {
-  buttonClickLogOut() {
-    let logOutConfirmation = confirm("Are you sure you want to log out?");
-
-    if(logOutConfirmation) {
-      localStorage.setItem('loginstatus', 'false')
-      alert("Logout successful");
-    } else {
-      alert("Logout canceled");
-    }
-  }
-}
+export default class App extends Vue {}
 </script>
 
 <style>

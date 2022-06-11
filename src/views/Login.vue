@@ -28,12 +28,6 @@
         </div>
       </form>
     </div>
-
-    <!-- temporarily login status shown -->
-    <div class="section">
-      &nbsp;
-      <p>Logged in: {{ this.loginStatus }}</p>
-    </div>
   </div>
 </template>
 
@@ -44,8 +38,7 @@ export default {
   name: "LoginPage",
   data: () => {
     return {
-      user: new User("table1", "Passw0rd!"),
-      loginStatus: false
+      user: new User("table1", "Passw0rd!")
     };
   },
   inject:
@@ -53,11 +46,10 @@ export default {
   methods: {
     handleLogin() {
       this.accountService.Login(this.user).then(res => {
-        if (res) localStorage.setItem('loginstatus', true), alert("Login successful")
-        this.loginStatus = localStorage.getItem('loginstatus');
+        if (res) alert("Login successful");
 
         //if (res) this.$router.push({path: 'menu'})     
-      }); 
+      });
     },
   },
 };
