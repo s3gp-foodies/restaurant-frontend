@@ -33,9 +33,7 @@ export default {
 
           alert("Logout successful");
         } else {     
-
-          localStorage.loginStatus = 'true'; 
-
+          
           alert("Logout canceled");         
         }
     }
