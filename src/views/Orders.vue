@@ -57,7 +57,13 @@ export default {
     },
     buttonClickOnPayment(totalPrice) {    
       if(this.$refs.orderlist.orderedProductsCount > 0) {
-        this.orderService.SubmitPayment(totalPrice, true);
+        let paymentConfirmation = confirm("Did you order everything?");
+
+        if(paymentConfirmation) {
+          this.orderService.SubmitPayment(totalPrice, true);
+        } else {
+          this.$router.push({path: 'menu'})  
+        }
       } else {
         this.orderService.SubmitPayment(totalPrice, false);
       }

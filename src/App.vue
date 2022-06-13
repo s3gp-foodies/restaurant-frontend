@@ -11,6 +11,13 @@
     <router-link to="/orders" class="nav-link">Order Overview</router-link>
     <router-link to="/dish-overview" class="nav-link">Employee Dishes Overview</router-link>
   </nav>
+
+  <!-- temporarily login status shown -->
+  <div class="section">
+    &nbsp;
+    <p>logged in: {{ this.loginStatus }}</p>
+  </div>
+
   <router-view/>
 </template>
 

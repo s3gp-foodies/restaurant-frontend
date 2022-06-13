@@ -1,14 +1,14 @@
 <template>
 
   <router-link 
-    v-if="this.loginStatus == 'false'" 
+    v-if="0 == 0" 
     to="/" 
     class="nav-link">
     Login
   </router-link>
 
   <button 
-    v-if="this.loginStatus == 'false'"
+    v-if="0 == 0"
     @click="handleLogOut()"
     class="nav-link" >
     Logout
@@ -21,7 +21,7 @@ export default {
   name: "LoginLogout",
   data: () => {
     return {
-      loginStatus: 'false'
+      
     };
   },
   methods: {
@@ -29,12 +29,15 @@ export default {
         let logOutConfirmation = confirm("Are you sure you want to log out?");
 
         if(logOutConfirmation) {
-            alert("Logout successful");
-        } else {
-            alert("Logout canceled");
-        }
+          localStorage.loginStatus = 'false';
 
-        console.log(localStorage.token.toString())
+          alert("Logout successful");
+        } else {     
+
+          localStorage.loginStatus = 'true'; 
+
+          alert("Logout canceled");         
+        }
     }
   }
 };

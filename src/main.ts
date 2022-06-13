@@ -18,7 +18,7 @@ axiosRequestInterceptors()
 
 const app = createApp(App).component('FontAwesomeIcon', FontAwesomeIcon).use(router, VeeValidate)
 
-//app.config.globalProperties.loginStatus = localStorage.loginStatus;
+app.config.globalProperties.loginStatus = localStorage.loginStatus;
 
 app.use(Toast, {
     position: POSITION.BOTTOM_RIGHT,
