@@ -19,10 +19,12 @@
         Dessert
       </div>
       <br>
+      <!-- TODO: Find a switch way for this page that focus on the bar
       <div class="menuIcons card text-white bg-dark">
         <font-awesome-icon class="fa-lg fa-2x" icon="bottle-droplet"/>
         Drinks
       </div>
+      -->
     </div>
     <i>Types of orders that you can encounter</i>
   </div>
@@ -63,11 +65,11 @@ export default {
   },
   computed:  {
     orders_import() {
-      return store.getters.GetAllOrders
+      return store.getters.GetAllDishes
     }
   },
   created() {
-    let orderLength = store.getters.GetAllOrders.length
+    let orderLength = store.getters.GetAllDishes.length
 
     if(orderLength === 0 || orderLength == null) {
       this.orderService.getPanelOrders();

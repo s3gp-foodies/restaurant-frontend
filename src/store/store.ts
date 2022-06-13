@@ -28,7 +28,8 @@ export const store = createStore({
     state: {
         menu: new Menu([]),
         categories: [],
-        orderTrackerData: <OrderTracker>[]
+        dishesTrackerData: <OrderTracker>[],
+        orders: []
     },
     mutations: {
         AddToMenu(state, product: Product) {
@@ -38,12 +39,16 @@ export const store = createStore({
             const cat = new Category(id, name)
             state.categories.push(cat)
         },
-        AddOrderDataByProperty(state, tableId, time, productList) {
-            state.orderTrackerData.push(tableId, time, productList)
+        AddDishDataByProperty(state, tableId, time, productList) {
+            state.dishesTrackerData.push(tableId, time, productList)
 
         },
-        AddOrderData(state, order) {
-            state.orderTrackerData.push(order)
+        AddDishData(state, order) {
+            state.dishesTrackerData.push(order)
+        },
+        AddDishDataByTime(state, orderProduct) {
+            state.dishesTrackerData.products.push(orderProduct)
+        },
         AddOrder(state, order: Order){
             state.orders.push(order)
         }
@@ -68,15 +73,24 @@ export const store = createStore({
             return result
         },
         GetOrderByTableId: (state) => (tableId: string) => {
-            return state.orderTrackerData.find(order => order.id == tableId)
+            return state.dishesTrackerData.find(order => order.id == tableId)
         },
         GetAllProductsFromAOrder: (state) => (tableId: string) => {
-            return state.orderTrackerData.filter(order => order.id == tableId)
+            return state.dishesTrackerData.filter(order => order.id == tableId)
         },
-        GetAllOrders(state) {
+        GetAllDishes(state) {
             const result = []
-            state.orderTrackerData.forEach(x => {
+            state.dishesTrackerData.forEach(x => {
                 result.push(x)
+            })
+            return result;
+        },
+        GetDishesOrderByTime: (state) => (time: string) => {
+            const result = []
+            state.dishesTrackerData.forEach(x => {
+                if(x.time === time) {
+                    result.push(x)
+                }
             })
             return result;
         }

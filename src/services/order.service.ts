@@ -9,6 +9,7 @@ import axios from 'axios';
 import authHeader from "@/helpers/auth-header";
 import {store} from "@/store/store"
 import orderTrackerModel from "@/models/orderTrackerModels/orderTracker"
+import orderList from "@/components/AllOrdersOverview/OrderList.vue";
 
 const toast = useToast();
 const API_URL = 'https://localhost:7209/api/order/';
@@ -118,7 +119,15 @@ class OrderService extends SocketConsumer {
 
             for(let i =0; i < res.data.length; i++) {
                 if(withHyphens == res.data[i].time.split('T')[0]) {
-                    store.commit("AddOrderData", res.data[i])
+                    store.commit("AddDishData", {"tableId": res.data[i].tableId, "time": res.data[i].time, "products": []})
+                    for(let l = 0; l < res.data[i].products.length; l++) {
+                        if(res.data[i].products[l].category != "Drinks") {
+                            let result = store.getters.GetDishesOrderByTime(res.data[i].time)
+                            result = this.AddDataToOrder(result, res.data[i].products[l])
+
+                            //store.commit("AddDishData", result)
+                        }
+                    }
                 }
             }
         }).catch(ex => {
@@ -126,14 +135,23 @@ class OrderService extends SocketConsumer {
         })
     }
 
+    AddDataToOrder(orderList : any, product: any) {
+        for(let i = 0; i < orderList.length; i++) {
+            orderList[i]["products"].push(product)
+        }
+        return orderList
+    }
+
     async LoadEmployeeOrders(order: orderTrackerModel) {
         const tableId = order.tableId.toString()
-        store.commit("AddOrderData", new orderTrackerModel(tableId, order.time, order.products))
+        store.commit("AddDishData", new orderTrackerModel(tableId, order.time, order.products))
     }
 
     public updateItemStatus(productID: number, status: string) {
         console.log([productID, status])
-        this._socketService?.Invoke("UpdateOrderItemStatus", [productID, status]).then()
+        this._socketService?.Invoke("UpdateOrderItemStatus", [productID, status]).then(x => {
+            console.log(x)
+        })
     }
 
     async AddOrder(order: Order) {

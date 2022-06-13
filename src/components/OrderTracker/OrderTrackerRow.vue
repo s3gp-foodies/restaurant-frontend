@@ -13,6 +13,8 @@
                       :groupName="order['tableId']+order['time']"></order-tracker-cell>
   <order-tracker-cell :products="done" :order-name="order['tableId']"
                       :groupName="order['tableId']+order['time']"></order-tracker-cell>
+
+
 </template>
 
 <script>
@@ -61,6 +63,10 @@ export default {
     changedRow(itemList, updateStatus) {
       if (itemList.length === undefined) {
         for (let i = 0; i < itemList['products'].length; i++) {
+          if(itemList['products'][i].status === undefined) {
+            itemList['products'][i].status = updateStatus;
+            this.orderService.updateItemStatus(itemList['products'][i].id, updateStatus)
+          }
           if (itemList['products'][i].status !== updateStatus) {
             itemList['products'][i].status = updateStatus;
             this.orderService.updateItemStatus(itemList['products'][i].id, updateStatus)
@@ -69,7 +75,11 @@ export default {
         }
       } else {
         for (let i = 0; i < itemList.length; i++) {
-          if (itemList[i].status !== updateStatus) {
+          if(itemList[i].status === undefined) {
+            itemList[i].status = updateStatus;
+            this.orderService.updateItemStatus(itemList[i].id, updateStatus)
+          }
+          else if (itemList[i].status !== updateStatus) {
             itemList[i].status = updateStatus;
             this.orderService.updateItemStatus(itemList[i].id, updateStatus)
           }
