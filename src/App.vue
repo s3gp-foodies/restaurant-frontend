@@ -10,6 +10,7 @@
     <router-link to="/current" class="nav-link">Huidige Bestelling</router-link>
     <router-link to="/orders" class="nav-link">Overzicht Bestellingen</router-link>&nbsp;
     <router-link to="/dish-overview" class="nav-link"> Dishes Panel</router-link>
+    <router-link to="/drinkspanel" class="nav-link"> Drinks Panel</router-link>
     <!-- <router-link to="/testDrag" class="nav-link"> test Drag </router-link> -->
     <!-- <router-link to="/vueDrag" class="nav-link"> vueDraggable </router-link> -->
   </nav>

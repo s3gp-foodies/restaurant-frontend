@@ -39,7 +39,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="order in orders_import" :key="order.tableId">
+    <tr v-for="order in orders_import" :key="order.tableId" v-show="order['products'].length">
       <order-tracker-row :order="order"></order-tracker-row>
     </tr>
     </tbody>
@@ -72,7 +72,7 @@ export default {
     let orderLength = store.getters.GetAllDishes.length
 
     if(orderLength === 0 || orderLength == null) {
-      this.orderService.getPanelOrders();
+      this.orderService.getPanelOrders("Orders");
     }
   },
 }

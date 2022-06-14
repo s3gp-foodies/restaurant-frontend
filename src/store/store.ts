@@ -29,7 +29,8 @@ export const store = createStore({
         menu: new Menu([]),
         categories: [],
         dishesTrackerData: <OrderTracker>[],
-        orders: []
+        orders: [],
+        drinksTrackerData: <OrderTracker>[]
     },
     mutations: {
         AddToMenu(state, product: Product) {
@@ -46,11 +47,11 @@ export const store = createStore({
         AddDishData(state, order) {
             state.dishesTrackerData.push(order)
         },
-        AddDishDataByTime(state, orderProduct) {
-            state.dishesTrackerData.products.push(orderProduct)
-        },
         AddOrder(state, order: Order){
             state.orders.push(order)
+        },
+        AddDrinksData(state, order) {
+            state.drinksTrackerData.push(order)
         }
     },
     getters: {
@@ -93,6 +94,22 @@ export const store = createStore({
                 }
             })
             return result;
-        }
+        },
+        GetAlDrinksData(state) {
+            const result = []
+            state.drinksTrackerData.forEach(x => {
+                result.push(x)
+            })
+            return result;
+        },
+        GetAllDrinksDataByTime: (state) => (time: string) => {
+            const result = []
+            state.drinksTrackerData.forEach(x => {
+                if(x.time === time) {
+                    result.push(x)
+                }
+            })
+            return result;
+        },
     }
 })

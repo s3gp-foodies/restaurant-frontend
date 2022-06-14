@@ -3,6 +3,7 @@ import Menu from '../views/Menu.vue'
 import Orders from '../views/Orders.vue'
 import Login from '../views/Login.vue'
 import OrderTracker from "@/views/OrderTracker.vue";
+import DrinksPanel from "@/views/DrinksPanel.vue"
 import testDraggble from "@/views/testDraggble.vue";
 import vueDraggableTest from "@/views/vueDraggbleTest.vue";
 import CurrentOrderPage from "@/views/Current.vue";
@@ -33,6 +34,11 @@ const routes = [
         path: '/dish-overview',
         name: 'DishOverview',
         component: OrderTracker
+    },
+    {
+      path: '/drinkspanel',
+      name: 'DrinksPanels',
+      component: DrinksPanel
     },
     {
         path: '/testDrag',

@@ -102,7 +102,7 @@ class OrderService extends SocketConsumer {
     }
 
 
-    async getPanelOrders() {
+    async getPanelOrders(services: string) {
         await axios.get(API_URL + "getAllStaffOrders", {headers: authHeader()}).then(res => {
             if (!res) {console.log("No orders found")}
             const date = new Date();
@@ -119,15 +119,16 @@ class OrderService extends SocketConsumer {
 
             for(let i =0; i < res.data.length; i++) {
                 if(withHyphens == res.data[i].time.split('T')[0]) {
-                    store.commit("AddDishData", {"tableId": res.data[i].tableId, "time": res.data[i].time, "products": []})
-                    for(let l = 0; l < res.data[i].products.length; l++) {
-                        if(res.data[i].products[l].category != "Drinks") {
-                            let result = store.getters.GetDishesOrderByTime(res.data[i].time)
-                            result = this.AddDataToOrder(result, res.data[i].products[l])
-
-                            //store.commit("AddDishData", result)
-                        }
+                    let result;
+                    if(services === "Orders") {
+                        store.commit("AddDishData", {"tableId": res.data[i].tableId, "time": res.data[i].time, "products": []})
+                        result = store.getters.GetDishesOrderByTime(res.data[i].time)
                     }
+                    else {
+                        store.commit("AddDrinksData", {"tableId": res.data[i].tableId, "time": res.data[i].time, "products": []})
+                        result = store.getters.GetAllDrinksDataByTime(res.data[i].time)
+                    }
+                    result = this.AddTheSeparateProducts(result, i, res, services)
                 }
             }
         }).catch(ex => {
@@ -135,6 +136,24 @@ class OrderService extends SocketConsumer {
         })
     }
 
+    AddTheSeparateProducts(resultData: any, currentNumber: number, resData: any, servicesType: string) {
+        for(let l = 0; l < resData.data[currentNumber].products.length; l++) {
+            if(resData.data[currentNumber].products[l].category != "Drinks" && servicesType == "Orders") {
+                resultData = this.AddDataToOrder(resultData, resData.data[currentNumber].products[l])
+            } else if(resData.data[currentNumber].products[l].category === "Drinks" && servicesType == "Drinks") {
+                resultData = this.AddDataToOrder(resultData, resData.data[currentNumber].products[l])
+            }
+        }
+        return resultData
+    }
+
+    /*
+    if(resData.data[currentNumber].products[l].category != "Drinks") {
+                resultData = this.AddDataToOrder(resultData, resData.data[currentNumber].products[l])
+            } else if(resData.data[currentNumber].products[l].category === "Drinks") {
+                resultData = this.AddDataToOrder(resultData, resData.data[currentNumber].products[l])
+            }
+     */
     AddDataToOrder(orderList : any, product: any) {
         for(let i = 0; i < orderList.length; i++) {
             orderList[i]["products"].push(product)
