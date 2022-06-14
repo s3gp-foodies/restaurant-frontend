@@ -52,6 +52,11 @@ export default {
       });
     },
   },
+  created() {
+    if (this.$store.getters.GetLoginStatus) {
+      this.$router.push({path: 'menu'})
+    } 
+  }
 };
 </script>
 
