@@ -1,7 +1,6 @@
 import {HubConnectionBuilder} from "@microsoft/signalr";
 import orderService from "@/services/order.service";
 
-
 class SocketService {
     connection = new HubConnectionBuilder()
         .withUrl("https://localhost:7209/hubs/table", {
@@ -16,6 +15,10 @@ class SocketService {
         });
 
         this.connectionStatus = this.connection.start().catch(e => console.log(e));
+    }
+
+    Disconnect() {
+        this.connectionStatus = this.connection.stop().catch(e => console.log(e));
     }
 
     Test() {

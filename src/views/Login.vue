@@ -38,15 +38,17 @@ export default {
   name: "LoginPage",
   data: () => {
     return {
-      user: new User("", ""),
+      user: new User("table1", "Passw0rd!"),
     };
   },
   inject:
       ['accountService'],
   methods: {
     handleLogin() {
-      this.accountService.Login(this.user).then(res => {
-        if (res) this.$router.push({path: 'menu'})
+      this.accountService.Login(this.user).then(response => {
+        if(response) {
+          this.$router.push({path: 'menu'})
+        } 
       });
     },
   },

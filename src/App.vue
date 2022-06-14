@@ -5,16 +5,13 @@
   </head>
   <SocketContainer></SocketContainer>
   <nav class="navbar nav-tabs" id="nav">
-    <router-link to="/" class="nav-link">Login</router-link>&nbsp;
+    <LoginLogout></LoginLogout>
     <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;
-    <router-link to="/current" class="nav-link">Huidige Bestelling</router-link>
-    <router-link to="/orders" class="nav-link">Overzicht Bestellingen</router-link>&nbsp;
-    <router-link to="/dish-overview" class="nav-link"> Dishes Panel</router-link>
-    <router-link to="/drinkspanel" class="nav-link"> Drinks Panel</router-link>
-    <!-- <router-link to="/testDrag" class="nav-link"> test Drag </router-link> -->
-    <!-- <router-link to="/vueDrag" class="nav-link"> vueDraggable </router-link> -->
+    <router-link to="/current" class="nav-link">Current Orders</router-link>
+    <router-link to="/orders" class="nav-link">Order Overview</router-link>&nbsp;
+    <router-link to="/dish-overview" class="nav-link">Kitchen Panel</router-link>
+    <router-link to="/drinkspanel" class="nav-link">Bar Panel</router-link>
   </nav>
-
   <router-view/>
 </template>
 
@@ -24,9 +21,10 @@ import AccountService from "@/services/account.service";
 import MenuService from "@/services/menu.service";
 import OrderService from "@/services/order.service";
 import SocketContainer from "@/components/SocketContainer.vue";
+import LoginLogout from "@/components/LoginLogout.vue";
 
 @Options({
-  components: {SocketContainer},
+  components: {SocketContainer, LoginLogout},
   provide: {
     accountService: new AccountService(),
     menuService: new MenuService(),
@@ -34,11 +32,8 @@ import SocketContainer from "@/components/SocketContainer.vue";
   }
 })
 
-export default class App extends Vue {
-}
-
+export default class App extends Vue {}
 </script>
-<!--<script src="https://kit.fontawesome.com/9080e6437b.js" crossorigin="anonymous"></script>-->
 
 <style>
 #app {
