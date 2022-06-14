@@ -33,7 +33,7 @@ export default {
       totalPrice: 0,
     };
   },
-  inject: ['orderService', 'menuService'],
+  inject: ['orderService', 'menuService', 'accountService'],
   created() {
     this.menuService
       .Load()
@@ -61,6 +61,8 @@ export default {
 
         if(paymentConfirmation) {
           this.orderService.SubmitPayment(totalPrice, true);
+          this.accountService.Logout();
+          this.$router.push({path: '/'}) 
         } else {
           this.$router.push({path: 'menu'})  
         }

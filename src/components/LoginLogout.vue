@@ -26,7 +26,7 @@ export default {
       const logoutSuccesful = this.accountService.HandleLogOut()
       
       if(logoutSuccesful) {
-        this.$router.push("/")
+        this.$router.push({path: '/'})
       }
     }
   },

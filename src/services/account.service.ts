@@ -27,11 +27,20 @@ class AccountService extends SocketConsumer {
             });
     }
 
+    Logout() {
+        store.commit("SetLoginStatus", false);
+        localStorage.clear();
+        this._socketService?.Disconnect() 
+    }
+
     HandleLogOut() {
-    const logOutConfirmation = confirm("Are you sure you want to log out?");
+        const logOutConfirmation = confirm("Are you sure you want to log out?");
 
         if(logOutConfirmation) {
             store.commit("SetLoginStatus", false);
+
+            //clear all orders and totalprice..
+
             localStorage.clear();
             this._socketService?.Disconnect()  
             return true
