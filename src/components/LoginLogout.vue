@@ -1,15 +1,15 @@
 <template>
 
   <router-link 
-    v-if="0 == 0" 
+    v-if="!this.loginStatus" 
     to="/" 
     class="nav-link">
     Login
   </router-link>
 
   <button 
-    v-if="0 == 0"
-    @click="handleLogOut()"
+    v-if="this.loginStatus"
+    @click="handleLogOut"
     class="nav-link" >
     Logout
   </button>
@@ -19,24 +19,24 @@
 <script>
 export default {
   name: "LoginLogout",
-  data: () => {
-    return {
-      
-    };
-  },
+  inject:
+    ['accountService'],
   methods: {
     handleLogOut() {
-        let logOutConfirmation = confirm("Are you sure you want to log out?");
-
-        if(logOutConfirmation) {
-          localStorage.loginStatus = 'false';
-
-          alert("Logout successful");
-        } else {     
-          
-          alert("Logout canceled");         
-        }
+      const logoutSuccesful = this.accountService.HandleLogOut()
+      
+      if(logoutSuccesful) {
+        this.$router.push("/")
+      }
     }
+  },
+  computed: {
+    loginStatus() {
+      return this.$store.getters.GetLoginStatus;
+    }
+  },
+  created() {
+    this.accountService.CheckLoginStatus()
   }
 };
 </script>

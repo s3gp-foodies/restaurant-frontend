@@ -47,10 +47,8 @@ export default {
     handleLogin() {
       this.accountService.Login(this.user).then(response => {
         if(response) {
-          localStorage.loginStatus = 'true'; 
+          this.$router.push({path: 'menu'})
         } 
-
-        //if (res) this.$router.push({path: 'menu'})
       });
     },
   },
