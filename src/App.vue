@@ -6,7 +6,7 @@
   <SocketContainer></SocketContainer>
   <nav class="navbar nav-tabs" id="nav">
     <router-link to="/" class="nav-link">Login</router-link>&nbsp;
-    <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;  
+    <router-link to="/menu" class="nav-link">Menu</router-link>&nbsp;
     <router-link to="/current" class="nav-link">Huidige Bestelling</router-link>
     <router-link to="/orders" class="nav-link">Overzicht Bestellingen</router-link>&nbsp;
     <router-link to="/dish-overview" class="nav-link"> Dishes Panel</router-link>

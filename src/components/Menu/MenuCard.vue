@@ -18,15 +18,15 @@
           </button>
         </div>
         <div class="addbutton">
-        <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Toevoegen</button>
-          <slot><button type="button" class="btn btn-outline-danger" @click="del()"><i class="fa fa-trash" aria-hidden="true"></i></button>
-          </slot>
+        <button type="button" class="btn btn-outline-secondary" @click="addToOrder()">Update</button>
+          <!-- <slot><button type="button" class="btn btn-outline-danger" @click="del()"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </slot> -->
         </div>
         <div>
           <strong v-if="count >14">Cannot be more then 15</strong>
           <strong v-if="count <0 ">Cannot be less then 0</strong>
         </div>
-        <p style="font-weight: bold"> &euro; {{ parseFloat(product.price).toFixed(2) }} Per stuk</p>
+        <p style="font-weight: bold"> &euro; {{ parseFloat(product.price).toFixed(2) }} A piece</p>
       </div>
     </div>
   </div>

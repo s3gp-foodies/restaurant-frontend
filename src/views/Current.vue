@@ -2,7 +2,7 @@
   <div class="menu">
     <MenuList :show-not-ordered="false"></MenuList>
   </div>
-  <button type="button" class="btn btn-primary" @click="AddOrder">Bestel</button>
+  <button type="button" class="btn btn-primary" @click="AddOrder">Order</button>
 </template>
 
 <script>

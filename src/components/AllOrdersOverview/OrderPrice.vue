@@ -1,5 +1,5 @@
 <template>
-  <h4>Totaal: &euro;&thinsp;{{ parseFloat(totalPrice).toFixed(2) }}</h4>
+  <h4>Total: &euro;&thinsp;{{ parseFloat(totalPrice).toFixed(2) }}</h4>
 </template>
 
 <script>

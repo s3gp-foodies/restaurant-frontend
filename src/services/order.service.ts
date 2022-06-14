@@ -70,14 +70,17 @@ class OrderService extends SocketConsumer {
                 const newCO = currentOrder.filter(function (obj) {
                     return obj.count > 0
                 })
-                console.log(newCO)
                 if (currentOrder.length == 0) {
                     toast.error("Order cannot be empty")
                 }
-                this._socketService?.Invoke("SubmitOrder", newCO)
+                else{
+                    this._socketService?.Invoke("SubmitOrder", newCO)
                     .then(async () => localStorage.removeItem("AllOrdersOverview"))
                     .catch(() => toast.warning("wrong"))
                     .then(() => toast.success("Order added"))
+
+                    setTimeout(() => router.push({path: '/menu'}), 4000);
+                }
             }
 
     RegisterUpdateOrder() {
@@ -147,13 +150,6 @@ class OrderService extends SocketConsumer {
         return resultData
     }
 
-    /*
-    if(resData.data[currentNumber].products[l].category != "Drinks") {
-                resultData = this.AddDataToOrder(resultData, resData.data[currentNumber].products[l])
-            } else if(resData.data[currentNumber].products[l].category === "Drinks") {
-                resultData = this.AddDataToOrder(resultData, resData.data[currentNumber].products[l])
-            }
-     */
     AddDataToOrder(orderList : any, product: any) {
         for(let i = 0; i < orderList.length; i++) {
             orderList[i]["products"].push(product)
