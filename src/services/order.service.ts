@@ -104,6 +104,13 @@ class OrderService extends SocketConsumer {
         });
     }
 
+    public async ClearOrders() {
+        await axios.post(API_URL + "clearAllOrders", {headers: authHeader()}).then(res => { 
+        }).catch(error => {
+            console.log(error)
+        });
+    }
+
     async getPanelOrders(services: string) {
         await axios.get(API_URL + "getAllStaffOrders", {headers: authHeader()}).then(res => {
             if (!res) {console.log("No orders found")}
