@@ -84,7 +84,11 @@ export default {
         }
       });
 
-      this.$emit("totalPrice", this.totalPrice);
+      if(orders.length == 0) {
+        this.$emit("totalPrice", 0);
+      } else {
+        this.$emit("totalPrice", this.totalPrice);
+      }    
     }
   },
 };
