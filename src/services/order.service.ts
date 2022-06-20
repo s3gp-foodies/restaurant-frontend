@@ -79,7 +79,7 @@ class OrderService extends SocketConsumer {
                 .catch(() => toast.warning("wrong"))
                 .then(() => toast.success("Order added"))
 
-                setTimeout(() => router.push({path: '/menu'}), 4000);
+                setTimeout(() => router.push({path: '/menu'}));
             }
         }
 
