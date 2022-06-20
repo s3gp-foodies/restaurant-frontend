@@ -66,22 +66,22 @@ class OrderService extends SocketConsumer {
     }
 
     public MakeOrder()
-            {
-                const newCO = currentOrder.filter(function (obj) {
-                    return obj.count > 0
-                })
-                if (currentOrder.length == 0) {
-                    toast.error("Order cannot be empty")
-                }
-                else{
-                    this._socketService?.Invoke("SubmitOrder", newCO)
-                    .then(async () => localStorage.removeItem("AllOrdersOverview"))
-                    .catch(() => toast.warning("wrong"))
-                    .then(() => toast.success("Order added"))
-
-                    setTimeout(() => router.push({path: '/menu'}), 4000);
-                }
+        {
+            const newCO = currentOrder.filter(function (obj) {
+                return obj.count > 0
+            })
+            if (currentOrder.length == 0) {
+                toast.error("Order cannot be empty")
             }
+            else{
+                this._socketService?.Invoke("SubmitOrder", newCO)
+                .then(async () => localStorage.removeItem("AllOrdersOverview"))
+                .catch(() => toast.warning("wrong"))
+                .then(() => toast.success("Order added"))
+
+                setTimeout(() => router.push({path: '/menu'}), 4000);
+            }
+        }
 
     RegisterUpdateOrder() {
         this._socketService?.connection.on("AddOrder", order => this.AddOrder(order))
@@ -104,6 +104,11 @@ class OrderService extends SocketConsumer {
         });
     }
 
+    public async ClearOrders() {
+        await axios.post(API_URL + "clearAllOrders", {headers: authHeader()}).catch((error) => {
+            console.log(error);
+        });
+    }
 
     async getPanelOrders(services: string) {
         await axios.get(API_URL + "getAllStaffOrders", {headers: authHeader()}).then(res => {
