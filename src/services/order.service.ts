@@ -105,7 +105,8 @@ class OrderService extends SocketConsumer {
     }
 
     public async ClearOrders() {
-        await axios.post(API_URL + "clearAllOrders", {headers: authHeader()}).catch((error) => {
+        console.log(authHeader())
+        await axios.patch(API_URL + "end-session",{}, {headers: authHeader()}).catch((error) => {
             console.log(error);
         });
     }
