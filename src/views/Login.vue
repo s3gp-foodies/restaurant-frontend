@@ -38,7 +38,7 @@ export default {
   name: "LoginPage",
   data: () => {
     return {
-      user: new User("table1", "Passw0rd!"),
+      user: new User("", ""),
     };
   },
   inject:
