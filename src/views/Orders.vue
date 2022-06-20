@@ -61,7 +61,7 @@ export default {
 
         if(paymentConfirmation) {
           this.orderService.SubmitPayment(totalPrice, true);
-          this.orderService.ClearOrders();
+          //this.orderService.ClearOrders();
           this.accountService.Logout();
           this.$router.push({path: '/'}); 
         } else {
